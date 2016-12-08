@@ -83,19 +83,15 @@
       }
       .content div{
         padding:20px;
-        /*min-width: 900px;*/
-      }
-      .content form div:nth-of-type(1) table td{
-        padding: 10px;
-      }
-      .content table{
         font-size: 20px;
+        /*min-width: 900px;*/
       }
       .content input{
         height: 25px;
         width: 250px;
         padding-left: 10px;
         font-size: 17px;
+        margin-right: 10px;
       }
       .content input[type=radio]{
         height: 15px;
@@ -107,6 +103,10 @@
       }
       .row{
         display: table-row;
+      }
+      label{
+        display: inline-block;
+        width: 250px;
       }
       input:focus{
         background: #b3f0ff
@@ -130,7 +130,9 @@
          flag1=true;
           }
           %>
+
   <body <%if(flag1){%>onload="FillAddress()"<%}%>>
+
     <div class="div">
       <div class="row">
         <ul class="ul">
@@ -151,114 +153,139 @@
           <label for="empId">Emp ID</label>
           <input type = "text" value="<%=faculty.getFacultyId() %>" id = "empId" name="empId" readonly="readonly"/>
         </div>
+
         <hr />
 
         <h2>Personal Details </h2>
 
         <div>
-          <label for="">Name</label>
-          <input type = "text" id = "empName" name="empName" value="<%=faculty.getName()==null?"":faculty.getName() %>"/>
-          <label for="">Date of Birth</label>
-          <label for="">Gender</label>
-          <label for="">Blood Group</label>
-          <label for="">Date of Joining</label>
-          <label for="">Phone Number</label>
-          <label for="">Secondary Phone Number</label>
-          <label for="">Mail ID</label>
-          <label for="">Secondary Mail ID</label>
+          <div>
+            <label for="">Name</label>
+            <input type = "text" id = "empName" name="empName" value="<%=faculty.getName()==null?"":faculty.getName() %>"/>
+          </div>
+
+          <div>
+            <label for="">Date of Birth</label>
+            <input type = "date" id = "dob" name="dob" value="<%=flag?df.format(personalInfo.getDob()):"" %>"/>
+          </div>
+
+          <div>
+            <label for="">Gender</label>
+            <input type = "radio" name = "gender" value = "male" <% if(personalInfo.getGender()=='M'){%> checked="true"<%}%>/> Male &nbsp; &nbsp; &nbsp; <input type = "radio" name = "gender"  value = "female" <% if(personalInfo.getGender()=='F'){%> checked="true"<%}%>/> Female
+          </div>
+
+          <div>
+            <label for="">Blood Group</label>
+            <input type = "text" id = "bg" name="bg" value="<%=flag?personalInfo.getBloodGroup():""%>" maxlength = "8"/>
+          </div>
+
+          <div>
+            <label for="">Date of Joining</label>
+            <input type = "date" id = "doj"name="doj" value="<%=flag?df.format(personalInfo.getDoj()):"" %>"/>
+            <label for="">Date of Relieving</label>
+            <input type = "date" id = "dor" name="dor" value="<%=flag?df.format(personalInfo.getDor()):"" %>"/>
+          </div>
+
+          <div>
+            <label for="">Phone Number</label>
+            <input type = "text" id = "ph" name="ph" value="<%=flag?personalInfo.getPhoneNumber():""%>" maxlength = "10" />
+          </div>
+
+          <div>
+            <label for="">Secondary Phone Number</label>
+            <input type = "text" id = "secph" name="secph" value="<%=flag?(personalInfo.getSecPhoneNumber()==null?"":personalInfo.getSecPhoneNumber()):""%>" maxlength = "10" />
+          </div>
+
+          <div>
+            <label for="">Mail ID</label>
+            <input type = "email" id = "mail" name="mail" value="<%=flag?personalInfo.getMailId():""%>" />
+          </div>
+
+          <div>
+            <label for="">Secondary Mail ID</label>
+            <input type = "email" id = "secmail" name="secmail" value="<%=flag?(personalInfo.getSecMailId()==null?"":personalInfo.getSecMailId()):""%>"/>
+          </div>
+
         </div>
-        <!-- 
-        
-        
-        <div>
-                     
-              <td> <input type = "date" id = "dob" name="dob" value="<%=flag?df.format(personalInfo.getDob()):"" %>"/> </td>
-            </tr>
-            <tr>
-              <td>  </td>
-              <td> <input type = "radio" name = "gender" value = "male" <% if(personalInfo.getGender()=='M'){%> checked="true"<%}%>/> Male &nbsp; &nbsp; &nbsp; <input type = "radio" name = "gender"  value = "female" <% if(personalInfo.getGender()=='F'){%> checked="true"<%}%>/> Female </td>
-            </tr>
-            <tr>
-              <td>  </td>
-              <td> <input type = "text" id = "bg" name="bg" value="<%=flag?personalInfo.getBloodGroup():""%>" maxlength = "8"/> </td>
-            </tr>
-            <tr>
-              <td> Date of Joining </td>
-              <td> <input type = "date" id = "doj"name="doj" value="<%=flag?df.format(personalInfo.getDoj()):"" %>"/> </td>
-              <td> Date of Relieving </td>
-              <td> <input type = "date" id = "dor" name="dor" value="<%=flag?df.format(personalInfo.getDor()):"" %>"/> </td>
-            </tr>
-            <tr>
-              <td> Phone Number </td>
-              <td> <input type = "text" id = "ph" name="ph" value="<%=flag?personalInfo.getPhoneNumber():""%>" maxlength = "10" /> </td>
-              <td> Secondary Phone Number </td>
-              <td> <input type = "text" id = "secph" name="secph" value="<%=flag?(personalInfo.getSecPhoneNumber()==null?"":personalInfo.getSecPhoneNumber()):""%>" maxlength = "10" /> </td>
-            </tr>
-            <tr>
-              <td> Mail ID </td>
-              <td> <input type = "email" id = "mail" name="mail" value="<%=flag?personalInfo.getMailId():""%>" /> </td>
-              <td> Secondary Mail ID </td>
-              <td> 
-                <input type = "email" id = "secmail" name="secmail" value="<%=flag?(personalInfo.getSecMailId()==null?"":personalInfo.getSecMailId()):""%>"/> 
-              </td>
-            </tr>
-          </table>
-        </div>
+
         <h2>Address</h2>
         <h3>Permanent Address</h3>
+
         <div>
-          <table>
-            <tr>
-                <td>Street</td><td><pre>   </pre></td><td><input type="text" id="Pstreet" name="Pstreet" value="<%=flag?address1.getStreet():""%>" size="35"/></td>
-            </tr>
 
-            <tr>
-              <td>City</td><td><pre>   </pre></td><td><input type="text" id="Pcity" name="Pcity" value="<%=flag?address1.getCity():""%>" size="35"/></td>
-            </tr>
+          <div>
+            <label for="">Street</label>
+            <input type="text" id="Pstreet" name="Pstreet" value="<%=flag?address1.getStreet():""%>" size="35"/>
+          </div>
 
-            <tr>
-               <td>District</td><td><pre>   </pre></td><td><input type="text" value="<%=flag?address1.getDistrict():""%>" id="Pdistrict" name="Pdistrict" size="35"/></td>
-            </tr>
-            <tr>
-               <td>State</td><td><pre>   </pre></td><td><input type="text" id="Pstate" name="Pstate" value="<%=flag?address1.getState():""%>" size="35"/></td>
-            </tr>
+          <div>
+            <label for="">City</label>
+            <input type="text" id="Pcity" name="Pcity" value="<%=flag?address1.getCity():""%>" size="35"/>
+          </div>
 
-            <tr>
-              <td>Country</td><td><pre>   </pre></td><td><input type="text" id="Pcountry" name="Pcountry" value="<%=flag?address1.getCountry():""%>" size="35"/></td>
-            </tr>
+          <div>
+            <label for="">District</label>
+            <input type="text" value="<%=flag?address1.getDistrict():""%>" id="Pdistrict" name="Pdistrict" size="35"/>
+          </div>
 
-            <tr>
-              <td>Pincode</td><td><pre>   </pre></td><td><input type="text"id="Ppincode" name="Ppincode" value="<%=flag?address1.getPinCode():""%>" size="35" maxlength="6"/></td>
-            </tr>
-          </table>
+          <div>
+            <label for="">State</label>
+            <input type="text" id="Pstate" name="Pstate" value="<%=flag?address1.getState():""%>" size="35"/>
+          </div>
+
+          <div>
+            <label for="">Country</label>
+            <input type="text" id="Pcountry" name="Pcountry" value="<%=flag?address1.getCountry():""%>" size="35"/>
+          </div>
+
+          <div>
+            <label for="">Pincode</label>
+            <input type="text"id="Ppincode" name="Ppincode" value="<%=flag?address1.getPinCode():""%>" size="35" maxlength="6"/>
+          </div>
+
         </div>
+
         <input type="checkbox" name="address" id="address" <%if(flag1){%>checked<%}%> onclick="FillAddress()">
         <em>Check this box if Current Address and Permanent Address are the same.</em>
         <h3>Current Address</h3>
+
         <div>
-          <table>
-            <tr>
-              <td>Street</td><td><pre>   </pre></td><td><input type="text" id="Cstreet" name="Cstreet" <%if(flag&&(!flag1)){%>value="<%=address2.getStreet() %>"<%}%> size="35"></td>
-            </tr>
-            <tr>
-              <td>City</td><td><pre>   </pre></td><td><input type="text" id="Ccity" name="Ccity" <%if(flag&&(!flag1)){%>value="<%=address2.getCity()%>"<%}%> size="35"/></td>
-            </tr>
-            <tr>
-               <td>District</td><td><pre>   </pre></td><td><input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getDistrict()%>"<%}%> id="Cdistrict" name="Cdistrict" size="35"/></td>
-            </tr>
-            <tr>
-               <td>State</td><td><pre>   </pre></td><td><input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getState()%>"<%}%> id="Cstate" name="Cstate" size="35"/></td>
-            </tr>
-            <tr>
-              <td>Country</td><td><pre>   </pre></td><td><input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getCountry()%>"<%}%> id="Ccountry" name="Ccountry" size="35"/></td>
-            </tr>
-            <tr>
-              <td>Pincode</td><td><pre>   </pre></td><td><input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getPinCode()%>"<%}%> id="Cpincode" name="Cpincode" size="35" maxlength="6" /></td>
-            </tr> 
-          </table>
+
+          <div>
+            <label for="">Street</label>
+            <input type="text" id="Cstreet" name="Cstreet" <%if(flag&&(!flag1)){%>value="<%=address2.getStreet() %>"<%}%> size="35">
+          </div>
+
+          <div>
+            <label for="">City</label>
+            <input type="text" id="Ccity" name="Ccity" <%if(flag&&(!flag1)){%>value="<%=address2.getCity()%>"<%}%> size="35"/>
+          </div>
+
+          <div>
+            <label for="">District</label>
+            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getDistrict()%>"<%}%> id="Cdistrict" name="Cdistrict" size="35"/>
+          </div>
+
+          <div>
+            <label for="">State</label>
+            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getState()%>"<%}%> id="Cstate" name="Cstate" size="35"/>
+          </div>
+
+          <div>
+            <label for="">Country</label>
+            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getCountry()%>"<%}%> id="Ccountry" name="Ccountry" size="35"/>
+          </div>
+
+          <div>
+            <label for="">Pincode</label>
+            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getPinCode()%>"<%}%> id="Cpincode" name="Cpincode" size="35" maxlength="6" />
+          </div>
+
         </div>
+
         <input type="hidden" name="action" value="personalinfo"/>
-        <input type="submit" value="Next"/> -->
+        <input type="submit" value="Next"/>
+
       </form>
     </div>
   </body>
