@@ -83,12 +83,33 @@
       }
       .content div{
         padding:20px;
+        /*min-width: 900px;*/
       }
       .content form div:nth-of-type(1) table td{
         padding: 10px;
       }
+      .content table{
+        font-size: 20px;
+      }
+      .content input{
+        height: 25px;
+        width: 250px;
+        padding-left: 10px;
+        font-size: 17px;
+      }
+      .content input[type=radio]{
+        height: 15px;
+        width: 15px;
+      }
+      .content input[type=checkbox]{
+        height: 15px;
+        width: 15px;
+      }
       .row{
         display: table-row;
+      }
+      input:focus{
+        background: #b3f0ff
       }
     </style>
   </head>
@@ -125,28 +146,40 @@
     </div>
     <div class="content">
       <form method="POST" action="MainServlet">
-        <center> 
-          <h3> Emp ID <input type = "text" value="<%=faculty.getFacultyId() %>" id = "empId" name="empId" readonly="readonly"/> 
-          </h3> 
-        </center>
-        <hr />
-        <h2>Personal Details </h2>
+
         <div>
-          <table>
-            <tr>
-              <td> Name </td>
-              <td> <input type = "text" id = "empName" name="empName" value="<%=faculty.getName()==null?"":faculty.getName() %>"/> </td>
-            </tr>
-            <tr>
-              <td> Date of Birth </td>
+          <label for="empId">Emp ID</label>
+          <input type = "text" value="<%=faculty.getFacultyId() %>" id = "empId" name="empId" readonly="readonly"/>
+        </div>
+        <hr />
+
+        <h2>Personal Details </h2>
+
+        <div>
+          <label for="">Name</label>
+          <input type = "text" id = "empName" name="empName" value="<%=faculty.getName()==null?"":faculty.getName() %>"/>
+          <label for="">Date of Birth</label>
+          <label for="">Gender</label>
+          <label for="">Blood Group</label>
+          <label for="">Date of Joining</label>
+          <label for="">Phone Number</label>
+          <label for="">Secondary Phone Number</label>
+          <label for="">Mail ID</label>
+          <label for="">Secondary Mail ID</label>
+        </div>
+        <!-- 
+        
+        
+        <div>
+                     
               <td> <input type = "date" id = "dob" name="dob" value="<%=flag?df.format(personalInfo.getDob()):"" %>"/> </td>
             </tr>
             <tr>
-              <td> Gender </td>
+              <td>  </td>
               <td> <input type = "radio" name = "gender" value = "male" <% if(personalInfo.getGender()=='M'){%> checked="true"<%}%>/> Male &nbsp; &nbsp; &nbsp; <input type = "radio" name = "gender"  value = "female" <% if(personalInfo.getGender()=='F'){%> checked="true"<%}%>/> Female </td>
             </tr>
             <tr>
-              <td> Blood Group </td>
+              <td>  </td>
               <td> <input type = "text" id = "bg" name="bg" value="<%=flag?personalInfo.getBloodGroup():""%>" maxlength = "8"/> </td>
             </tr>
             <tr>
@@ -223,9 +256,9 @@
               <td>Pincode</td><td><pre>   </pre></td><td><input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getPinCode()%>"<%}%> id="Cpincode" name="Cpincode" size="35" maxlength="6" /></td>
             </tr> 
           </table>
-          <input type="hidden" name="action" value="personalinfo"/>
-          <input type="submit" value="Next">
         </div>
+        <input type="hidden" name="action" value="personalinfo"/>
+        <input type="submit" value="Next"/> -->
       </form>
     </div>
   </body>
