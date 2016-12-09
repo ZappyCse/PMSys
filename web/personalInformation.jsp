@@ -48,13 +48,15 @@
       body{
         margin: 0;
         font-family: 'Raleway', sans-serif;
+        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
       }
       .div{
         height: 100%;
         position: fixed;
         width: 210px;
         top: 0;
-        background-color: #f1f1f1;
+        /*background-color: #f1f1f1;*/
+        border-right: 1px solid black;
         display: table;
         vertical-align: middle;
       }
@@ -72,8 +74,12 @@
         font-size: 20px;
         word-break: break-all;
       }
-
-      .ul li a:hover{
+      .active {
+        background-color: #4CAF50;
+        color: white;
+        cursor: default;
+      }
+      .ul li a:hover:not(.active){
         background: #555;
         color: white;
       }
@@ -89,9 +95,7 @@
       .content input{
         height: 25px;
         width: 250px;
-        padding-left: 10px;
         font-size: 17px;
-        margin-right: 10px;
       }
       .content input[type=radio]{
         height: 15px;
@@ -105,11 +109,22 @@
         display: table-row;
       }
       label{
-        display: inline-block;
+        display: block;
         width: 250px;
       }
       input:focus{
         background: #b3f0ff
+      }
+      @media screen and (min-width: 1500px){
+        label{
+          display: inline-block;
+        }
+        .in{
+          display: inline-block;
+        }
+      } 
+      form div div:nth-of-type(1){
+        padding-top: 0;
       }
     </style>
   </head>
@@ -136,7 +151,7 @@
     <div class="div">
       <div class="row">
         <ul class="ul">
-          <li><a href="personalInformation.jsp">Personal Info</a></li>
+          <li><a class="active">Personal Info</a></li>
           <li><a href="qualification.jsp">Qualification</a></li>
           <li><a href="experience.jsp">Experience</a></li>
           <li><a href="work_semi.jsp">Workshop/Seminar Details</a></li>
@@ -179,9 +194,12 @@
             <input type = "text" id = "bg" name="bg" value="<%=flag?personalInfo.getBloodGroup():""%>" maxlength = "8"/>
           </div>
 
-          <div>
+          <div class="in">
             <label for="">Date of Joining</label>
             <input type = "date" id = "doj"name="doj" value="<%=flag?df.format(personalInfo.getDoj()):"" %>"/>
+          </div>
+
+          <div class="in">
             <label for="">Date of Relieving</label>
             <input type = "date" id = "dor" name="dor" value="<%=flag?df.format(personalInfo.getDor()):"" %>"/>
           </div>
@@ -245,8 +263,11 @@
 
         </div>
 
-        <input type="checkbox" name="address" id="address" <%if(flag1){%>checked<%}%> onclick="FillAddress()">
-        <em>Check this box if Current Address and Permanent Address are the same.</em>
+        <div>
+          <input type="checkbox" name="address" id="address" <%if(flag1){%>checked<%}%> onclick="FillAddress()">
+          <em>Check this box if Current Address and Permanent Address are the same.</em>
+        </div>
+        
         <h3>Current Address</h3>
 
         <div>
