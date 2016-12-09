@@ -1,54 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome</title>
-	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-	<style type="text/css">
-		body{
-			margin: 0;
-			font-family: 'Raleway', sans-serif;
-		}
-		div{
-			height: 100%;
-			position: fixed;
-			width: 210px;
-			top: 0;
-			background-color: #f1f1f1;
-			
-		}
-		img{
-			width: 200px;
-			height: 200px;
-			display: table-cell;
-			vertical-align: middle;
-		}
-		#over
-{
-    position:absolute;
-    
-    text-align: center; 
+<style>
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
-.Centerer
-{
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
-.Centered
-{
-    display: inline-block;
-    vertical-align: middle;
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }
-	</style>
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 </head>
 <body>
-	
-		<div id="over">
-    <span class="Centerer"></span>
-    <img class="Centered" src="http://th07.deviantart.net/fs71/200H/f/2013/236/d/b/bw_avlonas_a5_beach_isles_wallpaper_image_by_lemnosexplorer-d6jh3i7.jpg" />
-</div>
-		
-	
-	
+
+<h2>Animated Button</h2>
+
+<button class="button" style="vertical-align:middle"><span>Hover </span></button>
+
 </body>
 </html>

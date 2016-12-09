@@ -49,6 +49,7 @@
         margin: 0;
         font-family: 'Raleway', sans-serif;
         background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        /*min-width: 550px;*/
       }
       .div{
         height: 100%;
@@ -92,10 +93,12 @@
         font-size: 20px;
         /*min-width: 900px;*/
       }
-      .content input{
-        height: 25px;
-        width: 250px;
+      .content input:not(.ig){
+        height: 30px;
+        width: 50%;
+        min-width: 250px;
         font-size: 17px;
+        max-width: 400px;
       }
       .content input[type=radio]{
         height: 15px;
@@ -111,20 +114,78 @@
       label{
         display: block;
         width: 250px;
+        margin-bottom: 10px;
       }
       input:focus{
         background: #b3f0ff
       }
-      @media screen and (min-width: 1500px){
+      @media screen and (min-width: 1350px){
         label{
           display: inline-block;
+          margin: none;
         }
         .in{
           display: inline-block;
         }
+        .content input:not(.ig){
+        height: 25px;
+        width: 250px;
+        font-size: 17px;
+      }
       } 
       form div div:nth-of-type(1){
         padding-top: 0;
+      }
+
+      .button{
+        background-color: #4CAF50;
+        border-left:1px solid black;
+        border-bottom:1px solid black;
+        border-top: 4px solid black;
+        border-right: 4px solid black;
+        color: #000;
+        text-align: center;
+        font-size: 28px;
+        padding: auto;
+        width: 120px;
+        height: 50px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin-left: -11px;
+        margin-bottom: -1px;
+      }
+      .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+
+      .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+
+      .button:hover span {
+        padding-right: 25px;
+        opacity: 0.7;
+      }
+
+      .button:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+      form{
+        margin: auto;
+        background: #4CAF50;
+        max-width: 1200px;
+        border: 10px solid black;
+        padding-left: 10px;
+        min-width: 300px;
       }
     </style>
   </head>
@@ -186,7 +247,7 @@
 
           <div>
             <label for="">Gender</label>
-            <input type = "radio" name = "gender" value = "male" <% if(personalInfo.getGender()=='M'){%> checked="true"<%}%>/> Male &nbsp; &nbsp; &nbsp; <input type = "radio" name = "gender"  value = "female" <% if(personalInfo.getGender()=='F'){%> checked="true"<%}%>/> Female
+            <input type = "radio" class="ig" name = "gender" value = "male" <% if(personalInfo.getGender()=='M'){%> checked="true"<%}%>/> Male &nbsp; &nbsp; &nbsp; <input type = "radio" class="ig" name = "gender"  value = "female" <% if(personalInfo.getGender()=='F'){%> checked="true"<%}%>/> Female
           </div>
 
           <div>
@@ -264,7 +325,7 @@
         </div>
 
         <div>
-          <input type="checkbox" name="address" id="address" <%if(flag1){%>checked<%}%> onclick="FillAddress()">
+          <input type="checkbox" name="address" class="ig" id="address" <%if(flag1){%>checked<%}%> onclick="FillAddress()">
           <em>Check this box if Current Address and Permanent Address are the same.</em>
         </div>
         
@@ -305,7 +366,9 @@
         </div>
 
         <input type="hidden" name="action" value="personalinfo"/>
-        <input type="submit" value="Next"/>
+        <button class="button">
+          <span>Next</span>
+        </button>
 
       </form>
     </div>
