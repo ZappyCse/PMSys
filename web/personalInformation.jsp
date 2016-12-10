@@ -11,6 +11,12 @@
   <head>
     <title>Personal Information</title>
     <script language="javascript" type="text/javascript" >
+
+      function hide(t){
+        document.getElementById(t).style.display="none";
+
+      }
+
       function FillAddress() {
         if(document.getElementById('address').checked == true) {
               
@@ -26,8 +32,10 @@
               document.getElementById('Cstate').value=document.getElementById('Pstate').value;
               document.getElementById('Ccountry').value=document.getElementById('Pcountry').value;
               document.getElementById('Cpincode').value=document.getElementById('Ppincode').value;
+              
         }
         else{
+            
               document.getElementById('Cstreet').removeAttribute("readonly");
               document.getElementById('Ccity').removeAttribute("readonly");
               document.getElementById('Cdistrict').removeAttribute("readonly");
@@ -40,17 +48,32 @@
               document.getElementById('Cstate').value="";
               document.getElementById('Ccountry').value="";
               document.getElementById('Cpincode').value="";
+              
         }
       }
     </script>
+    
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    
     <style type="text/css">
+      html{
+        height: 100%;
+        background: url("grad.jpg");
+        background-size: 300% 300%;
+        background-repeat: no-repeat;
+      }  
+
       body{
         margin: 0;
         font-family: 'Raleway', sans-serif;
-        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        /*background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);*/
         /*min-width: 550px;*/
+        /*background: url("grad.jpg");*/
+        /*min-height: 100%;*/
+        /*padding-bottom: 20px;
+        border: 1px solid transparent;*/
       }
+      
       .div{
         height: 100%;
         position: fixed;
@@ -61,12 +84,14 @@
         display: table;
         vertical-align: middle;
       }
+      
       .ul{
         list-style-type: none;
         padding: 0;
         display: table-cell;
         vertical-align: middle;
       }
+      
       .ul li a{
         text-decoration: none;
         padding: 10px 10px;
@@ -75,64 +100,82 @@
         font-size: 20px;
         word-break: break-all;
       }
+      
       .active {
         background-color: #4CAF50;
         color: white;
         cursor: default;
       }
+      
       .ul li a:hover:not(.active){
         background: #555;
         color: white;
       }
+      
       .content{
         padding: 10px;
         margin-left: 210px;
       }
+      
       .content div{
         padding:20px;
         font-size: 20px;
         /*min-width: 900px;*/
       }
+      
       .content input:not(.ig){
         height: 30px;
         width: 50%;
         min-width: 250px;
         font-size: 17px;
         max-width: 400px;
+        padding-left: 5px;
+        border-radius: 5px;
       }
-      .content input[type=radio]{
+      
+      .ig{
         height: 15px;
         width: 15px;
       }
-      .content input[type=checkbox]{
-        height: 15px;
-        width: 15px;
+      
+      .ig:hover{
+        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.24), 5px 5px 10px 0 rgba(0,0,0,0.19);
       }
+
       .row{
         display: table-row;
       }
+      
       label{
         display: block;
         width: 250px;
         margin-bottom: 10px;
       }
-      input:focus{
-        background: #b3f0ff
+      
+      input:hover:not(.ig),input:focus{
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        cursor: text;
       }
+      
       @media screen and (min-width: 1350px){
+
         label{
           display: inline-block;
           margin: none;
         }
+
         .in{
           display: inline-block;
         }
+
         .content input:not(.ig){
-        height: 25px;
-        width: 250px;
-        font-size: 17px;
-      }
+          height: 25px;
+          width: 250px;
+          font-size: 17px;
+        }
+
       } 
+
       form div div:nth-of-type(1){
         padding-top: 0;
       }
@@ -153,7 +196,10 @@
         cursor: pointer;
         margin-left: -11px;
         margin-bottom: -1px;
+        border-top-right-radius: 5px;
+        transition-duration: 0.4s;
       }
+
       .button span {
         cursor: pointer;
         display: inline-block;
@@ -179,39 +225,62 @@
         opacity: 1;
         right: 0;
       }
+
       form{
         margin: auto;
-        background: #4CAF50;
+        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
         max-width: 1200px;
         border: 10px solid black;
         padding-left: 10px;
         min-width: 300px;
       }
+
+      .icon{
+        width: 80%;
+        font-size: 25px;
+      }
+
+      .icon > img{
+        width: 28px;
+      }
+
+      .icon > span{
+        float: left;
+      }
+
+      .icon img:hover{
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      }
+
     </style>
   </head>
-   <% Faculty faculty=(Faculty)request.getSession().getAttribute("faculty");
-          System.out.println(faculty);
-          PersonalInfo personalInfo=faculty.getPersonalInfo();
-          boolean flag=false;
-          if(personalInfo!=null)
-              flag=true;
-          DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-       Address address1=null;
-          Address address2=null;
-          boolean flag1=false;
-          if(flag==true){
-          address1=personalInfo.getAddress().get(0);
-          address2=personalInfo.getAddress().get(1);}
-          if(address1.getCity().equals(address2.getCity())&&address1.getCountry().equals(address2.getCountry())&&address1.getDistrict().equals(address2.getDistrict())&&address1.getPinCode()==address2.getPinCode()&&address1.getState().equals(address2.getState())&&address1.getStreet().equals(address2.getStreet())){
-         flag1=true;
-          }
-          %>
 
-  <body <%if(flag1){%>onload="FillAddress()"<%}%>>
+   <% 
+      Faculty faculty=(Faculty)request.getSession().getAttribute("faculty");
+      System.out.println(faculty);
+      PersonalInfo personalInfo=faculty.getPersonalInfo();
+      boolean flag=false;
+      if(personalInfo!=null)
+        flag=true;
+      DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+      Address address1=null;
+      Address address2=null;
+      boolean flag1=false;
+      if(flag==true){
+        address1=personalInfo.getAddress().get(0);
+        address2=personalInfo.getAddress().get(1);
+      }
+      if(address1.getCity().equals(address2.getCity())&&address1.getCountry().equals(address2.getCountry())&&address1.getDistrict().equals(address2.getDistrict())&&address1.getPinCode()==address2.getPinCode()&&address1.getState().equals(address2.getState())&&address1.getStreet().equals(address2.getStreet())){
+        flag1=true;
+      }
+    %>
+
+  <body <% if(flag1){ %> onload="FillAddress()" <% } %> >
 
     <div class="div">
       <div class="row">
         <ul class="ul">
+          <li><a href="home.jsp">Home</a></li>
           <li><a class="active">Personal Info</a></li>
           <li><a href="qualification.jsp">Qualification</a></li>
           <li><a href="experience.jsp">Experience</a></li>
@@ -222,6 +291,7 @@
         </ul>
       </div>
     </div>
+    
     <div class="content">
       <form method="POST" action="MainServlet">
 
@@ -232,9 +302,12 @@
 
         <hr />
 
-        <h2>Personal Details </h2>
+        <div class="icon">
+          <img src="add.png" onclick="hide('personalDetails')">
+          <span class="icon">Personal Details</span>
+        </div>
 
-        <div>
+        <div id="personalDetails">
           <div>
             <label for="">Name</label>
             <input type = "text" id = "empName" name="empName" value="<%=faculty.getName()==null?"":faculty.getName() %>"/>
@@ -288,9 +361,13 @@
         </div>
 
         <h2>Address</h2>
-        <h3>Permanent Address</h3>
 
-        <div>
+        <div class="icon">
+          <img src="add.png" onclick="hide('perAddr')">
+          <span class="icon">Permanent Address</span>
+        </div>
+
+        <div id="perAddr">
 
           <div>
             <label for="">Street</label>
@@ -328,10 +405,13 @@
           <input type="checkbox" name="address" class="ig" id="address" <%if(flag1){%>checked<%}%> onclick="FillAddress()">
           <em>Check this box if Current Address and Permanent Address are the same.</em>
         </div>
-        
-        <h3>Current Address</h3>
 
-        <div>
+        <div class="icon">
+          <img src="add.png" onclick="hide('curAddr')">
+          <span class="icon">Current Address</span>
+        </div>
+
+        <div id="curAddr">
 
           <div>
             <label for="">Street</label>

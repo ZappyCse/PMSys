@@ -37,7 +37,7 @@ public class MainServlet extends HttpServlet {
         int status=new Administrator().validateUser(uN, pW);
         if(status==1){
             request.getSession().setAttribute("faculty", new Administrator().getUser(uN));
-            request.getRequestDispatcher("/personalInformation.jsp").include(request, response);
+            request.getRequestDispatcher("/home.jsp").include(request, response);
         }
         else if(status==0){
             request.setAttribute("eMsg", "Incorrect UserName/Password");
