@@ -23,7 +23,7 @@ public class Administrator {
    public Faculty getUser(String userName){
        return new PMSysDao().getUser(userName);
    }
-   public void setPersonalInfo(PersonalInfo personalInfo){
-       new PMSysDao().setPersonalInfo(personalInfo);
-   }
+//   public void setPersonalInfo(PersonalInfo personalInfo){
+//       new PMSysDao().setPersonalInfo(personalInfo);
+//   }
 }
