@@ -447,7 +447,7 @@
         <button class="button">
           <span>Next</span>
         </button>
-
+          </div>
       </form>
     </div>
   </body>
