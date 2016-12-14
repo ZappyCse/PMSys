@@ -12,9 +12,16 @@
     <title>Personal Information</title>
     <script language="javascript" type="text/javascript" >
 
-      function hide(t){
+      function hide(t,t1){
         document.getElementById(t).style.display="none";
+        t1.setAttribute("src","add.png");
+        t1.setAttribute("onclick","unhide('"+t+"',this)");    
+      }
 
+      function unhide(t,t1){
+        document.getElementById(t).style.display="inline-block";
+        t1.setAttribute("src","rem.png");
+        t1.setAttribute("onclick","hide('"+t+"',this)");
       }
 
       function FillAddress() {
@@ -59,19 +66,14 @@
       html{
         height: 100%;
         background: url("grad.jpg");
-        background-size: 300% 300%;
+        background-size: 100% 100%;
         background-repeat: no-repeat;
+        background-attachment: fixed;
       }  
-
       body{
+        height: 100%;
         margin: 0;
         font-family: 'Raleway', sans-serif;
-        /*background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);*/
-        /*min-width: 550px;*/
-        /*background: url("grad.jpg");*/
-        /*min-height: 100%;*/
-        /*padding-bottom: 20px;
-        border: 1px solid transparent;*/
       }
       
       .div{
@@ -79,10 +81,11 @@
         position: fixed;
         width: 210px;
         top: 0;
-        /*background-color: #f1f1f1;*/
         border-right: 1px solid black;
         display: table;
         vertical-align: middle;
+        overflow: hidden;
+        background: url("grad.jpg");
       }
       
       .ul{
@@ -118,9 +121,7 @@
       }
       
       .content div{
-        padding:20px;
-        font-size: 20px;
-        /*min-width: 900px;*/
+        padding:5px;
       }
       
       .content input:not(.ig){
@@ -173,12 +174,12 @@
           width: 250px;
           font-size: 17px;
         }
+        
+        form{
+            width: 1100px;
+        }
 
       } 
-
-      form div div:nth-of-type(1){
-        padding-top: 0;
-      }
 
       .button{
         background-color: #4CAF50;
@@ -198,6 +199,7 @@
         margin-bottom: -1px;
         border-top-right-radius: 5px;
         transition-duration: 0.4s;
+        display: block;
       }
 
       .button span {
@@ -227,17 +229,21 @@
       }
 
       form{
-        margin: auto;
+        margin: 0 auto;
         background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-        max-width: 1200px;
+        max-width: 1100px;
         border: 10px solid black;
-        padding-left: 10px;
+        padding: 10px;
         min-width: 300px;
+        overflow-y: scroll;
+        height: 900px;
+        display: table;
       }
 
       .icon{
         width: 80%;
-        font-size: 25px;
+        font-size: 20px;
+        font-weight: bold;
       }
 
       .icon > img{
@@ -251,7 +257,7 @@
       .icon img:hover{
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
       }
-
+      
     </style>
   </head>
 
@@ -282,8 +288,8 @@
         <ul class="ul">
           <li><a href="home.jsp">Home</a></li>
           <li><a class="active">Personal Info</a></li>
-          <li><a href="qualification.jsp">Qualification</a></li>
-          <li><a href="experience.jsp">Experience</a></li>
+          <li><a href="skillset.jsp">Skill Set</a></li>
+          <li><a href="events.jsp">Events</a></li>
           <li><a href="work_semi.jsp">Workshop/Seminar Details</a></li>
           <li><a href="monographs.jsp">Monographs</a></li>
           <li><a href="proposaldetails.jsp">Proposal Details</a></li>
@@ -292,22 +298,16 @@
       </div>
     </div>
     
-    <div class="content">
+    <div class="content" id="fm">
       <form method="POST" action="MainServlet">
-
-        <div>
-          <label for="empId">Emp ID</label>
-          <input type = "text" value="<%=faculty.getFacultyId() %>" id = "empId" name="empId" readonly="readonly"/>
-        </div>
-
-        <hr />
-
+        
+          <div style="display: table-cell;vertical-align: middle;">
         <div class="icon">
-          <img src="add.png" onclick="hide('personalDetails')">
+          <img src="add.png" onclick="unhide('personalDetails',this)">
           <span class="icon">Personal Details</span>
         </div>
 
-        <div id="personalDetails">
+        <div id="personalDetails" style="display: none;">
           <div>
             <label for="">Name</label>
             <input type = "text" id = "empName" name="empName" value="<%=faculty.getName()==null?"":faculty.getName() %>"/>
@@ -360,14 +360,12 @@
 
         </div>
 
-        <h2>Address</h2>
-
         <div class="icon">
-          <img src="add.png" onclick="hide('perAddr')">
+          <img src="add.png" onclick="unhide('perAddr',this)">
           <span class="icon">Permanent Address</span>
         </div>
 
-        <div id="perAddr">
+        <div id="perAddr" style="display: none;">
 
           <div>
             <label for="">Street</label>
@@ -407,11 +405,11 @@
         </div>
 
         <div class="icon">
-          <img src="add.png" onclick="hide('curAddr')">
+          <img src="add.png" onclick="unhide('curAddr',this)">
           <span class="icon">Current Address</span>
         </div>
 
-        <div id="curAddr">
+        <div id="curAddr" style="display: none;">
 
           <div>
             <label for="">Street</label>
