@@ -15,10 +15,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-/**
- *
- * @author Arun
- */
 public class PMSysDao {
     private Transaction transaction;
     public int validateUser(String userName,String password){
