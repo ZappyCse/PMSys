@@ -228,6 +228,7 @@
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        overflow: scroll;
       }  
       body{
         height: 100%;
