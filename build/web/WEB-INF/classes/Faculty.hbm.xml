@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.zappy.pmsys.beans.Faculty" table="Faculty">  
+    <id name="facultyId">  
+     <generator class="assigned"></generator>  
+    </id>
+    <discriminator column="type" type="string"></discriminator>  
+    <one-to-one name="personalInfo" cascade="all" lazy="false"/>
+    <property name="name"></property> 
+    <subclass name="com.zappy.pmsys.beans.TeachingFaculty" discriminator-value="Teaching">
+        <list name="experience" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.Experience"/>
+        </list>
+        <list name="industry" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.Industry"/>
+        </list>
+        <list name="qualification" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.Qualification"/>
+        </list>
+        <list name="responsibilities" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.Responsibilities"/>
+        </list>
+        <list name="monographs" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.Monographs"/>
+        </list>
+        <list name="proposalDetails" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.ProposalDetails"/>
+        </list>
+        <list name="journalDetails" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.JournalDetails"/>
+        </list>
+        <list name="workshopSeminarDetails" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.WorkshopSeminarDetails"/>
+        </list>
+        <list name="organizedProgramDetails" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.OrganizedProgramDetails"/>
+        </list>
+        <list name="areaOfInterest" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.AreaOfInterest"/>
+        </list>
+        <list name="membershipDetails" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.MembershipDetails"/>
+        </list>
+        <list name="handledSubjects" cascade="all" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.HandledSubjects"/>
+        </list>
+    </subclass>    
+  </class> 
+  <class name="com.zappy.pmsys.beans.Address" table="Address" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="street"></property>   
+      <property name="city"></property>   
+      <property name="district"></property>   
+      <property name="state"></property>   
+      <property name="pinCode"></property>   
+      <property name="country"></property>   
+  </class> 
+  <class name="com.zappy.pmsys.beans.Experience" table="Experience" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="instituteName"></property>   
+      <property name="designation"></property>   
+      <property name="natureOfWork"></property>   
+      <property name="fromDate"></property>   
+      <property name="toDate"></property>      
+  </class>   
+  <class name="com.zappy.pmsys.beans.AreaOfInterest" table="AreaOfInterest" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="areaOfInterest"></property>    
+  </class> 
+  <class name="com.zappy.pmsys.beans.Industry" table="Industry" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="organization"></property>   
+      <property name="designation"></property>   
+      <property name="natureOfWork"></property>   
+      <property name="fromDate"></property>   
+      <property name="toDate"></property>    
+  </class>  
+  <class name="com.zappy.pmsys.beans.Qualification" table="Qualification" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="degree"></property>   
+      <property name="specialization"></property>   
+      <property name="instituteName"></property>   
+      <property name="university"></property>   
+      <property name="yoa"></property>   
+      <property name="yoc"></property> 
+      <property name="classOfMarks"></property>   
+      <property name="percent"></property>  
+  </class> 
+  <class name="com.zappy.pmsys.beans.Responsibilities" table="Responsibilities" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="workDetails"></property>   
+      <property name="workAllottedBy"></property>   
+      <property name="fromDate"></property>   
+      <property name="toDate"></property>   
+      <property name="duration"></property>   
+      <property name="type"></property>   
+  </class> 
+  <class name="com.zappy.pmsys.beans.Monographs" table="Monographs" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="title"></property>   
+      <property name="coAuthorName"></property>   
+      <property name="publisherName"></property>   
+      <property name="year"></property>      
+  </class> 
+  <class name="com.zappy.pmsys.beans.ProposalDetails" table="ProposalDetails" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="title"></property>   
+      <property name="dOfAgency"></property>   
+      <property name="dateOfProposal"></property>   
+      <property name="duration"></property>   
+      <property name="status"></property>   
+      <property name="sectorType"></property>   
+  </class> 
+  <class name="com.zappy.pmsys.beans.HandledSubjects" table="HandledSubjects" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="academicYear"></property>   
+      <property name="semester"></property>       
+      <property name="subjectName"></property>   
+      <property name="year"></property>   
+      <property name="department"></property>   
+      <property name="section"></property>
+      <property name="passPercent"></property>   
+  </class> 
+  <class name="com.zappy.pmsys.beans.JournalDetails" table="JournalDetails" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="researchTitle"></property>   
+      <property name="coauthorNames"></property>   
+      <property name="publisherJournalName"></property>   
+      <property name="month"></property>   
+      <property name="year"></property>   
+      <property name="doi"></property>   
+      <property name="issn"></property>   
+      <property name="ifNumber"></property>   
+      <property name="sjrNumber"></property>  
+      <property name="snipNumber"></property>  
+      <property name="hIndex"></property>
+  </class>  
+  <class name="com.zappy.pmsys.beans.MembershipDetails" table="MembershipDetails" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="membershipId"></property>   
+      <property name="organization"></property>     
+  </class> 
+  <class name="com.zappy.pmsys.beans.OrganizedProgramDetails" table="OrganizedProgramDetails" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="programmeName"></property>   
+      <property name="sponsoredBy"></property>   
+      <property name="actedAs"></property>       
+      <property name="fromDate"></property>   
+      <property name="toDate"></property>   
+      <property name="duration"></property>   
+      <property name="convener"></property>   
+  </class> 
+  <class name="com.zappy.pmsys.beans.WorkshopSeminarDetails" table="WorkshopSeminarDetails" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="programmeName"></property>   
+      <property name="organizedBy"></property>   
+      <property name="fromDate"></property>   
+      <property name="toDate"></property>   
+      <property name="duration"></property>   
+      <property name="type"></property>   
+  </class>      
+   <class name="com.zappy.pmsys.beans.PersonalInfo" table="PersonalInfo" lazy="false">
+       <id name="facultyId">
+           <generator class="foreign">
+               <param name="property">faculty</param>
+           </generator>
+       </id>
+      <property name="bloodGroup"></property>   
+      <property name="dob" ></property>   
+      <property name="gender"></property>   
+      <property name="doj"></property>   
+      <property name="phoneNumber"></property>   
+      <property name="secPhoneNumber"></property>   
+      <property name="mailId"></property>   
+      <property name="secMailId"></property>   
+      <property name="dor"></property>
+      <list name="address" cascade="all" lazy="false">
+          <key column="facultyId" />
+          <index column="type"/>
+          <one-to-many class="com.zappy.pmsys.beans.Address"/>
+      </list>
+      <one-to-one name="faculty" cascade="all"/>
+  </class>
+  <class name="com.zappy.pmsys.beans.LoginDetails" table="LoginDetails" lazy="false">
+       <id name="userName">
+           <generator class="assigned"></generator>
+       </id>  
+      <property name="password"></property>   
+      <property name="type"></property>
+      <property name="activeStatus"></property>
+  </class>
+ </hibernate-mapping> 
+
