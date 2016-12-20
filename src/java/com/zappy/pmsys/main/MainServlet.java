@@ -36,7 +36,8 @@ public class MainServlet extends HttpServlet {
         String pW=request.getParameter("PW");
         int status=new Administrator().validateUser(uN, pW);
         if(status==1){
-            request.getSession().setAttribute("faculty", new Administrator().getUser(uN));
+            request.getSession().setAttribute("facultyId", uN);
+            request.getSession().setAttribute("facultyName", new Administrator().getUser(uN).getName());
             request.getRequestDispatcher("/home.jsp").include(request, response);
         }
         else if(status==0){

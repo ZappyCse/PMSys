@@ -73,49 +73,19 @@ public class PMSysDao {
            session.close();
        }
    }
-//    public void setAddress(List<Address> addressList,String id){
-//       Session session=DBUtil.getSessionFactory().openSession();
-//       transaction=session.beginTransaction();
-//       try{
-//           Query query=session.createQuery("delete from Address where facultyId=:n");
-//           query.setParameter("n",id);
-//       }finally{
-//           transaction.commit();
-//           session.close();
-//       }
-//    }
-//   public void setPersonalInfo(PersonalInfo personalInfo){
-//       Session session=DBUtil.getSessionFactory().openSession();
-//       transaction=session.beginTransaction();
-//       try{
-//           Query query=session.createQuery("from PersonalInfo where facultyId=:n");
-//           query.setParameter("n", personalInfo.getFacultyId());
-//           PersonalInfo pi=null;
-//           if(query.list().size()==0)
-//               pi=personalInfo;
-//           else{
-//               pi=(PersonalInfo)query.list().get(0);
-//               pi.setAddress(personalInfo.getAddress());
-//               pi.setBloodGroup(personalInfo.getBloodGroup());
-//               pi.setDob(personalInfo.getDob());
-//               pi.setDoj(personalInfo.getDoj());
-//               pi.setDor(personalInfo.getDor());
-//               pi.setGender(personalInfo.getGender());
-//               pi.setFacultyId(personalInfo.getFacultyId());
-//               pi.setMailId(personalInfo.getMailId());
-//               pi.setPhoneNumber(personalInfo.getPhoneNumber());
-//               if(personalInfo.getSecMailId()!=null)
-//                   pi.setSecMailId(personalInfo.getSecMailId());
-//               if(personalInfo.getSecPhoneNumber()!=null)
-//                   pi.setSecPhoneNumber(personalInfo.getSecPhoneNumber());
-//               setAddress(personalInfo.getAddress(), personalInfo.getFacultyId());
-//               pi.setAddress(personalInfo.getAddress());
-//           }
-//            session.persist(pi);
-//       }
-//       finally{
-//           transaction.commit();
-//           session.close();
-//       }
-//   }
+   public PersonalInfo getPersonalInfo(String userName){
+       Session session=DBUtil.getSessionFactory().openSession();
+       try{
+           Query query=session.createQuery("from PersonalInfo where facultyId=:n");
+           query.setParameter("n", userName);
+           if(query.list().size()==1){
+               return (PersonalInfo)query.list().get(0);
+           }
+           else
+               return null;
+       }
+       finally{
+           session.close();
+       }
+   }
 }

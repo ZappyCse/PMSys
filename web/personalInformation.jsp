@@ -1,3 +1,4 @@
+<%@page import="com.zappy.pmsys.admin.Administrator"%>
 <%@page import="com.zappy.pmsys.beans.Address"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
@@ -262,26 +263,30 @@
   </head>
 
    <% 
-      Faculty faculty=(Faculty)request.getSession().getAttribute("faculty");
-      System.out.println(faculty);
-      PersonalInfo personalInfo=faculty.getPersonalInfo();
-      boolean flag=false;
-      if(personalInfo!=null)
-        flag=true;
-      DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-      Address address1=null;
-      Address address2=null;
-      boolean flag1=false;
-      if(flag==true){
-        address1=personalInfo.getAddress().get(0);
-        address2=personalInfo.getAddress().get(1);
+      String facultyId=(String)request.getSession().getAttribute("facultyId");
+      String facultyName=(String)request.getSession().getAttribute("facultyName");
+      if(facultyName==null){
+          facultyName="";
       }
+      System.out.println(facultyId);
+      PersonalInfo personalInfo=new Administrator().getPersonalInfo(facultyId);
+      if(personalInfo==null){
+          personalInfo=new PersonalInfo();
+      }
+      List<Address> address=personalInfo.getAddress();
+      Address address1=new Address(),address2=new Address();
+      if(address!=null)
+        address1=address.get(0);
+      if(address!=null)
+        address2=address.get(1);
+      boolean flag1=false;
       if(address1.getCity().equals(address2.getCity())&&address1.getCountry().equals(address2.getCountry())&&address1.getDistrict().equals(address2.getDistrict())&&address1.getPinCode()==address2.getPinCode()&&address1.getState().equals(address2.getState())&&address1.getStreet().equals(address2.getStreet())){
         flag1=true;
       }
+      DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
     %>
 
-  <body <% if(flag1){ %> onload="FillAddress()" <% } %> >
+  <body>
 
     <div class="div">
       <div class="row">
@@ -310,12 +315,12 @@
         <div id="personalDetails" style="display: none;">
           <div>
             <label for="">Name</label>
-            <input type = "text" id = "empName" name="empName" value="<%=faculty.getName()==null?"":faculty.getName() %>"/>
+            <input type = "text" id = "empName" name="empName" value="<%=facultyName %>"/>
           </div>
 
           <div>
             <label for="">Date of Birth</label>
-            <input type = "date" id = "dob" name="dob" value="<%=flag?df.format(personalInfo.getDob()):"" %>"/>
+            <input type = "date" id = "dob" name="dob" value="<%=personalInfo.getDob()==null?"":df.format(personalInfo.getDob())%>"/>
           </div>
 
           <div>
@@ -325,37 +330,37 @@
 
           <div>
             <label for="">Blood Group</label>
-            <input type = "text" id = "bg" name="bg" value="<%=flag?personalInfo.getBloodGroup():""%>" maxlength = "8"/>
+            <input type = "text" id = "bg" name="bg" value="<%=personalInfo.getBloodGroup()%>" maxlength = "8"/>
           </div>
 
           <div class="in">
             <label for="">Date of Joining</label>
-            <input type = "date" id = "doj"name="doj" value="<%=flag?df.format(personalInfo.getDoj()):"" %>"/>
+            <input type = "date" id = "doj"name="doj" value="<%=personalInfo.getDoj()==null?"":df.format(personalInfo.getDoj())%>"/>
           </div>
 
           <div class="in">
             <label for="">Date of Relieving</label>
-            <input type = "date" id = "dor" name="dor" value="<%=flag?df.format(personalInfo.getDor()):"" %>"/>
+            <input type = "date" id = "dor" name="dor" value="<%=personalInfo.getDor()==null?"":df.format(personalInfo.getDor())%>"/>
           </div>
 
           <div>
             <label for="">Phone Number</label>
-            <input type = "text" id = "ph" name="ph" value="<%=flag?personalInfo.getPhoneNumber():""%>" maxlength = "10" />
+            <input type = "text" id = "ph" name="ph" value="<%=personalInfo.getPhoneNumber()%>" maxlength = "10" />
           </div>
 
           <div>
             <label for="">Secondary Phone Number</label>
-            <input type = "text" id = "secph" name="secph" value="<%=flag?(personalInfo.getSecPhoneNumber()==null?"":personalInfo.getSecPhoneNumber()):""%>" maxlength = "10" />
+            <input type = "text" id = "secph" name="secph" value="<%=personalInfo.getSecPhoneNumber()%>" maxlength = "10" />
           </div>
 
           <div>
             <label for="">Mail ID</label>
-            <input type = "email" id = "mail" name="mail" value="<%=flag?personalInfo.getMailId():""%>" />
+            <input type = "email" id = "mail" name="mail" value="<%=personalInfo.getMailId()%>" />
           </div>
 
           <div>
             <label for="">Secondary Mail ID</label>
-            <input type = "email" id = "secmail" name="secmail" value="<%=flag?(personalInfo.getSecMailId()==null?"":personalInfo.getSecMailId()):""%>"/>
+            <input type = "email" id = "secmail" name="secmail" value="<%=personalInfo.getSecMailId()%>"/>
           </div>
 
         </div>
@@ -369,32 +374,32 @@
 
           <div>
             <label for="">Street</label>
-            <input type="text" id="Pstreet" name="Pstreet" value="<%=flag?address1.getStreet():""%>" size="35"/>
+            <input type="text" id="Pstreet" name="Pstreet" value="<%=address1.getStreet()%>" size="35"/>
           </div>
 
           <div>
             <label for="">City</label>
-            <input type="text" id="Pcity" name="Pcity" value="<%=flag?address1.getCity():""%>" size="35"/>
+            <input type="text" id="Pcity" name="Pcity" value="<%=address1.getCity()%>" size="35"/>
           </div>
 
           <div>
             <label for="">District</label>
-            <input type="text" value="<%=flag?address1.getDistrict():""%>" id="Pdistrict" name="Pdistrict" size="35"/>
+            <input type="text" value="<%=address1.getDistrict()%>" id="Pdistrict" name="Pdistrict" size="35"/>
           </div>
 
           <div>
             <label for="">State</label>
-            <input type="text" id="Pstate" name="Pstate" value="<%=flag?address1.getState():""%>" size="35"/>
+            <input type="text" id="Pstate" name="Pstate" value="<%=address1.getState()%>" size="35"/>
           </div>
 
           <div>
             <label for="">Country</label>
-            <input type="text" id="Pcountry" name="Pcountry" value="<%=flag?address1.getCountry():""%>" size="35"/>
+            <input type="text" id="Pcountry" name="Pcountry" value="<%=address1.getCountry()%>" size="35"/>
           </div>
 
           <div>
             <label for="">Pincode</label>
-            <input type="text"id="Ppincode" name="Ppincode" value="<%=flag?address1.getPinCode():""%>" size="35" maxlength="6"/>
+            <input type="text"id="Ppincode" name="Ppincode" value="<%=address1.getPinCode()%>" size="35" maxlength="6"/>
           </div>
 
         </div>
@@ -413,32 +418,32 @@
 
           <div>
             <label for="">Street</label>
-            <input type="text" id="Cstreet" name="Cstreet" <%if(flag&&(!flag1)){%>value="<%=address2.getStreet() %>"<%}%> size="35">
+            <input type="text" id="Cstreet" name="Cstreet" value="<%=address2.getStreet() %>"size="35">
           </div>
 
           <div>
             <label for="">City</label>
-            <input type="text" id="Ccity" name="Ccity" <%if(flag&&(!flag1)){%>value="<%=address2.getCity()%>"<%}%> size="35"/>
+            <input type="text" id="Ccity" name="Ccity" value="<%=address2.getCity()%>" size="35"/>
           </div>
 
           <div>
             <label for="">District</label>
-            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getDistrict()%>"<%}%> id="Cdistrict" name="Cdistrict" size="35"/>
+            <input type="text" value="<%=address2.getDistrict()%>" id="Cdistrict" name="Cdistrict" size="35"/>
           </div>
 
           <div>
             <label for="">State</label>
-            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getState()%>"<%}%> id="Cstate" name="Cstate" size="35"/>
+            <input type="text" value="<%=address2.getState()%>" id="Cstate" name="Cstate" size="35"/>
           </div>
 
           <div>
             <label for="">Country</label>
-            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getCountry()%>"<%}%> id="Ccountry" name="Ccountry" size="35"/>
+            <input type="text" value="<%=address2.getCountry()%>" id="Ccountry" name="Ccountry" size="35"/>
           </div>
 
           <div>
             <label for="">Pincode</label>
-            <input type="text" <%if(flag&&(!flag1)){%>value="<%=address2.getPinCode()%>"<%}%> id="Cpincode" name="Cpincode" size="35" maxlength="6" />
+            <input type="text" value="<%=address2.getPinCode()%>" id="Cpincode" name="Cpincode" size="35" maxlength="6" />
           </div>
 
         </div>
