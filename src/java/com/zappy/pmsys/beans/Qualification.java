@@ -20,6 +20,16 @@ public class Qualification {
     private String classOfMarks;
     private int percent;
 
+    public Qualification() {
+        this.degree = "";
+        this.specialization = "";
+        this.instituteName = "";
+        this.university = "";
+        this.classOfMarks = "";
+    }
+    
+    
+
     public int getpId() {
         return pId;
     }

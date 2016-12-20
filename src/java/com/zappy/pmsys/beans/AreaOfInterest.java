@@ -12,6 +12,11 @@ package com.zappy.pmsys.beans;
 public class AreaOfInterest {
     private String pId;
     private String areaOfInterest;
+    public AreaOfInterest(){
+        pId="";
+        areaOfInterest="";
+        
+    }
 
     public String getpId() {
         return pId;

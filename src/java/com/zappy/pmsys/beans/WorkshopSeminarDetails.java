@@ -19,6 +19,12 @@ public class WorkshopSeminarDetails {
     private Date toDate;
     private int duration;
     private char type;
+    
+    public WorkshopSeminarDetails(){
+        programmeName="";
+        organizedBy="";
+        type='\u0000';
+    }
 
     public int getpId() {
         return pId;

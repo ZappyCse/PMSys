@@ -17,6 +17,13 @@ public class Address {
     private String state;
     private int pinCode;
     private String country;
+    public Address(){
+    street="";
+    city="";
+    district="";
+    state="";
+    country = "";
+    }
 
     public int getpId() {
         return pId;

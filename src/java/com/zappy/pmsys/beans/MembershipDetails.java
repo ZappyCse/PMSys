@@ -13,6 +13,10 @@ public class MembershipDetails {
     private int pId;
     private String membershipId;
     private String organization;
+    public MembershipDetails(){
+        membershipId="";
+        organization="";
+    }
 
     public int getpId() {
         return pId;

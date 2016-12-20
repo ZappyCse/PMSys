@@ -15,6 +15,11 @@ public class Monographs {
     private String coAuthorName;
     private String publisherName;
     private int year;
+    public Monographs(){
+        title="";
+        coAuthorName="";
+        publisherName="";
+    }
 
     public int getpId() {
         return pId;

@@ -20,6 +20,14 @@ public class OrganizedProgramDetails {
     private Date toDate;
     private int duration;
     private String convener;
+    
+    public OrganizedProgramDetails(){
+        programmeName="";
+        sponsoredBy="";
+        actedAs="";
+        convener="";
+        
+    }
 
     public int getpId() {
         return pId;
