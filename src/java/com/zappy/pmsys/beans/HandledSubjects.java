@@ -18,6 +18,14 @@ public class HandledSubjects {
     private String department;
     private char section;
     private float passPercent;
+    public HandledSubjects(){
+        academicYear="";
+        semester ='\u0000';
+        subjectName="";
+        department="";
+        section='\u0000';
+        
+    }
 
     public String getDepartment() {
         return department;

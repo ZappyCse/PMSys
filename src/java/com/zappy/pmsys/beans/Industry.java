@@ -18,6 +18,11 @@ public class Industry {
     private String natureOfWork;
     private Date fromDate;
     private Date toDate;
+    public Industry(){
+        organization="";
+        designation="";
+        natureOfWork="";
+            }
 
     public int getpId() {
         return pId;

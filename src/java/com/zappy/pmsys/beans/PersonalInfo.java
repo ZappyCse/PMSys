@@ -25,6 +25,13 @@ public class PersonalInfo{
     private String mailId;
     private String secMailId;
     private List<Address> address;
+    public PersonalInfo(){
+    facultyId="";
+    gender = '\u0000';
+    bloodGroup="";
+    mailId="";
+    secMailId="";
+    }
 
     public List<Address> getAddress() {
         return address;

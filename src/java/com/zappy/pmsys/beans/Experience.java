@@ -18,6 +18,11 @@ public class Experience {
     private String natureOfWork;
     private Date fromDate;
     private Date toDate;
+    public Experience(){
+        instituteName="";
+        designation="";
+        natureOfWork="";                
+    }
 
     public int getpId() {
         return pId;

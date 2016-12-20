@@ -14,6 +14,7 @@ public class LoginDetails {
     private String password;
     private char type;
     private boolean activeStatus;
+    
 
     public String getUserName() {
         return userName;

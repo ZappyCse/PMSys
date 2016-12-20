@@ -59,11 +59,13 @@ public class PMSysDao {
        }
    }
    public Faculty getUser(String userName){
+       System.out.println("com.zappy.pmsys.dao.PMSysDao.getUser()"+userName);
        Session session=DBUtil.getSessionFactory().openSession();
        try{
            Query query=session.createQuery("from Faculty where facultyId=:n");
            query.setParameter("n", userName);
            if(query.list().size()==1){
+               System.out.println("com.zappy.pmsys.dao.PMSysDao.getUser()"+query.list().get(0));
                return (Faculty)query.list().get(0);
            }
            else

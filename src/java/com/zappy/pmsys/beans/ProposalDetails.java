@@ -19,6 +19,13 @@ public class ProposalDetails {
     private int duration;
     private String status;	
     private String sectorType;
+    
+    public ProposalDetails(){
+        title="";
+        dOfAgency="";
+        status="";
+        sectorType="";
+    }
 
     public int getpId() {
         return pId;

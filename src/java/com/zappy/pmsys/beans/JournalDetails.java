@@ -22,6 +22,16 @@ public class JournalDetails {
     private float sjrNumber;
     private float snipNumber;
     private float hIndex;
+    
+    public JournalDetails(){
+        researchTitle="";
+        coauthorNames="";
+        publisherJournalName="";
+        month="";
+        doi="";
+        issn="";
+        
+    }
 
     public String getResearchTitle() {
         return researchTitle;

@@ -14,6 +14,12 @@ import java.util.Date;
 public class Responsibilities {
     private int pId;
     private String workDetails;
+
+    public Responsibilities() {
+        this.workDetails = "";
+        this.workAllottedBy = "";
+        this.type = '\u0000';
+    }
     private String workAllottedBy;
     private Date fromDate;
     private Date toDate;
