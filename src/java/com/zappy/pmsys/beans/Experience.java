@@ -5,7 +5,11 @@
  */
 package com.zappy.pmsys.beans;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -72,4 +76,24 @@ public class Experience {
         this.toDate = to;
     }
 
+    public void setAll(String pi[]){
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        instituteName=pi[0];
+        designation=pi[1];
+        natureOfWork=pi[2];
+        if(!pi[3].equals("")){
+            try {
+                fromDate=df.parse(pi[3]);
+            } catch (ParseException ex) {
+                Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(!pi[4].equals("")){
+            try {
+                toDate=df.parse(pi[4]);
+            } catch (ParseException ex) {
+                Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

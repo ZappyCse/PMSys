@@ -18,7 +18,7 @@ public class Qualification {
     private int yoa;
     private int yoc;
     private String classOfMarks;
-    private int percent;
+    private float percent;
 
     public Qualification() {
         this.degree = "";
@@ -27,8 +27,6 @@ public class Qualification {
         this.university = "";
         this.classOfMarks = "";
     }
-    
-    
 
     public int getpId() {
         return pId;
@@ -94,12 +92,25 @@ public class Qualification {
         this.classOfMarks = classOfMarks;
     }
 
-    public int getPercent() {
+    public float getPercent() {
         return percent;
     }
 
-    public void setPercent(int percent) {
+    public void setPercent(float percent) {
         this.percent = percent;
     }
-
+    
+    public void setAll(String pn[]){
+        degree=pn[0];
+        specialization=pn[1];
+        instituteName=pn[2];
+        university=pn[3];
+        if(!pn[4].equals(""))
+            yoa=Integer.parseInt(pn[4]);
+        if(!pn[5].equals(""))
+            yoc=Integer.parseInt(pn[5]);
+        classOfMarks=pn[6];
+        if(!pn[7].equals(""))
+            percent=Float.parseFloat(pn[7]);
+    }
 }

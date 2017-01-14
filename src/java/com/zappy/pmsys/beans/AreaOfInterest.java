@@ -10,22 +10,19 @@ package com.zappy.pmsys.beans;
  * @author Arun
  */
 public class AreaOfInterest {
-    private String pId;
+    private int pId;
     private String areaOfInterest;
     public AreaOfInterest(){
-        pId="";
         areaOfInterest="";
-        
     }
 
-    public String getpId() {
+    public int getpId() {
         return pId;
     }
 
-    public void setpId(String pId) {
+    public void setpId(int pId) {
         this.pId = pId;
     }
-
    
     public String getAreaOfInterest() {
         return areaOfInterest;
@@ -35,4 +32,7 @@ public class AreaOfInterest {
         this.areaOfInterest = areaOfInterest;
     }
         
+    public void setAll(String st){
+        areaOfInterest=st;
+    }
 }

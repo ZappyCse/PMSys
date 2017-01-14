@@ -11,7 +11,8 @@ package com.zappy.pmsys.beans;
  */
 public class HandledSubjects {
     private int pId;
-    private String academicYear;
+    private int academicYearFrom;
+    private int academicYearTo;
     private char semester;
     private String subjectName;
     private int year;
@@ -19,7 +20,6 @@ public class HandledSubjects {
     private char section;
     private float passPercent;
     public HandledSubjects(){
-        academicYear="";
         semester ='\u0000';
         subjectName="";
         department="";
@@ -43,12 +43,20 @@ public class HandledSubjects {
         this.pId = pId;
     }
 
-    public String getAcademicYear() {
-        return academicYear;
+    public int getAcademicYearFrom() {
+        return academicYearFrom;
     }
 
-    public void setAcademicYear(String academicYear) {
-        this.academicYear = academicYear;
+    public void setAcademicYearFrom(int academicYearFrom) {
+        this.academicYearFrom = academicYearFrom;
+    }
+
+    public int getAcademicYearTo() {
+        return academicYearTo;
+    }
+
+    public void setAcademicYearTo(int academicYearTo) {
+        this.academicYearTo = academicYearTo;
     }
 
     public char getSemester() {
@@ -91,4 +99,22 @@ public class HandledSubjects {
         this.passPercent = passPercent;
     }
     
+    public void setAll(String pi[]){
+        if(!pi[0].equals(""))
+            academicYearFrom=Integer.parseInt(pi[0]);
+        if(!pi[1].equals(""))
+            academicYearTo=Integer.parseInt(pi[1]);
+        if(pi[2].equalsIgnoreCase("ODD"))
+            semester='O';
+        else
+            semester='E';
+        subjectName=pi[3];
+        if(!pi[4].equals(""))
+            year=Integer.parseInt(pi[4]);
+        department=pi[5];
+        if(!pi[6].equals(""))
+            section=pi[6].charAt(0);
+        if(!pi[7].equals(""))
+            passPercent=Float.parseFloat(pi[7]);
+    }
 }

@@ -17,7 +17,7 @@ import org.hibernate.Transaction;
 
 public class PMSysDao {
     private Transaction transaction;
-    public int validateUser(String userName,String password){
+    public String validateUser(String userName,String password){
         Session session=DBUtil.getSessionFactory().openSession();
         try{
             Query query=session.createQuery("from LoginDetails where userName=:n");
@@ -27,26 +27,38 @@ public class PMSysDao {
                 LoginDetails loginDetails1=loginDetails.get(0);
                 if(loginDetails1.getPassword().equals(password)){
                     if(loginDetails1.isActiveStatus()){
-                        return -1;
+                        return "Currently Active";
                     }
                     else{
                        transaction=session.beginTransaction();
-                        loginDetails1.setActiveStatus(false);
+                        loginDetails1.setActiveStatus(false);   /*--------------Set to true later*/
                         session.persist(loginDetails1);
                         transaction.commit();
-                        return 1;
+                        return userName;
                     }
                 }
                 else
-                    return 0;
+                    return "Incorrect Password";
             }
             else
-                return 0;    
+                return "Incorrect UserName";    
         }
         finally{
             session.close();
         }
    }
+    public char getUserType(String userID){
+        Session session=DBUtil.getSessionFactory().openSession();
+        try{
+            Query query=session.createQuery("from LoginDetails where userName=:n");
+            query.setParameter("n", userID);
+            LoginDetails loginDetails=(LoginDetails) query.list().get(0);
+            return loginDetails.getType();
+        }
+        finally{
+            session.close();
+        }
+    }
    public void setUser(Faculty faculty){
        Session session=DBUtil.getSessionFactory().openSession();
        transaction=session.beginTransaction();

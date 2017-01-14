@@ -159,7 +159,8 @@
       <id name="pId">
            <generator class="increment"></generator>
       </id>
-      <property name="academicYear"></property>   
+      <property name="academicYearFrom"></property>   
+      <property name="academicYearTo"></property>
       <property name="semester"></property>       
       <property name="subjectName"></property>   
       <property name="year"></property>   

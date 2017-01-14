@@ -59,6 +59,12 @@
               
         }
       }
+      
+      function change(){
+          alert("hai");
+          document.getElementById('address').checked=false;
+          FillAddress();
+      }
     </script>
     
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
@@ -265,10 +271,12 @@
    <% 
       String facultyId=(String)request.getSession().getAttribute("facultyId");
       String facultyName=(String)request.getSession().getAttribute("facultyName");
-      if(facultyName==null){
-          facultyName="";
-      }
       System.out.println(facultyId);
+      if(facultyId==null && facultyName==null){
+    %>
+    <jsp:forward page="index.jsp" />
+   <%
+       }
       PersonalInfo personalInfo=new Administrator().getPersonalInfo(facultyId);
       if(personalInfo==null){
           personalInfo=new PersonalInfo();
@@ -374,12 +382,12 @@
 
           <div>
             <label for="">Street</label>
-            <input type="text" id="Pstreet" name="Pstreet" value="<%=address1.getStreet()%>" size="35"/>
+            <input type="text" id="Pstreet" name="Pstreet" value="<%=address1.getStreet()%>" size="35" onchange="change()"/>
           </div>
 
           <div>
             <label for="">City</label>
-            <input type="text" id="Pcity" name="Pcity" value="<%=address1.getCity()%>" size="35"/>
+            <input type="text" id="Pcity" name="Pcity" value="<%=address1.getCity()%>" size="35" onchange="change()"/>
           </div>
 
           <div>
@@ -450,7 +458,7 @@
 
         <input type="hidden" name="action" value="personalinfo"/>
         <button class="button">
-          <span>Next</span>
+          <span>Save</span>
         </button>
           </div>
       </form>

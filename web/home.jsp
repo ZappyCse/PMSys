@@ -2,7 +2,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Personal Information</title>
+      <% if(session.getAttribute("facultyId")==null){%>
+      <jsp:forward page="index.jsp" />
+      <% } %>
+      <title><%=session.getAttribute("facultyId") %></title>
     <script language="javascript" type="text/javascript" >
 
       function hide(t,t1){

@@ -14,7 +14,7 @@ import com.zappy.pmsys.dao.PMSysDao;
  * @author Arun
  */
 public class Administrator {
-   public int validateUser(String userName,String password){
+   public String validateUser(String userName,String password){
        return new PMSysDao().validateUser(userName, password);
    }
    public void setUser(Faculty faculty){

@@ -16,12 +16,12 @@ public class PersonalInfo{
     private String facultyId;
     private Faculty faculty;
     private Date dob;
-    private Character gender;
+    private char gender;
     private String bloodGroup;
     private Date doj;
     private Date dor;
-    private Long phoneNumber;
-    private Long secPhoneNumber;
+    private long phoneNumber;
+    private long secPhoneNumber;
     private String mailId;
     private String secMailId;
     private List<Address> address;
@@ -65,11 +65,11 @@ public class PersonalInfo{
         this.dob = dob;
     }
    
-    public Character getGender() {
+    public char getGender() {
         return gender;
     }
 
-    public void setGender(Character gender) {
+    public void setGender(char gender) {
         this.gender = gender;
     }
 
@@ -97,19 +97,19 @@ public class PersonalInfo{
         this.dor = dor;
     }
 
-    public Long getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getSecPhoneNumber() {
+    public long getSecPhoneNumber() {
         return secPhoneNumber;
     }
 
-    public void setSecPhoneNumber(Long secPhoneNumber) {
+    public void setSecPhoneNumber(long secPhoneNumber) {
         this.secPhoneNumber = secPhoneNumber;
     }
 
