@@ -22,12 +22,24 @@ public class Industry {
     private String natureOfWork;
     private Date fromDate;
     private Date toDate;
+    
     public Industry(){
         organization="";
         designation="";
         natureOfWork="";
-            }
+    }
 
+    public String[] getAll(){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String[] pi=new String[5];
+        pi[0]=organization==null?"":organization;
+        pi[1]=designation==null?"":designation;
+        pi[2]=natureOfWork==null?"":natureOfWork;
+        pi[3]=fromDate==null?"":dateFormat.format(fromDate);
+        pi[4]=toDate==null?"":dateFormat.format(toDate);
+        return pi;
+    }
+    
     public int getpId() {
         return pId;
     }

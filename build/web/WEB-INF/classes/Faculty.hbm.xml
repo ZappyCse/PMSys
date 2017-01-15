@@ -12,62 +12,62 @@
     <one-to-one name="personalInfo" cascade="all" lazy="false"/>
     <property name="name"></property> 
     <subclass name="com.zappy.pmsys.beans.TeachingFaculty" discriminator-value="Teaching">
-        <list name="experience" cascade="all" lazy="false">
+        <list name="experience" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.Experience"/>
         </list>
-        <list name="industry" cascade="all" lazy="false">
+        <list name="industry" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.Industry"/>
         </list>
-        <list name="qualification" cascade="all" lazy="false">
+        <list name="qualification" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.Qualification"/>
         </list>
-        <list name="responsibilities" cascade="all" lazy="false">
+        <list name="responsibilities" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.Responsibilities"/>
         </list>
-        <list name="monographs" cascade="all" lazy="false">
+        <list name="monographs" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.Monographs"/>
         </list>
-        <list name="proposalDetails" cascade="all" lazy="false">
+        <list name="proposalDetails" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.ProposalDetails"/>
         </list>
-        <list name="journalDetails" cascade="all" lazy="false">
+        <list name="journalDetails" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.JournalDetails"/>
         </list>
-        <list name="workshopSeminarDetails" cascade="all" lazy="false">
+        <list name="workshopSeminarDetails" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.WorkshopSeminarDetails"/>
         </list>
-        <list name="organizedProgramDetails" cascade="all" lazy="false">
+        <list name="organizedProgramDetails" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.OrganizedProgramDetails"/>
         </list>
-        <list name="areaOfInterest" cascade="all" lazy="false">
+        <list name="areaOfInterest" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.AreaOfInterest"/>
         </list>
-        <list name="membershipDetails" cascade="all" lazy="false">
+        <list name="membershipDetails" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.MembershipDetails"/>
         </list>
-        <list name="handledSubjects" cascade="all" lazy="false">
+        <list name="handledSubjects" cascade="save-update,delete,delete-orphan" lazy="false">
             <key column="facultyId" />
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.HandledSubjects"/>
@@ -229,7 +229,7 @@
       <property name="mailId"></property>   
       <property name="secMailId"></property>   
       <property name="dor"></property>
-      <list name="address" cascade="all" lazy="false">
+      <list name="address" cascade="save-update,delete,delete-orphan" lazy="false">
           <key column="facultyId" />
           <index column="type"/>
           <one-to-many class="com.zappy.pmsys.beans.Address"/>

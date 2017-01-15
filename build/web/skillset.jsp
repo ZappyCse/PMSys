@@ -4,6 +4,16 @@
     Author     : Arun
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.zappy.pmsys.beans.Experience"%>
+<%@page import="com.zappy.pmsys.beans.Industry"%>
+<%@page import="com.zappy.pmsys.beans.HandledSubjects"%>
+<%@page import="com.zappy.pmsys.beans.AreaOfInterest"%>
+<%@page import="java.util.List"%>
+<%@page import="com.zappy.pmsys.beans.TeachingFaculty"%>
+<%@page import="com.zappy.pmsys.beans.Qualification"%>
+<%@page import="com.zappy.pmsys.admin.Administrator"%>
+<%@page import="com.zappy.pmsys.beans.Faculty"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -245,7 +255,30 @@
       
             
     </style>
-  </head>
+    </head>
+    
+    <%  TeachingFaculty faculty=(TeachingFaculty)new Administrator().getUser((String)request.getSession().getAttribute("facultyId"));
+        List<Qualification> qualifications=faculty.getQualification();
+        if(qualifications==null)
+           qualifications=new ArrayList<>();
+        List<AreaOfInterest> areaOfInterests=faculty.getAreaOfInterest();
+        if(areaOfInterests==null)
+            areaOfInterests=new ArrayList<>();
+        List<HandledSubjects> handledSubjectses=faculty.getHandledSubjects();
+        if(handledSubjectses==null)
+            handledSubjectses=new ArrayList<>();
+        List<Industry> industrys=faculty.getIndustry();
+        if(industrys==null)
+            industrys=new ArrayList<>();
+        List<Experience> experiences=faculty.getExperience();
+        if(experiences==null)
+            experiences=new ArrayList<>();
+        String pname[];
+        int index=0;
+        int size=0;
+        String tmp="";
+        %>
+    
     <body>
         
         <div class="div">
@@ -288,36 +321,56 @@
                                     <th rowspan="2">Class of Marks</th>
                                     <th rowspan="2">Percentage of Marks</th>
                                 </thead>
+                                
+                                <%
+                                    Qualification qualification;
+                                    size=qualifications.size();
+                                    while(index<size||size==0){
+                                        if(size==0){
+                                            qualification=new Qualification();
+                                            size=-1;
+                                        }
+                                        else{
+                                            qualification=(Qualification)qualifications.get(index);
+                                        }
+                                        pname=qualification.getAll();
+                                %>
                                 <tr>
-                                    <td>1</td>
+                                    <td><%=index+1 %></td>
                                     <td>
-                                        <input type="text" name="degree" id="degree" />
+                                        <input type="text" name="<%="degree"+tmp %>" id="<%="degree"+tmp %>" value="<%=pname[0] %>" />
                                     </td>
                                     <td>
-                                        <input type="text" name="specialization" id="specialization"/>
+                                        <input type="text" name="<%="specialization"+tmp %>" id="<%="specialization"+tmp %>" value="<%=pname[1] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="institute" id="institute"/>
+                                        <input type="text" name="<%="institute"+tmp %>" id="<%="institute"+tmp %>" value="<%=pname[2] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="university" id="university" />
+                                        <input type="text" name="<%="university"+tmp %>" id="<%="university"+tmp %>" value="<%=pname[3] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="admission" id="admission" maxlength = "4" />
+                                        <input type="text" name="<%="admission"+tmp %>" id="<%="admission"+tmp %>" maxlength = "4" value="<%=pname[4] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="completion" id="completion" maxlength = "4" />
+                                        <input type="text" name="<%="completion"+tmp %>" id="<%="completion"+tmp %>" maxlength = "4" value="<%=pname[5] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="class" id="class"/>
+                                        <input type="text" name="<%="class"+tmp %>" id="<%="class"+tmp %>" value="<%=pname[6] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="percentage" id="percentage" size="10"/>
+                                        <input type="text" name="<%="percentage"+tmp %>" id="<%="percentage"+tmp %>" value="<%=pname[7] %>"/>
                                     </td>
                                     <td>
                                         <input type = "button" value = "Delete" onclick = "deleteRow(this,'qualification')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
                                     </td>
+                                    
                                 </tr>
+                                <%
+                                    ++index;
+                                    tmp=index+1+"";
+                                    }
+                                %>
                             </table>
                             <center>
                                 <input type = "button" class="center" value = "Add more" onclick = "addRow('qualification')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
@@ -341,15 +394,35 @@
                                 <th>S.No</th>
                                 <th>Area Of Interest</th>
                                 </thead>
+                                <%
+                                    AreaOfInterest areaOfInterest;
+                                    size=areaOfInterests.size();
+                                    index=0;
+                                    tmp="";
+                                    while(index<size||size==0){
+                                        if(size==0){
+                                            areaOfInterest=new AreaOfInterest();
+                                            size=-1;
+                                        }
+                                        else{
+                                            areaOfInterest=(AreaOfInterest)areaOfInterests.get(index);
+                                        }
+                                        
+                                %>
                                 <tr>
-                                    <td>1</td> 
+                                    <td><%=index+1 %></td> 
                                     <td>
-                                        <input type="text" name="areas" id="areas"  width = "100px" size="12" />
+                                        <input type="text" name="<%="areas"+tmp %>" id="<%="areas"+tmp %>" value="<%=areaOfInterest.getAll() %>"/>
                                     </td>
                                     <td>
                                         <input type = "button" value = "Delete" onclick = "deleteRow(this,'interest')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
                                     </td>
                                 </tr>
+                                <%
+                                    ++index;
+                                    tmp=index+1+"";
+                                    }
+                                %>
                             </table>
                             <center>
                                 <input type = "button" value = "Add more" onclick = "addRow('interest')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
@@ -380,24 +453,44 @@
                                     <th>Section</th>
                                     <th>Pass Percent</th>
                                 </thead>
+                                <%
+                                    HandledSubjects handledSubjects;
+                                    size=handledSubjectses.size();
+                                    index=0;
+                                    tmp="";
+                                    while(index<size||size==0){
+                                        if(size==0){
+                                            handledSubjects=new HandledSubjects();
+                                            size=-1;
+                                        }
+                                        else{
+                                            handledSubjects=(HandledSubjects)handledSubjectses.get(index);
+                                        }
+                                        pname=handledSubjects.getAll();
+                                %>
                                 <tr>
-                                    <td>1</td>
+                                    <td><%=index+1 %></td>
                                     <td>
-                                        <input type="text" name="academicYearTo" id="academicYearFrom" />
+                                        <input type="text" name="<%="academicYearTo"+tmp %>" id="<%="academicYearFrom"+tmp %>" value="<%=pname[0] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="academicYearFrom" id="academicYearTo"/>
+                                        <input type="text" name="<%="academicYearFrom"+tmp %>" id="<%="academicYearTo"+tmp %>" value="<%=pname[1] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="sem" id="sem" maxlength = "1" />
+                                        <input type="text" name="<%="sem"+tmp %>" id="<%="sem"+tmp %>" maxlength = "1" value="<%=pname[2] %>"/>
                                     </td>
-                                    <td><input type="text" name="subName" id="subName" /></td>
-                                    <td><input type="text" name="year" id="year" maxlength = "4"/></td>
-                                    <td><input type="text" name="dept" id="dept" width = "80px"/></td>
-                                    <td><input type="text" name="sec" id="sec" size="10"maxlength  = "1" /></td>
-                                    <td><input type="text" name="passPercent" id="passPercent"/></td>
+                                    <td><input type="text" name="<%="subName"+tmp %>" id="<%="subName"+tmp %>" value="<%=pname[3] %>"/></td>
+                                    <td><input type="text" name="<%="year"+tmp %>" id="<%="year"+tmp %>" maxlength = "4" value="<%=pname[4] %>"/></td>
+                                    <td><input type="text" name="<%="dept"+tmp %>" id="<%="dept"+tmp %>" value="<%=pname[5] %>"/></td>
+                                    <td><input type="text" name="<%="sec"+tmp %>" id="<%="sec"+tmp %>" maxlength  = "1" value="<%=pname[6] %>"/></td>
+                                    <td><input type="text" name="<%="passPercent"+tmp %>" id="<%="passPercent"+tmp %>" value="<%=pname[7] %>"/></td>
                                     <td><input type = "button" value = "Delete" onclick = "deleteRow(this,'subjects')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
                                 </tr>
+                                <%
+                                    ++index;
+                                    tmp=index+1+"";
+                                    }
+                                %>
                                 </table>
                                 <center>
                                     <input type = "button" value = "Add more" onclick = "addRow('subjects')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
@@ -425,27 +518,47 @@
                                     <th rowspan="2">From Date</th>
                                     <th rowspan="2">To Date</th>
                                 </thead>
+                                <%
+                                    Industry industry;
+                                    size=industrys.size();
+                                    index=0;
+                                    tmp="";
+                                    while(index<size||size==0){
+                                        if(size==0){
+                                            industry=new Industry();
+                                            size=-1;
+                                        }
+                                        else{
+                                            industry=(Industry)industrys.get(index);
+                                        }
+                                        pname=industry.getAll();
+                                %>
                                 <tr>
-                                    <td>1</td>
+                                    <td><%=index+1 %></td>
                                     <td> 
-                                        <input type = "text" name="inorganisation" id = "inorganisation" /> 
+                                        <input type = "text" name="<%="inorganisation"+tmp %>" id = "<%="inorganisation"+tmp %>" value="<%=pname[0] %>"/> 
                                     </td>
                                     <td> 
-                                        <input type = "text" name="indesignation" id = "indesignation"/> 
+                                        <input type = "text" name="<%="indesignation"+tmp %>" id = "<%="indesignation"+tmp %>" value="<%=pname[1] %>"/> 
                                     </td>
                                     <td> 
-                                        <input type = "text" name="innatureofwork" id="innatureofwork"/> 
+                                        <input type = "text" name="<%="innatureofwork"+tmp %>" id="<%="innatureofwork"+tmp %>" value="<%=pname[2] %>"/> 
                                     </td>
                                     <td> 
-                                        <input type = "date" name="infrom" id = "infrom" /> 
+                                        <input type = "date" name="<%="infrom"+tmp %>" id = "<%="infrom"+tmp %>" value="<%=pname[3] %>"/> 
                                     </td>
                                     <td> 
-                                        <input type = "date" name="into" id = "into" /> 
+                                        <input type = "date" name="<%="into"+tmp %>" id ="<%="into"+tmp %>" value="<%=pname[4] %>"/> 
                                     </td>
                                     <td> 
                                         <input type = "button" value = "Delete" onclick = "deleteRow(this,'industable')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> 
                                     </td>
                                 </tr>
+                                <%
+                                    ++index;
+                                    tmp=index+1+"";
+                                    }
+                                %>
                             </table>
                             <center>    
                                 <input type = "button" value = "Add more" onclick = "addRow('industable')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
@@ -474,27 +587,47 @@
                                     <th rowspan="2">From Date</th>
                                     <th rowspan="2">To Date</th>
                                 </thead>
+                                <%
+                                    Experience experience;
+                                    size=experiences.size();
+                                    index=0;
+                                    tmp="";
+                                    while(index<size||size==0){
+                                        if(size==0){
+                                            experience=new Experience();
+                                            size=-1;
+                                        }
+                                        else{
+                                            experience=(Experience)experiences.get(index);
+                                        }
+                                        pname=experience.getAll();
+                                %>
                                 <tr>
-                                    <td>1</td>
+                                    <td><%=index+1 %></td>
                                     <td>
-                                        <input type="text" name="teainstitute" id="teainstitute" width="100px" size="37" />
+                                        <input type="text" name="<%="teainstitute"+tmp %>" id="<%="teainstitute"+tmp %>" value="<%=pname[0] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="teadesignation" id="teadesignation" width="200px" size="37" />
+                                        <input type="text" name="<%="teadesignation"+tmp %>" id="<%="teadesignation"+tmp %>" value="<%=pname[1] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="teawork" id="teawork" width="200px"size="37" />
+                                        <input type="text" name="<%="teawork"+tmp %>" id="<%="teawork"+tmp %>" value="<%=pname[2] %>"/>
                                     </td>
                                     <td>
-                                        <input type="date" name="teafrom" id="teafrom" />
+                                        <input type="date" name="<%="teafrom"+tmp %>" id="<%="teafrom"+tmp %>" value="<%=pname[3] %>"/>
                                     </td>
                                     <td>
-                                        <input type="date" name="teato" id="teato" />
+                                        <input type="date" name="<%="teato"+tmp %>" id="<%="teato"+tmp %>" value="<%=pname[4] %>"/>
                                     </td>
                                     <td>
                                         <input type = "button" value = "Delete" onclick = "deleteRow(this,'teaching_exp')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
                                     </td>
                                 </tr>
+                                <%
+                                    ++index;
+                                    tmp=index+1+"";
+                                    }
+                                %>
                             </table>
                             
                             <center>

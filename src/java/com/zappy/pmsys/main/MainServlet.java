@@ -29,6 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Session;
 
 /**
  *
@@ -159,13 +160,18 @@ public class MainServlet extends HttpServlet {
             for(int i=0;i<8;i++){
                 qual[i]=request.getParameter(pname);
                 pname=en.nextElement();
-                System.out.println(pname);
             }
             qualification.setAll(qual);
             qualifications.add(index, qualification);
             ++index;
+            if(pname.equals("tb1")){
+                while(index<qualifications.size()){
+                    qualifications.remove(index);
+                }
+            }
         }
         faculty.setQualification(qualifications);
+        
         List<AreaOfInterest> areaOfInterests=faculty.getAreaOfInterest();
         if(areaOfInterests==null)
             areaOfInterests=new ArrayList<>();
@@ -185,6 +191,11 @@ public class MainServlet extends HttpServlet {
             pname=en.nextElement();
             areaOfInterests.add(index, areaOfInterest);
             ++index;
+            if(pname.equals("tb2")){
+                while(index<areaOfInterests.size()){
+                    areaOfInterests.remove(index);
+                }
+            }
         }
         faculty.setAreaOfInterest(areaOfInterests);
         
@@ -210,6 +221,11 @@ public class MainServlet extends HttpServlet {
             handledSubjects.setAll(qual);
             handledSubjectses.add(index, handledSubjects);
             ++index;
+            if(pname.equals("tb3")){
+                while(index<handledSubjectses.size()){
+                    handledSubjectses.remove(index);
+                }
+            }
         }
         faculty.setHandledSubjects(handledSubjectses);
         
@@ -236,6 +252,11 @@ public class MainServlet extends HttpServlet {
             industry.setAll(qual);
             industrys.add(index, industry);
             ++index;
+            if(pname.equals("tb4")){
+                while(index<industrys.size()){
+                    industrys.remove(index);
+                }
+            }
         }
         faculty.setIndustry(industrys);
         
@@ -262,10 +283,16 @@ public class MainServlet extends HttpServlet {
             experience.setAll(qual);
             experiences.add(index, experience);
             ++index;
+            if(pname.equals("action")){
+                while(index<experiences.size()){
+                    experiences.remove(index);
+                }
+            }
         }
         faculty.setExperience(experiences);
         
         new Administrator().setUser(faculty);
+        request.getRequestDispatcher("skillset.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

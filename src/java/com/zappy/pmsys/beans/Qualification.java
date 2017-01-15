@@ -5,6 +5,8 @@
  */
 package com.zappy.pmsys.beans;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Arun
@@ -28,6 +30,19 @@ public class Qualification {
         this.classOfMarks = "";
     }
 
+    public String[] getAll(){
+        String[] pi=new String[8];
+        pi[0]=degree==null?"":degree;
+        pi[1]=specialization==null?"":specialization;
+        pi[2]=instituteName==null?"":instituteName;
+        pi[3]=university==null?"":university;
+        pi[4]=yoa==0?"":yoa+"";
+        pi[5]=yoc==0?"":yoc+"";
+        pi[6]=classOfMarks==null?"":classOfMarks;
+        pi[7]=((int)percent)==0?"":percent+"";
+        return pi;
+    }
+    
     public int getpId() {
         return pId;
     }

@@ -35,4 +35,10 @@ public class AreaOfInterest {
     public void setAll(String st){
         areaOfInterest=st;
     }
+    
+    public String getAll(){
+        if(areaOfInterest==null)
+            return "";
+        return areaOfInterest;
+    }
 }

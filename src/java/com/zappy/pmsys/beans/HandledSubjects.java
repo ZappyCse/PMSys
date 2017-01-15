@@ -5,6 +5,8 @@
  */
 package com.zappy.pmsys.beans;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Arun
@@ -19,12 +21,26 @@ public class HandledSubjects {
     private String department;
     private char section;
     private float passPercent;
+    
     public HandledSubjects(){
         semester ='\u0000';
         subjectName="";
         department="";
-        section='\u0000';
-        
+        section='\u0000'; 
+    }
+    
+    public String[] getAll(){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String[] pi=new String[8];
+        pi[0]=academicYearFrom==0?"":academicYearFrom+"";
+        pi[1]=academicYearTo==0?"":academicYearTo+"";
+        pi[2]=semester=='\u0000'?"":semester+"";
+        pi[3]=subjectName==null?"":subjectName;
+        pi[4]=year==0?"":year+"";
+        pi[5]=department==null?"":department;
+        pi[6]=section=='\u0000'?"":section+"";
+        pi[7]=((int)passPercent)==0?"":passPercent+"";
+        return pi;
     }
 
     public String getDepartment() {

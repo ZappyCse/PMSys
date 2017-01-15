@@ -96,4 +96,15 @@ public class Experience {
             }
         }
     }
+    
+    public String[] getAll(){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String[] pi=new String[5];
+        pi[0]=instituteName==null?"":instituteName;
+        pi[1]=designation==null?"":designation;
+        pi[2]=natureOfWork==null?"":natureOfWork;
+        pi[3]=fromDate==null?"":dateFormat.format(fromDate);
+        pi[4]=toDate==null?"":dateFormat.format(toDate);
+        return pi;
+    }
 }

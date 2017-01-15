@@ -9,6 +9,7 @@
     <property name="connection.password">zappy</property>
     <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+    <property name="show_sql">true</property>
     <mapping class="" file="" jar="" package="" resource="Faculty.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
