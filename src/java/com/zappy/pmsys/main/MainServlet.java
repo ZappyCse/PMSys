@@ -13,9 +13,17 @@ import com.zappy.pmsys.beans.Experience;
 import com.zappy.pmsys.beans.Faculty;
 import com.zappy.pmsys.beans.HandledSubjects;
 import com.zappy.pmsys.beans.Industry;
+import com.zappy.pmsys.beans.JournalDetails;
+import com.zappy.pmsys.beans.MembershipDetails;
+import com.zappy.pmsys.beans.Monographs;
+import com.zappy.pmsys.beans.OrganizedProgramDetails;
 import com.zappy.pmsys.beans.PersonalInfo;
+import com.zappy.pmsys.beans.ProposalDetails;
 import com.zappy.pmsys.beans.Qualification;
+import com.zappy.pmsys.beans.Responsibilities;
+import com.zappy.pmsys.beans.SelfAppraisal;
 import com.zappy.pmsys.beans.TeachingFaculty;
+import com.zappy.pmsys.beans.WorkshopSeminarDetails;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -294,6 +302,293 @@ public class MainServlet extends HttpServlet {
         new Administrator().setUser(faculty);
         request.getRequestDispatcher("skillset.jsp").forward(request, response);
     }
+    protected void insertAdditionalInformation(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Enumeration<String> en=request.getParameterNames();
+        TeachingFaculty faculty=(TeachingFaculty)new Administrator().getUser((String)request.getSession().getAttribute("facultyId"));
+        
+        if(faculty==null){
+            faculty=new TeachingFaculty();
+            faculty.setFacultyId((String)request.getSession().getAttribute("facultyId"));
+        }
+        
+        List<MembershipDetails> membershipDetailses=faculty.getMembershipDetails();
+        if(membershipDetailses==null)
+            membershipDetailses=new ArrayList<>();
+        MembershipDetails membershipDetails;
+        String qual[]=new String[2];
+        String pname="";
+        int index=0;
+        int qi=membershipDetailses.size();
+        pname=en.nextElement();
+        while(!pname.equals("tb1")){
+            if(index<qi){
+                membershipDetails=membershipDetailses.get(index);
+                membershipDetailses.remove(index);
+            }
+            else
+                membershipDetails=new MembershipDetails();
+            for(int i=0;i<2;i++){
+                qual[i]=request.getParameter(pname);
+                pname=en.nextElement();
+            }
+            membershipDetails.setAll(qual);
+            membershipDetailses.add(index, membershipDetails);
+            ++index;
+            if(pname.equals("tb1")){
+                while(index<membershipDetailses.size()){
+                    membershipDetailses.remove(index);
+                }
+            }
+        }
+        faculty.setMembershipDetails(membershipDetailses);
+        
+        List<Responsibilities> responsibilitieses=faculty.getResponsibilities();
+        if(responsibilitieses==null)
+            responsibilitieses=new ArrayList<>();
+        index=0;
+        pname=en.nextElement();
+        qi=responsibilitieses.size();
+        Responsibilities responsibilities;
+        qual=new String[6];
+        while(!pname.equals("tb2")){
+            if(index<qi){
+                responsibilities=responsibilitieses.get(index);
+                responsibilitieses.remove(index);
+            }
+            else
+                responsibilities=new Responsibilities();
+            for(int i=0;i<6;i++){
+                qual[i]=request.getParameter(pname);
+                pname=en.nextElement();
+            }
+            responsibilities.setAll(qual);
+            responsibilitieses.add(index, responsibilities);
+            ++index;
+            if(pname.equals("tb2")){
+                while(index<responsibilitieses.size()){
+                    responsibilitieses.remove(index);
+                }
+            }
+        }
+        faculty.setResponsibilities(responsibilitieses);
+        
+        List<SelfAppraisal> selfAppraisals=faculty.getSelfAppraisals();
+        if(selfAppraisals==null)
+            selfAppraisals=new ArrayList<>();
+        index=0;
+        pname=en.nextElement();
+        qi=selfAppraisals.size();
+        SelfAppraisal selfAppraisal;
+        qual=new String[2];
+        
+        while(!pname.equals("action")){
+            if(index<qi){
+                selfAppraisal=selfAppraisals.get(index);
+                selfAppraisals.remove(index);
+            }
+            else
+                selfAppraisal=new SelfAppraisal();
+            for(int i=0;i<2;i++){
+                qual[i]=request.getParameter(pname);
+                pname=en.nextElement();
+            }
+            selfAppraisal.setAll(qual);
+            selfAppraisals.add(index, selfAppraisal);
+            ++index;
+            if(pname.equals("action")){
+                while(index<selfAppraisals.size()){
+                    selfAppraisals.remove(index);
+                }
+            }
+        }
+        faculty.setSelfAppraisals(selfAppraisals);
+                
+        new Administrator().setUser(faculty);
+        request.getRequestDispatcher("additionalInformation.jsp").forward(request, response);
+    }
+    protected void insertEvents(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Enumeration<String> en=request.getParameterNames();
+        TeachingFaculty faculty=(TeachingFaculty)new Administrator().getUser((String)request.getSession().getAttribute("facultyId"));
+        
+        if(faculty==null){
+            faculty=new TeachingFaculty();
+            faculty.setFacultyId((String)request.getSession().getAttribute("facultyId"));
+        }
+        
+        List<WorkshopSeminarDetails> workshopSeminarDetailses=faculty.getWorkshopSeminarDetails();
+        if(workshopSeminarDetailses==null)
+            workshopSeminarDetailses=new ArrayList<>();
+        WorkshopSeminarDetails workshopSeminarDetails;
+        String qual[]=new String[7];
+        String pname="";
+        int index=0;
+        int qi=workshopSeminarDetailses.size();
+        pname=en.nextElement();
+        while(!pname.equals("tb1")){
+            if(index<qi){
+                workshopSeminarDetails=workshopSeminarDetailses.get(index);
+                workshopSeminarDetailses.remove(index);
+            }
+            else
+                workshopSeminarDetails=new WorkshopSeminarDetails();
+            for(int i=0;i<7;i++){
+                qual[i]=request.getParameter(pname);
+                
+                pname=en.nextElement();
+                System.out.println(pname);
+            }
+            workshopSeminarDetails.setAll(qual);
+            workshopSeminarDetailses.add(index, workshopSeminarDetails);
+            ++index;
+            if(pname.equals("tb1")){
+                while(index<workshopSeminarDetailses.size()){
+                    workshopSeminarDetailses.remove(index);
+                }
+            }
+        }
+        faculty.setWorkshopSeminarDetails(workshopSeminarDetailses);
+        
+        List<OrganizedProgramDetails> organizedProgramDetailses=faculty.getOrganizedProgramDetails();
+        if(organizedProgramDetailses==null)
+            organizedProgramDetailses=new ArrayList<>();
+        index=0;
+        pname=en.nextElement();
+        qi=organizedProgramDetailses.size();
+        OrganizedProgramDetails organizedProgramDetails;
+        qual=new String[9];
+        while(!pname.equals("action")){
+            if(index<qi){
+                organizedProgramDetails=organizedProgramDetailses.get(index);
+                organizedProgramDetailses.remove(index);
+            }
+            else
+                organizedProgramDetails=new OrganizedProgramDetails();
+            for(int i=0;i<9;i++){
+                qual[i]=request.getParameter(pname);
+                pname=en.nextElement();
+            }
+            organizedProgramDetails.setAll(qual);
+            organizedProgramDetailses.add(index, organizedProgramDetails);
+            ++index;
+            if(pname.equals("action")){
+                while(index<organizedProgramDetailses.size()){
+                    organizedProgramDetailses.remove(index);
+                }
+            }
+        }
+        faculty.setOrganizedProgramDetails(organizedProgramDetailses);
+                
+        new Administrator().setUser(faculty);
+        request.getRequestDispatcher("events.jsp").forward(request, response);
+    }
+    protected void insertPublications(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Enumeration<String> en=request.getParameterNames();
+        TeachingFaculty faculty=(TeachingFaculty)new Administrator().getUser((String)request.getSession().getAttribute("facultyId"));
+        
+        if(faculty==null){
+            faculty=new TeachingFaculty();
+            faculty.setFacultyId((String)request.getSession().getAttribute("facultyId"));
+        }
+        
+        List<JournalDetails> journalDetailses=faculty.getJournalDetails();
+        if(journalDetailses==null)
+            journalDetailses=new ArrayList<>();
+        JournalDetails journalDetails;
+        String qual[]=new String[14];
+        String pname="";
+        int index=0;
+        int qi=journalDetailses.size();
+        pname=en.nextElement();
+        while(!pname.equals("tb1")){
+            if(index<qi){
+                journalDetails=journalDetailses.get(index);
+                journalDetailses.remove(index);
+            }
+            else
+                journalDetails=new JournalDetails();
+            for(int i=0;i<14;i++){
+                qual[i]=request.getParameter(pname);
+                pname=en.nextElement();
+                System.out.println(pname);
+            }
+            journalDetails.setAll(qual);
+            journalDetailses.add(index, journalDetails);
+            ++index;
+            if(pname.equals("tb1")){
+                while(index<journalDetailses.size()){
+                    journalDetailses.remove(index);
+                }
+            }
+        }
+        faculty.setJournalDetails(journalDetailses);
+        
+        List<Monographs> monographses=faculty.getMonographs();
+        if(monographses==null)
+            monographses=new ArrayList<>();
+        index=0;
+        pname=en.nextElement();
+        qi=monographses.size();
+        Monographs monographs;
+        qual=new String[5];
+        while(!pname.equals("tb2")){
+            if(index<qi){
+                monographs=monographses.get(index);
+                monographses.remove(index);
+            }
+            else
+                monographs=new Monographs();
+            for(int i=0;i<5;i++){
+                qual[i]=request.getParameter(pname);
+                pname=en.nextElement();
+            }
+            monographs.setAll(qual);
+            monographses.add(index, monographs);
+            ++index;
+            if(pname.equals("tb2")){
+                while(index<monographses.size()){
+                    monographses.remove(index);
+                }
+            }
+        }
+        faculty.setMonographs(monographses);
+                
+         List<ProposalDetails> proposalDetailses=faculty.getProposalDetails();
+        if(proposalDetailses==null)
+            proposalDetailses=new ArrayList<>();
+        index=0;
+        pname=en.nextElement();
+        qi=proposalDetailses.size();
+        ProposalDetails proposalDetails;
+        qual=new String[7];
+        while(!pname.equals("action")){
+            if(index<qi){
+                proposalDetails=proposalDetailses.get(index);
+                proposalDetailses.remove(index);
+            }
+            else
+                proposalDetails=new ProposalDetails();
+            for(int i=0;i<7;i++){
+                qual[i]=request.getParameter(pname);
+                pname=en.nextElement();
+            }
+            proposalDetails.setAll(qual);
+            proposalDetailses.add(index, proposalDetails);
+            ++index;
+            if(pname.equals("action")){
+                while(index<proposalDetailses.size()){
+                    proposalDetailses.remove(index);
+                }
+            }
+        }
+        faculty.setProposalDetails(proposalDetailses);
+        
+        new Administrator().setUser(faculty);
+        request.getRequestDispatcher("publications.jsp").forward(request, response);
+   
+    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if(request.getParameter("action").equals("login")){
@@ -308,6 +603,15 @@ public class MainServlet extends HttpServlet {
         }
         else if(request.getParameter("action").equals("skillset")){
             insertSkillSet(request, response);
+        }
+        else if(request.getParameter("action").equals("additionalinformation")){
+            insertAdditionalInformation(request, response);
+        }
+        else if(request.getParameter("action").equals("events")){
+            insertEvents(request, response);
+        }
+        else if(request.getParameter("action").equals("publications")){
+            insertPublications(request, response);
         }
     }
 }

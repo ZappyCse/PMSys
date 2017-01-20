@@ -42,4 +42,15 @@ public class MembershipDetails {
         this.organization = organization;
     }
     
+    public void setAll(String[] pi){
+        membershipId=pi[0];
+        organization=pi[1];
+    }
+    
+    public String[] getAll(){
+        String pi[]=new String[2];
+        pi[0]=membershipId==null?"":membershipId;
+        pi[1]=organization==null?"":organization;
+        return pi;
+    }
 }

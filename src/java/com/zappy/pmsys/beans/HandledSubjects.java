@@ -120,7 +120,7 @@ public class HandledSubjects {
             academicYearFrom=Integer.parseInt(pi[0]);
         if(!pi[1].equals(""))
             academicYearTo=Integer.parseInt(pi[1]);
-        if(pi[2].equalsIgnoreCase("ODD"))
+        if(pi[2].equalsIgnoreCase("O"))
             semester='O';
         else
             semester='E';

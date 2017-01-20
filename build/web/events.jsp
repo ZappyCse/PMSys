@@ -4,88 +4,65 @@
     Author     : Arun
 --%>
 
+<%@page import="com.zappy.pmsys.beans.OrganizedProgramDetails"%>
+<%@page import="com.zappy.pmsys.beans.WorkshopSeminarDetails"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.zappy.pmsys.beans.Experience"%>
+<%@page import="com.zappy.pmsys.beans.Industry"%>
+<%@page import="com.zappy.pmsys.beans.HandledSubjects"%>
+<%@page import="com.zappy.pmsys.beans.AreaOfInterest"%>
+<%@page import="java.util.List"%>
+<%@page import="com.zappy.pmsys.beans.TeachingFaculty"%>
+<%@page import="com.zappy.pmsys.beans.Qualification"%>
+<%@page import="com.zappy.pmsys.admin.Administrator"%>
+<%@page import="com.zappy.pmsys.beans.Faculty"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Personal Information</title>
+    <title>Events</title>
     <script language="javascript" type="text/javascript" >
       
         function addRow(tableId) {
             var x=document.getElementById(tableId);
-            var new_row = x.rows[2].cloneNode(true);
-            var len = x.rows.length;
-            new_row.cells[0].innerHTML = len - 1;
-            var inp1 = new_row.cells[1].getElementsByTagName('input')[0];
-            inp1.id += len;
-            inp1.value = '';
-            var inp2 = new_row.cells[2].getElementsByTagName('input')[0];
-            inp2.id += len;
-            inp2.value = '';
-            var inp3 = new_row.cells[3].getElementsByTagName('input')[0];
-            inp3.id += len;
-            inp3.value = '';
-            var inp4 = new_row.cells[4].getElementsByTagName('input')[0];
-            inp4.id += len;
-            inp4.value = null;
-            var inp5 = new_row.cells[5].getElementsByTagName('input')[0];
-            inp5.id += len;
-            inp5.value = null;
-            var inp6 = new_row.cells[6].getElementsByTagName('input')[0];
-            inp6.id += len;
-            inp6.value = null;
-            var inp7 = new_row.cells[7].getElementsByTagName('input')[0];
-            inp7.id += len;
-            inp7.value = null;
-            var inp8 = new_row.cells[8].getElementsByTagName('input')[0];
-            inp8.id += len;
-            inp8.value = null;
-            x.appendChild( new_row );
-        }
-
-        function deleteRow(r) {
-            var x = document.getElementById('qualification');
-            if(x.rows.length == 3) {
-              addRow('qualification');
-            }
-            var i = r.parentNode.parentNode.rowIndex;
-            x.deleteRow(i);
-            setSNO();
-        }
-        
-        function iaddRow(tableId) {
-            var x=document.getElementById(tableId);
             var new_row = x.rows[1].cloneNode(true);
             var len = x.rows.length;
-            new_row.cells[0].innerHTML = len;
-            var inp1 = new_row.cells[1].getElementsByTagName('input')[0];
-            inp1.id += len;
-            inp1.value = '';
+            var inp1;
+            new_row.cells[0].innerHTML=len;
+            for(var i=1;i<new_row.cells.length-1;i++){
+                if(new_row.cells[i].getElementsByTagName('input').length>0){
+                    inp1=new_row.cells[i].getElementsByTagName('input')[0];
+                    inp1.id+=len;
+                    inp1.name+=len;
+                    inp1.value='';
+                    inp1=null;
+                }
+                else if(new_row.cells[i].getElementsByTagName('select').length>0){
+                    inp1=new_row.cells[i].getElementsByTagName('select')[0];
+                    inp1.id+=len;
+                    inp1.name+=len;
+                    inp1.value='';
+                    inp1=null;
+                }
+            }
             x.appendChild( new_row );
         }
 
-        function ideleteRow(r) {
-            var x = document.getElementById('interest');
+        function deleteRow(r,tableId) {
+            var x = document.getElementById(tableId);
             if(x.rows.length == 2) {
-              addRow('interest');
+              addRow(tableId);
             }
             var i = r.parentNode.parentNode.rowIndex;
             x.deleteRow(i);
-            isetSNO();
+            setSNO(tableId);
         }
         
-        function isetSNO() {
-            var myTable = document.getElementById('interest');
+        function setSNO(tableId) {
+            var myTable = document.getElementById(tableId);
             var row_count = myTable.rows.length;
             for(var i = 1; i <= row_count; i++) {
               myTable.rows[i].cells[0].innerHTML = i;
-            }
-        }
-        function setSNO() {
-            var myTable = document.getElementById('qualification');
-            var row_count = myTable.rows.length;
-            for(var i = 2; i <= row_count; i++) {
-              myTable.rows[i].cells[0].innerHTML = i - 1;
             }
         }
         function hide(t,t1){
@@ -99,292 +76,69 @@
           t1.setAttribute("src","rem.png");
           t1.setAttribute("onclick","hide('"+t+"',this)");
         }
-
-        function FillAddress() {
-          if(document.getElementById('address').checked == true) {
-
-                document.getElementById('Cstreet').setAttribute("readonly","readonly");
-                document.getElementById('Ccity').setAttribute("readonly","readonly");
-                document.getElementById('Cdistrict').setAttribute("readonly","readonly");
-                document.getElementById('Cstate').setAttribute("readonly","readonly");
-                document.getElementById('Ccountry').setAttribute("readonly","readonly");
-                document.getElementById('Cpincode').setAttribute("readonly","readonly");
-                document.getElementById('Cstreet').value=document.getElementById('Pstreet').value;
-                document.getElementById('Ccity').value=document.getElementById('Pcity').value;
-                document.getElementById('Cdistrict').value=document.getElementById('Pdistrict').value;
-                document.getElementById('Cstate').value=document.getElementById('Pstate').value;
-                document.getElementById('Ccountry').value=document.getElementById('Pcountry').value;
-                document.getElementById('Cpincode').value=document.getElementById('Ppincode').value;
-
-          }
-          else{
-
-                document.getElementById('Cstreet').removeAttribute("readonly");
-                document.getElementById('Ccity').removeAttribute("readonly");
-                document.getElementById('Cdistrict').removeAttribute("readonly");
-                document.getElementById('Cstate').removeAttribute("readonly");
-                document.getElementById('Ccountry').removeAttribute("readonly");
-                document.getElementById('Cpincode').removeAttribute("readonly");
-                document.getElementById('Cstreet').value="";
-                document.getElementById('Ccity').value="";
-                document.getElementById('Cdistrict').value="";
-                document.getElementById('Cstate').value="";
-                document.getElementById('Ccountry').value="";
-                document.getElementById('Cpincode').value="";
-
-          }
-        }
         
-        function taddRow(tableId) {
-            var x=document.getElementById(tableId);
-            var new_row = x.rows[2].cloneNode(true);
-            var len = x.rows.length;
-            new_row.cells[0].innerHTML = len - 1;
-            var inp1 = new_row.cells[1].getElementsByTagName('input')[0];
-            inp1.id += len;
-            inp1.value = '';
-            var inp2 = new_row.cells[2].getElementsByTagName('input')[0];
-            inp2.id += len;
-            inp2.value = '';
-            var inp3 = new_row.cells[3].getElementsByTagName('input')[0];
-            inp3.id += len;
-            inp3.value = '';
-            var inp4 = new_row.cells[4].getElementsByTagName('input')[0];
-            inp4.id += len;
-            inp4.value = null;
-            var inp5 = new_row.cells[5].getElementsByTagName('input')[0];
-            inp5.id += len;
-            inp5.value = null;
-            x.appendChild( new_row );
-        }
-
-        function tdeleteRow(r) {
-            var x = document.getElementById('industable');
-            if(x.rows.length == 3) {
-              addRow('industable');
+        function check(){
+            var x=document.getElementById('eventsattended');
+            var val;
+            var val1;
+            for(var i=1;i<x.rows.length;i++){
+                val=x.rows[i].cells[3].getElementsByTagName('input')[0];
+                val1=x.rows[i].cells[4].getElementsByTagName('input')[0];
+                if(val.value!=''){
+                    if(val1.value!=''){
+                        var d1=new Date(val.value);
+                        var d2=new Date(val1.value);
+                        if(d1.getTime()>d2.getTime()){
+                            alert('From Date should be less than To Date');
+                            val.style.background='pink';
+                            val1.style.background='pink';
+                            x.rows[i].cells[5].getElementsByTagName('input')[0].value='';
+                            return false;
+                        }
+                        else{
+                            x.rows[i].cells[5].getElementsByTagName('input')[0].value=(d2.getTime()-d1.getTime())/(24*60*60*1000)+1;
+                        }
+                    }
+                }
+                val.style.background='white';
+                val1.style.background='white';
             }
-            var i = r.parentNode.parentNode.rowIndex;
-            x.deleteRow(i);
-            tsetSNO();
-        }
-
-        function tsetSNO() {
-           var myTable = document.getElementById('industable');
-           var row_count = myTable.rows.length;
-           for(var i = 2; i <= row_count; i++) {
-             myTable.rows[i].cells[0].innerHTML = i - 1;
-           }
-        }
-        
-        function teaddRow(tableId) {
-            var x=document.getElementById(tableId);
-            var new_row = x.rows[2].cloneNode(true);
-            var len = x.rows.length;
-            new_row.cells[0].innerHTML = len - 1;
-            var inp1 = new_row.cells[1].getElementsByTagName('input')[0];
-            inp1.id += len;
-            inp1.value = '';
-            var inp2 = new_row.cells[2].getElementsByTagName('input')[0];
-            inp2.id += len;
-            inp2.value = '';
-            var inp3 = new_row.cells[3].getElementsByTagName('input')[0];
-            inp3.id += len;
-            inp3.value = '';
-            var inp4 = new_row.cells[4].getElementsByTagName('input')[0];
-            inp4.id += len;
-            inp4.value = null;
-            var inp5 = new_row.cells[5].getElementsByTagName('input')[0];
-            inp5.id += len;
-            inp5.value = null;
-            x.appendChild( new_row );
-        }
-
-        function tedeleteRow(r) {
-            var x = document.getElementById('teaching_exp');
-            if(x.rows.length == 3) {
-              addRow('teaching_exp');
+            
+            x=document.getElementById('orgprgdetails');
+            for(var i=1;i<x.rows.length;i++){
+                val=x.rows[i].cells[4].getElementsByTagName('input')[0];
+                val1=x.rows[i].cells[5].getElementsByTagName('input')[0];
+                if(val.value!=''){
+                    if(val1.value!=''){
+                        var d1=new Date(val.value);
+                        var d2=new Date(val1.value);
+                        if(d1.getTime()>d2.getTime()){
+                            alert('From Date should be less than To Date');
+                            val.style.background='pink';
+                            val1.style.background='pink';
+                            x.rows[i].cells[6].getElementsByTagName('input')[0].value='';
+                            return false;
+                        }
+                        else{
+                            x.rows[i].cells[6].getElementsByTagName('input')[0].value=(d2.getTime()-d1.getTime())/(24*60*60*1000)+1;
+                        }
+                    }
+                }
+                val.style.background='white';
+                val1.style.background='white';
             }
-            var i = r.parentNode.parentNode.rowIndex;
-            x.deleteRow(i);
-            tesetSNO();
+            
+            return true;
         }
-
-        function tesetSNO() {
-           var x = document.getElementById('teaching_exp');
-           var row_count = x.rows.length;
-           for(var i = 2; i <= row_count; i++) {
-             x.rows[i].cells[0].innerHTML = i-1;
-           }
-        }
-        
     </script>
     
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    
+    <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-      html{
-        height: 100%;
-        background: url("grad.jpg");
-        background-size: 300% 300%;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      }  
-      body{
-        height: 100%;
-        margin: 0;
-        font-family: 'Raleway', sans-serif;
-      }
-      
-      .div{
-        height: 100%;
-        position: fixed;
-        width: 210px;
-        top: 0;
-        border-right: 1px solid black;
-        display: table;
-        vertical-align: middle;
-        overflow: hidden;
-        background: url("grad.jpg");
-      }
-      
-      .ul{
-        list-style-type: none;
-        padding: 0;
-        display: table-cell;
-        vertical-align: middle;
-      }
-      
-      .ul li a{
-        text-decoration: none;
-        padding: 10px 10px;
-        display: block;
-        color: #000;
-        font-size: 20px;
-        word-break: break-all;
-      }
-      
-      .active {
-        background-color: #4CAF50;
-        color: white;
-        cursor: default;
-      }
-      
-      .ul li a:hover:not(.active){
-        background: #555;
-        color: white;
-      }
-      
-      .content{
-        padding: 10px;
-        margin-left: 210px;
-      }
-            
-      .ig{
-        height: 15px;
-        width: 15px;
-      }
-      
-      .ig:hover{
-        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.24), 5px 5px 10px 0 rgba(0,0,0,0.19);
-      }
-
-      .row{
-        display: table-row;
-      }
-      
-      label{
-        display: block;
-        width: 250px;
-        margin-bottom: 10px;
-      }
-      
-      input:hover:not(.ig),input:focus{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-        cursor: text;
-      }
-
-      .button{
-        background-color: #4CAF50;
-        border-left:1px solid black;
-        border-bottom:1px solid black;
-        border-top: 4px solid black;
-        border-right: 4px solid black;
-        color: #000;
-        text-align: center;
-        font-size: 28px;
-        padding: auto;
-        width: 120px;
-        height: 50px;
-        transition: all 0.5s;
-        cursor: pointer;
-        margin-left: -11px;
-        margin-bottom: -1px;
-        border-top-right-radius: 5px;
-        transition-duration: 0.4s;
-        display: block;
-      }
-
-      .button span {
-        cursor: pointer;
-        display: inline-block;
-        position: relative;
-        transition: 0.5s;
-      }
-
-      .button span:after {
-        content: '\00bb';
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        right: -20px;
-        transition: 0.5s;
-      }
-
-      .button:hover span {
-        padding-right: 25px;
-        opacity: 0.7;
-      }
-
-      .button:hover span:after {
-        opacity: 1;
-        right: 0;
-      }
-
-      form{
-        margin: 0 auto;
-        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-        max-width: 1400px;
-        border: 10px solid black;
-        padding-left: 10px;
-        min-width: 1100px;
-        overflow-y: scroll;
-        height: 900px;
-      }
-            
-      .icon{
-        width: 80%;
-        /*font-family: cursive;*/
-        font-size: 20px;
-        font-weight: bold;
-      }/*
-
-*/      .icon > img{
-        width: 28px;
-      }
-
-      .icon > span{
-        float: left;
-      }
-
-      .icon img:hover{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-      }
       
       .table{
-          
           border-collapse: collapse;
           font-size: 15px;
-          
       }
       
       .table th{
@@ -405,10 +159,23 @@
       .divic{
           padding: 10px;
       }
-      
-            
+          
     </style>
-  </head>
+    </head>
+    
+    <%  TeachingFaculty faculty=(TeachingFaculty)new Administrator().getUser((String)request.getSession().getAttribute("facultyId"));
+        List<WorkshopSeminarDetails> workshopSeminarDetailses=faculty.getWorkshopSeminarDetails();
+        if(workshopSeminarDetailses==null)
+           workshopSeminarDetailses=new ArrayList<>();
+        List<OrganizedProgramDetails> organizedProgramDetailses=faculty.getOrganizedProgramDetails();
+        if(organizedProgramDetailses==null)
+            organizedProgramDetailses=new ArrayList<>();
+        String pname[];
+        int index=0;
+        int size=0;
+        String tmp="";
+        %>
+    
     <body>
         
         <div class="div">
@@ -417,177 +184,187 @@
                 <li><a href="home.jsp">Home</a></li>
                 <li><a href="personalInformation.jsp">Personal Info</a></li>
                 <li><a href="skillset.jsp">Skill Set</a></li>
+                <li><a href="additionalInformation.jsp">Additional Information</a></li>
                 <li><a class="active">Events</a></li>
-                <li><a href="work_semi.jsp">Workshop/Seminar Details</a></li>
-                <li><a href="monographs.jsp">Monographs</a></li>
-                <li><a href="proposaldetails.jsp">Proposal Details</a></li>
-                <li><a href="membershipdetails.jsp">Membership Details</a></li>
+                <li><a href="publications.jsp">Publications</a></li>
               </ul>
             </div>
         </div>
         
-        <div class="content">
-            <form method="POST" action="MainServlet">
-                
-                <div class="divic">
-                    
-                    <div class="icon">
-                        <img src="add.png" onclick="unhide('eduqua',this)">
-                        <span class="icon">Educational Qualification</span>
-                    </div>
-        
-                
-                    <div id="eduqua" style="display:none;width: 100%;">
-                        <table id = "qualification" class="table" style="margin: 0 auto;">
+        <div class="content" id="fm">
+            <form method="POST" action="MainServlet" onsubmit="return check()">
+                <div style="display: table-cell;vertical-align: middle;">
+                    <div class="divic">
 
-                            <thead>
-                                <th rowspan="2">S.No</th>
-                                <th rowspan="2">Name of the Degree</th>
-                                <th rowspan="2">Specialization</th>
-                                <th rowspan="2">Name of the Institution/University</th>
-                                <th rowspan="2">Name of the University</th>
-                                <th colspan="2">Year of </th>
-                                <th rowspan="2">Class of Marks</th>
-                                <th rowspan="2">Percentage of Marks</th>
-                                <tr>                       
-                                <th>Admission</th>
-                                <th>Completion</th>
+                        <div class="icon">
+                            <img src="add.png" onclick="unhide('eventsatt',this)">
+                            <span class="icon">Events Attended</span>
+                        </div>
+
+
+                        <div id="eventsatt" style="display:none;width: 100%;">
+                            <table id = "eventsattended" class="table" style="margin: 0 auto;">
+
+                                <thead>
+                                    <th rowspan="2">S.No</th>
+                                    <th rowspan="2">Programme Name</th>
+                                    <th rowspan="2">Organized By</th>
+                                    <th rowspan="2">From Date</th>
+                                    <th rowspan="2">To Date</th>
+                                    <th rowspan="2">Duration</th>
+                                    <th rowspan="2">Region</th>
+                                    <th rowspan="2">Event Type</th>
+                                </thead>
+                                
+                                <%
+                                    WorkshopSeminarDetails workshopSeminarDetails;
+                                    size=workshopSeminarDetailses.size();
+                                    while(index<size||size==0){
+                                        if(size==0){
+                                            workshopSeminarDetails=new WorkshopSeminarDetails();
+                                            size=-1;
+                                        }
+                                        else{
+                                            workshopSeminarDetails=(WorkshopSeminarDetails)workshopSeminarDetailses.get(index);
+                                        }
+                                        pname=workshopSeminarDetails.getAll();
+                                %>
+                                <tr>
+                                    <td><%=index+1 %></td>
+                                    <td>
+                                        <input type="text" name="<%="attpname"+tmp %>" id="<%="attpname"+tmp %>" value="<%=pname[0] %>" />
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<%="attorg"+tmp %>" id="<%="attorg"+tmp %>" value="<%=pname[1] %>"/>
+                                    </td>
+                                    <td>
+                                        <input type="date" name="<%="attfrom"+tmp %>" id="<%="attfrom"+tmp %>" value="<%=pname[2] %>"/>
+                                    </td>
+                                    <td>
+                                        <input type="date" name="<%="attto"+tmp %>" id="<%="attto"+tmp %>" value="<%=pname[3] %>"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" readonly name="<%="attduration"+tmp %>" id="<%="attduration"+tmp %>" value="<%=pname[4] %>"/>
+                                    </td>
+                                    <td>
+                                        <select name="<%="attregion"+tmp %>" id="<%="attregion"+tmp %>" >
+                                            <option value='' selected="selected"></option>
+                                            <option value="N" <% if(pname[5].equals("N")) {%>selected="selected"<% } %>>National</option>
+                                            <option value="I" <% if(pname[5].equals("I")) {%>selected="selected"<% } %>>International</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="<%="attrtype"+tmp %>" id="<%="attrtype"+tmp %>">
+                                            <option value='' selected="selected"></option>
+                                            <option value="W" <% if(pname[6].equals("W")) {%>selected="selected"<% } %>>Workshop</option>
+                                            <option value="S" <% if(pname[6].equals("S")) {%>selected="selected"<% } %>>Seminar</option>
+                                            <option value="F" <% if(pname[6].equals("F")) {%>selected="selected"<% } %>>FDTP</option>
+                                            <option value="C" <% if(pname[6].equals("C")) {%>selected="selected"<% } %>>Conference</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'eventsattended')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
+                                    </td>
+                                    
                                 </tr>
-                        </thead>
-                            <tr>
-                                <td >1</td>
-                                <td><input type="text" id="degree" /></td>
-                                <td><input type="text" id="specialization"/></td>
-                                <td><input type="text" id="institute"/></td>
-                                <td><input type="text" id="university" /></td>
-                                <td><input type="text" id="admission" maxlength = "4" /></td>
-                                <td><input type="text" id="completion" maxlength = "4" /></td>
-                                <td><input type="text" id="class"/></td>
-                                <td><input type="text" id="percentage" size="10"/></td>
-                                <td><input type = "button" value = "Delete" onclick = "deleteRow(this)" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
-                            </tr>
-                        </table>
-                        <center>
-                            <input type = "button" class="center" value = "Add more" onclick = "addRow('qualification')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
-                        </center>
-                    </div>
-                </div>
-                
-                                 
-                <div class="divic">
-
-                    <div class="icon">
-                        <img src="add.png" onclick="unhide('int',this)">
-                        <span class="icon">Area Of Interest</span>
-                    </div>
-                    
-                    <div  id="int" style="display: none;width: 100%;">
-                        
-                        <table  id = "interest" class="table" style="margin: 0 auto;">
-                            <tr>
-                            <th>S.No</th>
-                            <th>Area Of Interest</th>
-                            </tr>
-                            <tr>
-                            <td>1</td> 
-                            <td><input type="text" id="areas"  width = "100px" size="12" /></td>
-                            <td> <input type = "button" value = "Delete" onclick = "ideleteRow(this)" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
-                            </tr>
-                        </table>
-                        <center>
-                            <input type = "button" value = "Add more" onclick = "iaddRow('interest')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
-                        </center>
+                                <%
+                                    ++index;
+                                    tmp=index+1+"";
+                                    }
+                                %>
+                            </table>
+                            <center>
+                                <input type = "button" class="center" value = "Add more" onclick = "addRow('eventsattended')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                            </center>
+                        </div>
                     </div>
 
-                </div>
-                
-                <div class="divic">
+                    <input type="hidden" name="tb1" />
+                    
+                    <div class="divic">
 
-                    <div class="icon">
-                        <img src="add.png" onclick="unhide('subhan',this)">
-                        <span class="icon">Subjects Handled</span>
-                    </div>
-                    
-                    <div id="subhan" style="display:none;width: 100%;">
-                        
-                    </div>
-                    
-                </div>
-                
-                <div class="divic">
+                        <div class="icon">
+                            <img src="add.png" onclick="unhide('orgprg',this)">
+                            <span class="icon">Events Organized</span>
+                        </div>
 
-                    <div class="icon">
-                        <img src="add.png" onclick="unhide('inexp',this)">
-                        <span class="icon">Industry Experience</span>
+                        <div id="orgprg" style="display:none;width: 100%;">
+                            <table id = "orgprgdetails" class="table" style="margin: 0 auto;">
+                                <thead>
+                                    <th>S.No</th>
+                                    <th>Program Name</th>
+                                    <th>Sponsored By</th>
+                                    <th>Acted As</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Duration</th>
+                                    <th>Convener</th>
+                                    <th>Region</th>
+                                    <th>Event Type</th>
+                                </thead>
+                                <%
+                                    OrganizedProgramDetails organizedProgramDetails;
+                                    size=organizedProgramDetailses.size();
+                                    index=0;
+                                    tmp="";
+                                    while(index<size||size==0){
+                                        if(size==0){
+                                            organizedProgramDetails=new OrganizedProgramDetails();
+                                            size=-1;
+                                        }
+                                        else{
+                                            organizedProgramDetails=(OrganizedProgramDetails)organizedProgramDetailses.get(index);
+                                        }
+                                        pname=organizedProgramDetails.getAll();
+                                %>
+                                <tr>
+                                    <td><%=index+1 %></td>
+                                    <td>
+                                        <input type="text" name="<%="orgprgname"+tmp %>" id="<%="orgprgname"+tmp %>" value="<%=pname[0] %>"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<%="orgsponsby"+tmp %>" id="<%="orgsponsby"+tmp %>" value="<%=pname[1] %>"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<%="orgactedas"+tmp %>" id="<%="orgactedas"+tmp %>" value="<%=pname[2] %>"/>
+                                    </td>
+                                    <td><input type="date" name="<%="orgfromdate"+tmp %>" id="<%="orgfromdate"+tmp %>" value="<%=pname[3] %>"/></td>
+                                    <td><input type="date" name="<%="orgtodate"+tmp %>" id="<%="orgtodate"+tmp %>" value="<%=pname[4] %>"/></td>
+                                    <td><input type="number" readonly="readonly" name="<%="orgduration"+tmp %>" id="<%="orgduration"+tmp %>" value="<%=pname[5] %>"/></td>
+                                    <td><input type="text" name="<%="orgconvener"+tmp %>" id="<%="orgconvener"+tmp %>" value="<%=pname[6] %>"/></td>
+                                    <td>
+                                        <select name="<%="orgregion"+tmp %>" id="<%="orgregion"+tmp %>" >
+                                            <option value=''></option>
+                                            <option value="N" <% if(pname[7].equals("N")) {%>selected="selected"<% } %>>National</option>
+                                            <option value="I" <% if(pname[7].equals("I")) {%>selected="selected"<% } %>>International</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="<%="orgrtype"+tmp %>" id="<%="orgrtype"+tmp %>">
+                                            <option value=''></option>
+                                            <option value="W" <% if(pname[8].equals("W")) {%>selected="selected"<% } %>>Workshop</option>
+                                            <option value="S" <% if(pname[8].equals("S")) {%>selected="selected"<% } %>>Seminar</option>
+                                            <option value="F" <% if(pname[8].equals("F")) {%>selected="selected"<% } %>>FDTP</option>
+                                            <option value="C" <% if(pname[8].equals("C")) {%>selected="selected"<% } %>>Conference</option>
+                                        </select>
+                                    </td>
+                                    <td><input type = "button" value = "Delete" onclick = "deleteRow(this,'orgprgdetails')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
+                                </tr>
+                                <%
+                                    ++index;
+                                    tmp=index+1+"";
+                                    }
+                                %>
+                                </table>
+                                <center>
+                                    <input type = "button" value = "Add more" onclick = "addRow('orgprgdetails')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                </center>
+                        </div>
                     </div>
-                    
-                    <div id="inexp" style="display:none;width: 100%;">
-                        <table id = "industable" class="table" style="margin: 0 auto;">
-                            <tr>
-                            <th rowspan="2">s.no</th>
-                            <th rowspan="2">Organization </th>
-                            <th rowspan="2">Designation</th>
-                            <th rowspan="2">Nature of Work</th>
-                            <th colspan="2">Date</th></tr>
-                            <tr>
-                            <th>From</th>
-                            <th>To</th>
-                            </tr>
-                            <tr>
-                            <td>1</td>
-                            <td> <input type = "text" id = "organisation" /> </td>
-                            <td> <input type = "text" id = "designation"/> </td>
-                            <td> <input type = "text" id="natureofwork"/> </td>
-                            <td> <input type = "date" id = "from" /> </td>
-                            <td> <input type = "date" id = "to" /> </td>
-                            <td> <input type = "button" value = "Delete" onclick = "tdeleteRow(this)" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
-                            </tr>
-                        </table>
-                        <center>    
-                            <input type = "button" value = "Add more" onclick = "taddRow('industable')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
-                        </center>
-                    </div>
-                    
-                </div>
-                
-                <div class="divic">
-
-                    <div class="icon">
-                        <img src="add.png" onclick="unhide('teaexp',this)">
-                        <span class="icon">Teaching Experience</span>
-                    </div>
-                    
-                    <div id="teaexp" style="display:none;width: 100%;">
-                        
-                        <table id = "teaching_exp" class="table" style="margin: 0 auto;">
-                            <tr>
-                                <th rowspan="2">s.no</th>
-                                <th rowspan="2">Name of the Institution </th>
-                                <th rowspan="2">Designation</th>
-                                <th rowspan="2">Nature of Work</th>
-                                <th colspan="2">Date</th>
-                            </tr>
-                            <tr>
-                                <th>From</th>
-                                <th>To</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><input type="text" id="institute" width="100px" size="37" /></td>
-                                <td><input type="text" id="designation" width="200px" size="37" /></td>
-                                <td><input type="text" id="work" width="200px"size="37" /></td>
-                                <td><input type="date" id="from" /></td>
-                                <td><input type="date" id="to" /></td>
-                                <td>
-                                    <input type = "button" value = "Delete" onclick = "tedeleteRow(this)" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
-                                </td>
-                            </tr>
-                        </table>
-                        <center>
-                            <input type = "button" value = "Add more" onclick = "teaddRow('teaching_exp')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
-                        </center>
-                    </div>
-                    
+                    <input type="hidden" name="action" value="events"/>
+                    <button class="button">
+                    <span>Save</span>
+                </button>
                 </div>
                 
             </form>

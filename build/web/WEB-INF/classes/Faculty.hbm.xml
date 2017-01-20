@@ -72,6 +72,11 @@
             <index column="type"/>
             <one-to-many class="com.zappy.pmsys.beans.HandledSubjects"/>
         </list>
+        <list name="selfAppraisals" cascade="save-update,delete,delete-orphan" lazy="false">
+            <key column="facultyId" />
+            <index column="type"/>
+            <one-to-many class="com.zappy.pmsys.beans.SelfAppraisal"/>
+        </list>
     </subclass>    
   </class> 
   <class name="com.zappy.pmsys.beans.Address" table="Address" lazy="false">
@@ -133,7 +138,7 @@
       <property name="fromDate"></property>   
       <property name="toDate"></property>   
       <property name="duration"></property>   
-      <property name="type"></property>   
+      <property name="rtype"></property>   
   </class> 
   <class name="com.zappy.pmsys.beans.Monographs" table="Monographs" lazy="false">
       <id name="pId">
@@ -142,7 +147,8 @@
       <property name="title"></property>   
       <property name="coAuthorName"></property>   
       <property name="publisherName"></property>   
-      <property name="year"></property>      
+      <property name="year"></property>
+      <property name="rtype"></property>      
   </class> 
   <class name="com.zappy.pmsys.beans.ProposalDetails" table="ProposalDetails" lazy="false">
       <id name="pId">
@@ -150,7 +156,8 @@
       </id>
       <property name="title"></property>   
       <property name="dOfAgency"></property>   
-      <property name="dateOfProposal"></property>   
+      <property name="fromDateOfProposal"></property>
+      <property name="toDateOfProposal"></property>   
       <property name="duration"></property>   
       <property name="status"></property>   
       <property name="sectorType"></property>   
@@ -183,6 +190,9 @@
       <property name="sjrNumber"></property>  
       <property name="snipNumber"></property>  
       <property name="hIndex"></property>
+      <property name="kIndex"></property>
+      <property name="region"></property>
+      <property name="rtype"></property>
   </class>  
   <class name="com.zappy.pmsys.beans.MembershipDetails" table="MembershipDetails" lazy="false">
       <id name="pId">
@@ -202,6 +212,15 @@
       <property name="toDate"></property>   
       <property name="duration"></property>   
       <property name="convener"></property>   
+      <property name="region"></property>
+      <property name="rtype"></property>  
+  </class> 
+  <class name="com.zappy.pmsys.beans.SelfAppraisal" table="SelfAppraisal" lazy="false">
+      <id name="pId">
+           <generator class="increment"></generator>
+      </id>
+      <property name="strengths"></property>   
+      <property name="weaknesses"></property>
   </class> 
   <class name="com.zappy.pmsys.beans.WorkshopSeminarDetails" table="WorkshopSeminarDetails" lazy="false">
       <id name="pId">
@@ -212,7 +231,8 @@
       <property name="fromDate"></property>   
       <property name="toDate"></property>   
       <property name="duration"></property>   
-      <property name="type"></property>   
+      <property name="rtype"></property>   
+      <property name="region"></property> 
   </class>      
    <class name="com.zappy.pmsys.beans.PersonalInfo" table="PersonalInfo" lazy="false">
        <id name="facultyId">

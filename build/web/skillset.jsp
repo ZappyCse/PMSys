@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Personal Information</title>
+    <title>Skill Set</title>
     <script language="javascript" type="text/javascript" >
       
         function addRow(tableId) {
@@ -28,11 +28,20 @@
             var inp1;
             new_row.cells[0].innerHTML=len;
             for(var i=1;i<new_row.cells.length-1;i++){
-                inp1=new_row.cells[i].getElementsByTagName('input')[0];
-                inp1.id+=len;
-                inp1.name+=len;
-                inp1.value='';
-                inp1=null;
+                if(new_row.cells[i].getElementsByTagName('input').length>0){
+                    inp1=new_row.cells[i].getElementsByTagName('input')[0];
+                    inp1.id+=len;
+                    inp1.name+=len;
+                    inp1.value='';
+                    inp1=null;
+                }
+                else if(new_row.cells[i].getElementsByTagName('select').length>0){
+                    inp1=new_row.cells[i].getElementsByTagName('select')[0];
+                    inp1.id+=len;
+                    inp1.name+=len;
+                    inp1.value='';
+                    inp1=null;
+                }
             }
             x.appendChild( new_row );
         }
@@ -65,169 +74,90 @@
           t1.setAttribute("src","rem.png");
           t1.setAttribute("onclick","hide('"+t+"',this)");
         }
-
+        
+        function check(){
+            var x=document.getElementById('qualification');
+            var val;
+            var val1;
+            for(var i=1;i<x.rows.length;i++){
+                val=x.rows[i].cells[5].getElementsByTagName('input')[0];
+                val1=x.rows[i].cells[6].getElementsByTagName('input')[0];
+                if(val.value!=''){
+                    if(val1.value!=''){
+                        if(val.value>val1.value){
+                            alert('Year of admission should be less than year of completion');
+                            val.style.background='pink';
+                            val1.style.background='pink';
+                            return false;
+                        }
+                    }
+                }
+                val.style.background='white';
+                val1.style.background='white';
+            }
+            
+            x=document.getElementById('subjects');
+            for(var i=1;i<x.rows.length;i++){
+                val=x.rows[i].cells[1].getElementsByTagName('input')[0];
+                val1=x.rows[i].cells[2].getElementsByTagName('input')[0];
+                if(val.value!=''){
+                    if(val1.value!=''){
+                        if(val.value>val1.value){
+                            alert('From Year should be less than To Year');
+                            val.style.background='pink';
+                            val1.style.background='pink';
+                            return false;
+                        }
+                    }
+                }
+                val.style.background='white';
+                val1.style.background='white';
+            }
+            
+            x=document.getElementById('industable');
+            for(var i=1;i<x.rows.length;i++){
+                val=x.rows[i].cells[4].getElementsByTagName('input')[0];
+                val1=x.rows[i].cells[5].getElementsByTagName('input')[0];
+                if(val.value!=''){
+                    if(val1.value!=''){
+                        if(new Date(val.value).getTime()>new Date(val1.value).getTime()){
+                            alert('From Date should be less than To Date');
+                            val.style.background='pink';
+                            val1.style.background='pink';
+                            return false;
+                        }
+                    }
+                }
+                val.style.background='white';
+                val1.style.background='white';
+            }
+            
+            x=document.getElementById('teaching_exp');
+            for(var i=1;i<x.rows.length;i++){
+                val=x.rows[i].cells[4].getElementsByTagName('input')[0];
+                val1=x.rows[i].cells[5].getElementsByTagName('input')[0];
+                if(val.value!=''){
+                    if(val1.value!=''){
+                        if(new Date(val.value).getTime()>new Date(val1.value).getTime()){
+                            alert('From Date should be less than To Date');
+                            val.style.background='pink';
+                            val1.style.background='pink';
+                            return false;
+                        }
+                    }
+                }
+                val.style.background='white';
+                val1.style.background='white';
+            }
+            
+            return true;
+        }
+        
     </script>
     
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    
+    <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-      html{
-        height: 100%;
-        background: url("grad.jpg");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        overflow: scroll;
-      }  
-      body{
-        height: 100%;
-        margin: 0;
-        font-family: 'Raleway', sans-serif;
-      }
-      
-      .div{
-        height: 100%;
-        position: fixed;
-        width: 210px;
-        top: 0;
-        border-right: 1px solid black;
-        display: table;
-        vertical-align: middle;
-        overflow: hidden;
-        background: url("grad.jpg");
-      }
-      
-      .ul{
-        list-style-type: none;
-        padding: 0;
-        display: table-cell;
-        vertical-align: middle;
-      }
-      
-      .ul li a{
-        text-decoration: none;
-        padding: 10px 10px;
-        display: block;
-        color: #000;
-        font-size: 20px;
-        word-break: break-all;
-      }
-      
-      .active {
-        background-color: #4CAF50;
-        color: white;
-        cursor: default;
-      }
-      
-      .ul li a:hover:not(.active){
-        background: #555;
-        color: white;
-      }
-      
-      .content{
-        padding: 10px;
-        margin-left: 210px;
-      }
-            
-      .ig{
-        height: 15px;
-        width: 15px;
-      }
-      
-      .ig:hover{
-        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.24), 5px 5px 10px 0 rgba(0,0,0,0.19);
-      }
-
-      .row{
-        display: table-row;
-      }
-      
-      label{
-        display: block;
-        width: 250px;
-        margin-bottom: 10px;
-      }
-      
-      input:hover:not(.ig),input:focus{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-        cursor: text;
-      }
-
-      .button{
-        background-color: #4CAF50;
-        border-left:1px solid black;
-        border-bottom:1px solid black;
-        border-top: 4px solid black;
-        border-right: 4px solid black;
-        color: #000;
-        text-align: center;
-        font-size: 28px;
-        padding: auto;
-        width: 120px;
-        height: 50px;
-        transition: all 0.5s;
-        cursor: pointer;
-        margin-left: -11px;
-        margin-bottom: -1px;
-        border-top-right-radius: 5px;
-        transition-duration: 0.4s;
-        display: block;
-      }
-
-      .button span {
-        cursor: pointer;
-        display: inline-block;
-        position: relative;
-        transition: 0.5s;
-      }
-
-      .button span:after {
-        content: '\00bb';
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        right: -20px;
-        transition: 0.5s;
-      }
-
-      .button:hover span {
-        padding-right: 25px;
-        opacity: 0.7;
-      }
-
-      .button:hover span:after {
-        opacity: 1;
-        right: 0;
-      }
-
-      form{
-        margin: 0 auto;
-        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-        border: 10px solid black;
-        padding: 10px;
-        overflow-y: scroll;
-        height: 900px;
-        display: table;
-        width: 1100px;
-      }
-            
-      .icon{
-        width: 80%;
-        font-size: 20px;
-        font-weight: bold;
-      }/*
-
-*/      .icon > img{
-        width: 28px;
-      }
-
-      .icon > span{
-        float: left;
-      }
-
-      .icon img:hover{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-      }
       
       .table{
           border-collapse: collapse;
@@ -253,7 +183,6 @@
           padding: 10px;
       }
       
-            
     </style>
     </head>
     
@@ -287,17 +216,15 @@
                 <li><a href="home.jsp">Home</a></li>
                 <li><a href="personalInformation.jsp">Personal Info</a></li>
                 <li><a class="active">Skill Set</a></li>
+                <li><a href="additionalInformation.jsp">Additional Information</a></li>
                 <li><a href="events.jsp">Events</a></li>
-                <li><a href="work_semi.jsp">Workshop/Seminar Details</a></li>
-                <li><a href="monographs.jsp">Monographs</a></li>
-                <li><a href="proposaldetails.jsp">Proposal Details</a></li>
-                <li><a href="membershipdetails.jsp">Membership Details</a></li>
+                <li><a href="publications.jsp">Publications</a></li>
               </ul>
             </div>
         </div>
         
-        <div class="content">
-            <form method="POST" action="MainServlet">
+        <div class="content" id="fm">
+            <form method="POST" action="MainServlet" onsubmit="return check()">
                 <div style="display: table-cell;vertical-align: middle;">
                     <div class="divic">
 
@@ -350,16 +277,16 @@
                                         <input type="text" name="<%="university"+tmp %>" id="<%="university"+tmp %>" value="<%=pname[3] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="<%="admission"+tmp %>" id="<%="admission"+tmp %>" maxlength = "4" value="<%=pname[4] %>"/>
+                                        <input type="number" name="<%="admission"+tmp %>" onkeypress="if(this.value.length==4)return false;" id="<%="admission"+tmp %>" min="1000" max="9999" value="<%=pname[4] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="<%="completion"+tmp %>" id="<%="completion"+tmp %>" maxlength = "4" value="<%=pname[5] %>"/>
+                                        <input type="number" name="<%="completion"+tmp %>" onkeypress="if(this.value.length==4)return false;" id="<%="completion"+tmp %>" min="1000" max="9999" maxlength = "4" value="<%=pname[5] %>"/>
                                     </td>
                                     <td>
                                         <input type="text" name="<%="class"+tmp %>" id="<%="class"+tmp %>" value="<%=pname[6] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="<%="percentage"+tmp %>" id="<%="percentage"+tmp %>" value="<%=pname[7] %>"/>
+                                        <input type="number" name="<%="percentage"+tmp %>" step="any" onkeypress="if(this.value.length==5)return false;" min="0" max="100" id="<%="percentage"+tmp %>" value="<%=pname[7] %>"/>
                                     </td>
                                     <td>
                                         <input type = "button" value = "Delete" onclick = "deleteRow(this,'qualification')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
@@ -471,19 +398,23 @@
                                 <tr>
                                     <td><%=index+1 %></td>
                                     <td>
-                                        <input type="text" name="<%="academicYearTo"+tmp %>" id="<%="academicYearFrom"+tmp %>" value="<%=pname[0] %>"/>
+                                        <input type="number" id="<%="year"+tmp %>" min="1000" max="9999" name="<%="academicYearTo"+tmp %>" onkeypress="if(this.value.length==4)return false;" id="<%="academicYearFrom"+tmp %>" value="<%=pname[0] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="<%="academicYearFrom"+tmp %>" id="<%="academicYearTo"+tmp %>" value="<%=pname[1] %>"/>
+                                        <input type="number" id="<%="year"+tmp %>" min="1000" max="9999" name="<%="academicYearFrom"+tmp %>" onkeypress="if(this.value.length==4)return false;" id="<%="academicYearTo"+tmp %>" value="<%=pname[1] %>"/>
                                     </td>
                                     <td>
-                                        <input type="text" name="<%="sem"+tmp %>" id="<%="sem"+tmp %>" maxlength = "1" value="<%=pname[2] %>"/>
+                                        <select name="<%="sem"+tmp %>" id="<%="sem"+tmp %>">
+                                            <option selected="selected" value=""></option>
+                                            <option value="O" <% if(pname[2].equals("O")){ %>selected="selected"<% } %>>ODD</option>
+                                            <option value="E" <% if(pname[2].equals("E")){ %>selected="selected"<% } %>>EVEN</option>
+                                        </select>
                                     </td>
                                     <td><input type="text" name="<%="subName"+tmp %>" id="<%="subName"+tmp %>" value="<%=pname[3] %>"/></td>
-                                    <td><input type="text" name="<%="year"+tmp %>" id="<%="year"+tmp %>" maxlength = "4" value="<%=pname[4] %>"/></td>
+                                    <td><input type="number" name="<%="year"+tmp %>" onkeypress="if(this.value.length==4)return false;" id="<%="year"+tmp %>" min="1000" max="9999" value="<%=pname[4] %>"/></td>
                                     <td><input type="text" name="<%="dept"+tmp %>" id="<%="dept"+tmp %>" value="<%=pname[5] %>"/></td>
-                                    <td><input type="text" name="<%="sec"+tmp %>" id="<%="sec"+tmp %>" maxlength  = "1" value="<%=pname[6] %>"/></td>
-                                    <td><input type="text" name="<%="passPercent"+tmp %>" id="<%="passPercent"+tmp %>" value="<%=pname[7] %>"/></td>
+                                    <td><input type="text" name="<%="sec"+tmp %>" id="<%="sec"+tmp %>" value="<%=pname[6] %>"/></td>
+                                    <td><input type="number" step="any" onkeypress="if(this.value.length==5)return false;" name="<%="passPercent"+tmp %>" min="0" max="100" id="<%="passPercent"+tmp %>" value="<%=pname[7] %>"/></td>
                                     <td><input type = "button" value = "Delete" onclick = "deleteRow(this,'subjects')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
                                 </tr>
                                 <%

@@ -61,77 +61,57 @@
       }
       
       function change(){
-          alert("hai");
           document.getElementById('address').checked=false;
           FillAddress();
+      }
+      
+      function check(){
+          var obj=new Date(document.getElementById("dob").value);
+          var obj1=new Date(document.getElementById("doj").value);
+          var obj2=new Date(document.getElementById("dor").value);
+          if(obj.getTime()>=obj1.getTime()){
+              document.getElementById("dob").style.borderColor="red";
+              document.getElementById("doj").style.borderColor="red";
+              alert("DOB should be less than DOJ");
+              return false;
+          }
+          else{
+              document.getElementById("dob").style.border="0";
+              document.getElementById("doj").style.border="0";
+          }
+          if(obj1.getTime()>=obj2.getTime()){
+              document.getElementById("doj").style.borderColor="red";
+              document.getElementById("dor").style.borderColor="red";
+              alert("DOJ should be less than DOR");
+              return false;
+          }
+          else{
+              document.getElementById("doj").style.border="0";
+              document.getElementById("dor").style.border="0";
+          }
+          if(obj.getTime()>=obj2.getTime()){
+              document.getElementById("dob").style.borderColor="red";
+              document.getElementById("dor").style.borderColor="red";
+              alert("DOB should be less than DOR");
+              return false;
+          }
+          else{
+              document.getElementById("dob").style.border="0";
+              document.getElementById("dor").style.border="0";
+          }
+          return true;
       }
     </script>
     
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    
+    <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-      html{
-        height: 100%;
-        background: url("grad.jpg");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      }  
-      body{
-        height: 100%;
-        margin: 0;
-        font-family: 'Raleway', sans-serif;
-      }
-      
-      .div{
-        height: 100%;
-        position: fixed;
-        width: 210px;
-        top: 0;
-        border-right: 1px solid black;
-        display: table;
-        vertical-align: middle;
-        overflow: hidden;
-        background: url("grad.jpg");
-      }
-      
-      .ul{
-        list-style-type: none;
-        padding: 0;
-        display: table-cell;
-        vertical-align: middle;
-      }
-      
-      .ul li a{
-        text-decoration: none;
-        padding: 10px 10px;
-        display: block;
-        color: #000;
-        font-size: 20px;
-        word-break: break-all;
-      }
-      
-      .active {
-        background-color: #4CAF50;
-        color: white;
-        cursor: default;
-      }
-      
-      .ul li a:hover:not(.active){
-        background: #555;
-        color: white;
-      }
-      
-      .content{
-        padding: 10px;
-        margin-left: 210px;
-      }
       
       .content div{
         padding:5px;
       }
       
-      .content input:not(.ig){
+      .content input:not(.ig),.content select{
         height: 30px;
         width: 50%;
         min-width: 250px;
@@ -141,28 +121,10 @@
         border-radius: 5px;
       }
       
-      .ig{
-        height: 15px;
-        width: 15px;
-      }
-      
-      .ig:hover{
-        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.24), 5px 5px 10px 0 rgba(0,0,0,0.19);
-      }
-
-      .row{
-        display: table-row;
-      }
-      
       label{
         display: block;
         width: 250px;
         margin-bottom: 10px;
-      }
-      
-      input:hover:not(.ig),input:focus{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-        cursor: text;
       }
       
       @media screen and (min-width: 1350px){
@@ -176,7 +138,7 @@
           display: inline-block;
         }
 
-        .content input:not(.ig){
+        .content input:not(.ig),.content select{
           height: 25px;
           width: 250px;
           font-size: 17px;
@@ -186,83 +148,11 @@
             width: 1100px;
         }
 
-      } 
-
-      .button{
-        background-color: #4CAF50;
-        border-left:1px solid black;
-        border-bottom:1px solid black;
-        border-top: 4px solid black;
-        border-right: 4px solid black;
-        color: #000;
-        text-align: center;
-        font-size: 28px;
-        padding: auto;
-        width: 120px;
-        height: 50px;
-        transition: all 0.5s;
-        cursor: pointer;
-        margin-left: -11px;
-        margin-bottom: -1px;
-        border-top-right-radius: 5px;
-        transition-duration: 0.4s;
-        display: block;
-      }
-
-      .button span {
-        cursor: pointer;
-        display: inline-block;
-        position: relative;
-        transition: 0.5s;
-      }
-
-      .button span:after {
-        content: '\00bb';
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        right: -20px;
-        transition: 0.5s;
-      }
-
-      .button:hover span {
-        padding-right: 25px;
-        opacity: 0.7;
-      }
-
-      .button:hover span:after {
-        opacity: 1;
-        right: 0;
       }
 
       form{
-        margin: 0 auto;
-        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
         max-width: 1100px;
-        border: 10px solid black;
-        padding: 10px;
         min-width: 300px;
-        overflow-y: scroll;
-        height: 900px;
-        display: table;
-      }
-
-      .icon{
-        width: 80%;
-        font-size: 20px;
-        font-weight: bold;
-      }
-
-      .icon > img{
-        width: 28px;
-      }
-
-      .icon > span{
-        float: left;
-      }
-
-      .icon img:hover{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
       }
       
     </style>
@@ -302,17 +192,15 @@
           <li><a href="home.jsp">Home</a></li>
           <li><a class="active">Personal Info</a></li>
           <li><a href="skillset.jsp">Skill Set</a></li>
+          <li><a href="additionalInformation.jsp">Additional Information</a></li>
           <li><a href="events.jsp">Events</a></li>
-          <li><a href="work_semi.jsp">Workshop/Seminar Details</a></li>
-          <li><a href="monographs.jsp">Monographs</a></li>
-          <li><a href="proposaldetails.jsp">Proposal Details</a></li>
-          <li><a href="membershipdetails.jsp">Membership Details</a></li>
+          <li><a href="publications.jsp">Publications</a></li>
         </ul>
       </div>
     </div>
     
     <div class="content" id="fm">
-      <form method="POST" action="MainServlet">
+        <form method="POST" action="MainServlet" onsubmit="return check()">
         
           <div style="display: table-cell;vertical-align: middle;">
         <div class="icon">
@@ -322,12 +210,12 @@
 
         <div id="personalDetails" style="display: none;">
           <div>
-            <label for="">Name</label>
+            <label for="empName">Name</label>
             <input type = "text" id = "empName" name="empName" value="<%=facultyName %>"/>
           </div>
 
           <div>
-            <label for="">Date of Birth</label>
+            <label for="dob">Date of Birth</label>
             <input type = "date" id = "dob" name="dob" value="<%=personalInfo.getDob()==null?"":df.format(personalInfo.getDob())%>"/>
           </div>
 
@@ -338,12 +226,36 @@
 
           <div>
             <label for="">Blood Group</label>
-            <input type = "text" id = "bg" name="bg" value="<%=personalInfo.getBloodGroup()%>" maxlength = "8"/>
+            <select id = "bg" name="bg">
+                <option selected="selected"></option>
+                <option value="A-" <% if(personalInfo.getBloodGroup().equals("A-")){ %>selected="selected"<%}%>>A Negative</option>
+                <option value="A+" <% if(personalInfo.getBloodGroup().equals("A+")){ %>selected="selected"<%}%>>A Positive</option>
+                <option value="AU" <% if(personalInfo.getBloodGroup().equals("AU")){ %>selected="selected"<%}%>>A Unknown</option>
+                <option value="A1-" <% if(personalInfo.getBloodGroup().equals("A1-")){ %>selected="selected"<%}%>>A1 Negative</option>
+                <option value="A1+" <% if(personalInfo.getBloodGroup().equals("A1+")){ %>selected="selected"<%}%>>A1 Positive</option>
+                <option value="A1B-" <% if(personalInfo.getBloodGroup().equals("A1B-")){ %>selected="selected"<%}%>>A1B Negative</option>
+                <option value="A1B+" <% if(personalInfo.getBloodGroup().equals("A1B+")){ %>selected="selected"<%}%>>A1B Positive</option>
+                <option value="A2+" <% if(personalInfo.getBloodGroup().equals("A2+")){ %>selected="selected"<%}%>>A2 Positive</option>
+                <option value="A2-" <% if(personalInfo.getBloodGroup().equals("A2-")){ %>selected="selected"<%}%>>A2 Negative</option>
+                <option value="A2B-" <% if(personalInfo.getBloodGroup().equals("A2B-")){ %>selected="selected"<%}%>>A2B Negative</option>
+                <option value="A2B+" <% if(personalInfo.getBloodGroup().equals("A2B+")){ %>selected="selected"<%}%>>A2B Positive</option>
+                <option value="AB-" <% if(personalInfo.getBloodGroup().equals("AB-")){ %>selected="selected"<%}%>>AB Negative</option>
+                <option value="AB+" <% if(personalInfo.getBloodGroup().equals("AB+")){ %>selected="selected"<%}%>>AB Positive</option>
+                <option value="ABU" <% if(personalInfo.getBloodGroup().equals("ABU")){ %>selected="selected"<%}%>>AB Unknown</option>
+                <option value="B-" <% if(personalInfo.getBloodGroup().equals("B-")){ %>selected="selected"<%}%>>B Negative</option>
+                <option value="B+" <% if(personalInfo.getBloodGroup().equals("B+")){ %>selected="selected"<%}%>>B Positive</option>
+                <option value="B1+" <% if(personalInfo.getBloodGroup().equals("B1+")){ %>selected="selected"<%}%>>B1 Positive</option>
+                <option value="BU" <% if(personalInfo.getBloodGroup().equals("BU")){ %>selected="selected"<%}%>>B Unknown</option>
+                <option value="O-" <% if(personalInfo.getBloodGroup().equals("O-")){ %>selected="selected"<%}%>>O Negative</option>
+                <option value="O+" <% if(personalInfo.getBloodGroup().equals("O+")){ %>selected="selected"<%}%>>O Positive</option>
+                <option value="OU" <% if(personalInfo.getBloodGroup().equals("OU")){ %>selected="selected"<%}%>>O Unknown</option>
+                <option value="U" <% if(personalInfo.getBloodGroup().equals("U")){ %>selected="selected"<%}%>>Unknown</option>
+            </select>
           </div>
 
           <div class="in">
             <label for="">Date of Joining</label>
-            <input type = "date" id = "doj"name="doj" value="<%=personalInfo.getDoj()==null?"":df.format(personalInfo.getDoj())%>"/>
+            <input type = "date" id = "doj" name="doj" value="<%=personalInfo.getDoj()==null?"":df.format(personalInfo.getDoj())%>"/>
           </div>
 
           <div class="in">
@@ -353,12 +265,12 @@
 
           <div>
             <label for="">Phone Number</label>
-            <input type = "text" id = "ph" name="ph" value="<%=personalInfo.getPhoneNumber()%>" maxlength = "10" />
+            <input type = "number" onkeypress="if(this.value.length==10)return false;" id = "ph" name="ph" value="<%=personalInfo.getPhoneNumber()%>"/>
           </div>
 
           <div>
             <label for="">Secondary Phone Number</label>
-            <input type = "text" id = "secph" name="secph" value="<%=personalInfo.getSecPhoneNumber()%>" maxlength = "10" />
+            <input type = "number" onkeypress="if(this.value.length==10)return false;" id = "secph" name="secph" value="<%=personalInfo.getSecPhoneNumber()%>"/>
           </div>
 
           <div>
@@ -392,22 +304,22 @@
 
           <div>
             <label for="">District</label>
-            <input type="text" value="<%=address1.getDistrict()%>" id="Pdistrict" name="Pdistrict" size="35"/>
+            <input type="text" list="datadistricts" value="<%=address1.getDistrict()%>" id="Pdistrict" name="Pdistrict" size="35"/>
           </div>
 
           <div>
             <label for="">State</label>
-            <input type="text" id="Pstate" name="Pstate" value="<%=address1.getState()%>" size="35"/>
+            <input type="text" list="datastates" id="Pstate" name="Pstate" value="<%=address1.getState()%>" size="35"/>
           </div>
 
           <div>
             <label for="">Country</label>
-            <input type="text" id="Pcountry" name="Pcountry" value="<%=address1.getCountry()%>" size="35"/>
+            <input type="text" list="datacountry" id="Pcountry" name="Pcountry" value="<%=address1.getCountry()%>" size="35"/>
           </div>
 
           <div>
             <label for="">Pincode</label>
-            <input type="text"id="Ppincode" name="Ppincode" value="<%=address1.getPinCode()%>" size="35" maxlength="6"/>
+            <input type="number" onkeypress="if(this.value.length==6)return false;" id="Ppincode" name="Ppincode" value="<%=address1.getPinCode()%>"/>
           </div>
 
         </div>
@@ -436,22 +348,22 @@
 
           <div>
             <label for="">District</label>
-            <input type="text" value="<%=address2.getDistrict()%>" id="Cdistrict" name="Cdistrict" size="35"/>
+            <input type="text" list="datadistricts" value="<%=address2.getDistrict()%>" id="Cdistrict" name="Cdistrict" size="35"/>
           </div>
 
           <div>
             <label for="">State</label>
-            <input type="text" value="<%=address2.getState()%>" id="Cstate" name="Cstate" size="35"/>
+            <input type="text" list="datastates" value="<%=address2.getState()%>" id="Cstate" name="Cstate" size="35"/>
           </div>
 
           <div>
             <label for="">Country</label>
-            <input type="text" value="<%=address2.getCountry()%>" id="Ccountry" name="Ccountry" size="35"/>
+            <input type="text" list="datacountry" value="<%=address2.getCountry()%>" id="Ccountry" name="Ccountry" size="35"/>
           </div>
 
           <div>
             <label for="">Pincode</label>
-            <input type="text" value="<%=address2.getPinCode()%>" id="Cpincode" name="Cpincode" size="35" maxlength="6" />
+            <input type="number" onkeypress="if(this.value.length==6)return false;" value="<%=address2.getPinCode()%>" id="Cpincode" name="Cpincode" size="35"/>
           </div>
 
         </div>
@@ -463,6 +375,49 @@
           </div>
       </form>
     </div>
+          <datalist id="datadistricts">
+              <option value="Ariyalur"/>
+              <option value="Chennai"/>
+              <option value="Coimbatore"/>
+              <option value="Cuddalore"/>
+              <option value="Dharmapuri"/>
+              <option value="Dindigul"/>
+              <option value="Erode"/>
+              <option value="Kanchipuram"/>
+              <option value="Kanniyakumari"/>
+              <option value="Karur"/>
+              <option value="Krishnagiri"/>
+              <option value="Madurai"/>
+              <option value="Nagapattinam"/>
+              <option value="Namakkal"/>
+              <option value="The Nilgiris"/>
+              <option value="Perambalur"/>
+              <option value="Pudukkottai"/>
+              <option value="Ramanathapuram"/>
+              <option value="Salem"/>
+              <option value="Sivaganga"/>
+              <option value="Thanjavur"/>
+              <option value="Theni"/>
+              <option value="Thoothukudi"/>
+              <option value="Tiruchirappalli"/>
+              <option value="Tirunelveli"/>
+              <option value="Tiruppur"/>
+              <option value="Tiruvallur"/>
+              <option value="Tiruvannamalai"/>
+              <option value="Tiruvarur"/>
+              <option value="Vellore"/>
+              <option value="Viluppuram"/>
+              <option value="Virudhunagar"/>
+          </datalist>
+          <datalist id="datastates">
+              <option value="Tamil Nadu"/>
+              <option value="Kerala"/>
+              <option value="Karnataka"/>
+              <option value="Delhi"/>
+          </datalist>
+          <datalist id="datacountry">
+              <option value="India"/>
+          </datalist>
   </body>
 </html>
 

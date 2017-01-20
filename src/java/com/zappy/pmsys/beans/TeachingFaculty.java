@@ -23,7 +23,16 @@ public class TeachingFaculty extends Faculty{
     private List<OrganizedProgramDetails>  organizedProgramDetails;
     private List<AreaOfInterest> areaOfInterest;
     private List<MembershipDetails> membershipDetails;
-    private List<HandledSubjects> handledSubjects; 
+    private List<HandledSubjects> handledSubjects;
+    private List<SelfAppraisal> selfAppraisals;
+
+    public List<SelfAppraisal> getSelfAppraisals() {
+        return selfAppraisals;
+    }
+
+    public void setSelfAppraisals(List<SelfAppraisal> selfAppraisals) {
+        this.selfAppraisals = selfAppraisals;
+    }
 
     public List<JournalDetails> getJournalDetails() {
         return journalDetails;
