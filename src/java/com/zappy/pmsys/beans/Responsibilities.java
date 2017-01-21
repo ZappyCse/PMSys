@@ -48,8 +48,12 @@ public class Responsibilities {
         try {
             if(!pi[2].equals(""))
                 fromDate=df.parse(pi[2]);
+            else
+                fromDate=null;
             if(!pi[3].equals(""))
                 toDate=df.parse(pi[3]);
+            else
+                toDate=null;
         } catch (ParseException ex) {
             Logger.getLogger(Responsibilities.class.getName()).log(Level.SEVERE, null, ex);
         }

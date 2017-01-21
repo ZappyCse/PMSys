@@ -159,30 +159,6 @@
     <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
       
-      .table{
-          border-collapse: collapse;
-          font-size: 15px;
-      }
-      
-      .table th{
-          padding: 5px;
-          border: 1px solid black;
-      }
-      
-      .table td{
-          padding: 10px;
-          border: 1px solid black;
-      }
-      
-      .table input{
-          width: 100%;
-          height: 30px;
-      }
-           
-      .divic{
-          padding: 10px;
-      }
-      
     </style>
     </head>
     
@@ -225,8 +201,9 @@
         
         <div class="content" id="fm">
             <form method="POST" action="MainServlet" onsubmit="return check()">
-                <div style="display: table-cell;vertical-align: middle;">
-                    <div class="divic">
+                <div id="maindiv">
+                    <div  class="divic">
+                    <div>
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('eduqua',this)">
@@ -288,8 +265,8 @@
                                     <td>
                                         <input type="number" name="<%="percentage"+tmp %>" step="any" onkeypress="if(this.value.length==5)return false;" min="0" max="100" id="<%="percentage"+tmp %>" value="<%=pname[7] %>"/>
                                     </td>
-                                    <td>
-                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'qualification')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
+                                    <td class="delcell">
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'qualification')" />
                                     </td>
                                     
                                 </tr>
@@ -300,14 +277,14 @@
                                 %>
                             </table>
                             <center>
-                                <input type = "button" class="center" value = "Add more" onclick = "addRow('qualification')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                <input type = "button" value = "Add more" onclick = "addRow('qualification')"  class="addcell"/>
                             </center>
                         </div>
                     </div>
 
                     <input type="hidden" name="tb1" />
                     
-                    <div class="divic">
+                    <div >
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('int',this)">
@@ -341,8 +318,8 @@
                                     <td>
                                         <input type="text" name="<%="areas"+tmp %>" id="<%="areas"+tmp %>" value="<%=areaOfInterest.getAll() %>"/>
                                     </td>
-                                    <td>
-                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'interest')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
+                                    <td class="delcell">
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'interest')"/>
                                     </td>
                                 </tr>
                                 <%
@@ -352,7 +329,7 @@
                                 %>
                             </table>
                             <center>
-                                <input type = "button" value = "Add more" onclick = "addRow('interest')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                <input type = "button" value = "Add more" onclick = "addRow('interest')" class="addcell" />
                             </center>
                         </div>
 
@@ -360,7 +337,7 @@
                     
                     <input type="hidden" name="tb2" />
 
-                    <div class="divic">
+                    <div >
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('subhan',this)">
@@ -415,7 +392,7 @@
                                     <td><input type="text" name="<%="dept"+tmp %>" id="<%="dept"+tmp %>" value="<%=pname[5] %>"/></td>
                                     <td><input type="text" name="<%="sec"+tmp %>" id="<%="sec"+tmp %>" value="<%=pname[6] %>"/></td>
                                     <td><input type="number" step="any" onkeypress="if(this.value.length==5)return false;" name="<%="passPercent"+tmp %>" min="0" max="100" id="<%="passPercent"+tmp %>" value="<%=pname[7] %>"/></td>
-                                    <td><input type = "button" value = "Delete" onclick = "deleteRow(this,'subjects')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
+                                    <td class="delcell"><input type = "button" value = "Delete" onclick = "deleteRow(this,'subjects')" /> </td>
                                 </tr>
                                 <%
                                     ++index;
@@ -424,7 +401,7 @@
                                 %>
                                 </table>
                                 <center>
-                                    <input type = "button" value = "Add more" onclick = "addRow('subjects')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                    <input type = "button" value = "Add more" onclick = "addRow('subjects')" class="addcell" />
                                 </center>
                         </div>
                         
@@ -432,7 +409,7 @@
                     
                     <input type="hidden" name="tb3" />
                     
-                    <div class="divic">
+                    <div >
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('inexp',this)">
@@ -481,8 +458,8 @@
                                     <td> 
                                         <input type = "date" name="<%="into"+tmp %>" id ="<%="into"+tmp %>" value="<%=pname[4] %>"/> 
                                     </td>
-                                    <td> 
-                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'industable')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> 
+                                    <td class="delcell"> 
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'industable')"/> 
                                     </td>
                                 </tr>
                                 <%
@@ -492,7 +469,7 @@
                                 %>
                             </table>
                             <center>    
-                                <input type = "button" value = "Add more" onclick = "addRow('industable')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                <input type = "button" value = "Add more" onclick = "addRow('industable')" class="addcell" />
                             </center>
                         </div>
 
@@ -500,7 +477,7 @@
 
                     <input type="hidden" name="tb4" />
                     
-                    <div class="divic">
+                    <div>
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('teaexp',this)">
@@ -550,8 +527,8 @@
                                     <td>
                                         <input type="date" name="<%="teato"+tmp %>" id="<%="teato"+tmp %>" value="<%=pname[4] %>"/>
                                     </td>
-                                    <td>
-                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'teaching_exp')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
+                                    <td class="delcell">
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'teaching_exp')"/>
                                     </td>
                                 </tr>
                                 <%
@@ -562,10 +539,10 @@
                             </table>
                             
                             <center>
-                                <input type = "button" value = "Add more" onclick = "addRow('teaching_exp')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                <input type = "button" value = "Add more" onclick = "addRow('teaching_exp')" class="addcell" />
                             </center>
                         </div>
-
+                    </div>
                     </div>
                     <input type="hidden" name="action" value="skillset"/>
                     <button class="button">

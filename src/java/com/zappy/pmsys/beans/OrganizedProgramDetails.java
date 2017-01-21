@@ -54,6 +54,8 @@ public class OrganizedProgramDetails {
                 Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else
+            fromDate=null;
         if(!pi[4].equals("")){
             try {
                 toDate=df.parse(pi[4]);
@@ -61,6 +63,8 @@ public class OrganizedProgramDetails {
                 Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else
+            toDate=null;
         duration=pi[5].equals("")?0:Integer.parseInt(pi[5]);
         convener=pi[6];
         region=pi[7].equals("")?'\u0000':pi[7].charAt(0);

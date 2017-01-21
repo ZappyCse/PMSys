@@ -100,6 +100,8 @@ public class Industry {
                 Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else
+            fromDate=null;
         if(!pi[4].equals("")){
             try {
                 toDate=df.parse(pi[4]);
@@ -107,5 +109,7 @@ public class Industry {
                 Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else
+            toDate=null;
     }
 }

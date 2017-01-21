@@ -21,123 +21,96 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Additional Information</title>
-    <script language="javascript" type="text/javascript" >
-      
-        function addRow(tableId) {
-            var x=document.getElementById(tableId);
-            var new_row = x.rows[1].cloneNode(true);
-            var len = x.rows.length;
-            var inp1;
-            new_row.cells[0].innerHTML=len;
-            for(var i=1;i<new_row.cells.length-1;i++){
-                if(new_row.cells[i].getElementsByTagName('input').length>0){
-                    inp1=new_row.cells[i].getElementsByTagName('input')[0];
-                    inp1.id+=len;
-                    inp1.name+=len;
-                    inp1.value='';
-                    inp1=null;
-                }
-                else if(new_row.cells[i].getElementsByTagName('select').length>0){
-                    inp1=new_row.cells[i].getElementsByTagName('select')[0];
-                    inp1.id+=len;
-                    inp1.name+=len;
-                    inp1.value='';
-                    inp1=null;
-                }
-            }
-            x.appendChild( new_row );
-        }
-
-        function deleteRow(r,tableId) {
-            var x = document.getElementById(tableId);
-            if(x.rows.length == 2) {
-              addRow(tableId);
-            }
-            var i = r.parentNode.parentNode.rowIndex;
-            x.deleteRow(i);
-            setSNO(tableId);
-        }
-        
-        function setSNO(tableId) {
-            var myTable = document.getElementById(tableId);
-            var row_count = myTable.rows.length;
-            for(var i = 1; i <= row_count; i++) {
-              myTable.rows[i].cells[0].innerHTML = i;
-            }
-        }
-        function hide(t,t1){
-            document.getElementById(t).style.display="none";
-            t1.setAttribute("src","add.png");
-            t1.setAttribute("onclick","unhide('"+t+"',this)");    
-        }
-
-        function unhide(t,t1){
-          document.getElementById(t).style.display="inline-block";
-          t1.setAttribute("src","rem.png");
-          t1.setAttribute("onclick","hide('"+t+"',this)");
-        }
-        
-        function check(){
-            var x=document.getElementById('responsibilities');
-            var val;
-            var val1;
-            for(var i=1;i<x.rows.length;i++){
-                val=x.rows[i].cells[3].getElementsByTagName('input')[0];
-                val1=x.rows[i].cells[4].getElementsByTagName('input')[0];
-                if(val.value!=''){
-                    if(val1.value!=''){
-                        var d1=new Date(val.value);
-                        var d2=new Date(val1.value);
-                        if(d1.getTime()>d2.getTime()){
-                            alert('From Date should be less than To Date');
-                            val.style.background='pink';
-                            val1.style.background='pink';
-                            x.rows[i].cells[5].getElementsByTagName('input')[0].value='';
-                            return false;
-                        }
-                        else{
-                            x.rows[i].cells[5].getElementsByTagName('input')[0].value=(d2.getTime()-d1.getTime())/(24*60*60*1000)+1;
-                        }
+        <title>Additional Information</title>
+        <script language="javascript" type="text/javascript" >
+          
+            function addRow(tableId) {
+                var x=document.getElementById(tableId);
+                var new_row = x.rows[1].cloneNode(true);
+                var len = x.rows.length;
+                var inp1;
+                new_row.cells[0].innerHTML=len;
+                for(var i=1;i<new_row.cells.length-1;i++){
+                    if(new_row.cells[i].getElementsByTagName('input').length>0){
+                        inp1=new_row.cells[i].getElementsByTagName('input')[0];
+                        inp1.id+=len;
+                        inp1.name+=len;
+                        inp1.value='';
+                        inp1=null;
+                    }
+                    else if(new_row.cells[i].getElementsByTagName('select').length>0){
+                        inp1=new_row.cells[i].getElementsByTagName('select')[0];
+                        inp1.id+=len;
+                        inp1.name+=len;
+                        inp1.value='';
+                        inp1=null;
                     }
                 }
-                val.style.background='white';
-                val1.style.background='white';
+                x.appendChild( new_row );
             }
-            return true;
-        }
+
+            function deleteRow(r,tableId) {
+                var x = document.getElementById(tableId);
+                if(x.rows.length == 2) {
+                  addRow(tableId);
+                }
+                var i = r.parentNode.parentNode.rowIndex;
+                x.deleteRow(i);
+                setSNO(tableId);
+            }
+            
+            function setSNO(tableId) {
+                var myTable = document.getElementById(tableId);
+                var row_count = myTable.rows.length;
+                for(var i = 1; i <= row_count; i++) {
+                  myTable.rows[i].cells[0].innerHTML = i;
+                }
+            }
+            function hide(t,t1){
+                document.getElementById(t).style.display="none";
+                t1.setAttribute("src","add.png");
+                t1.setAttribute("onclick","unhide('"+t+"',this)");    
+            }
+
+            function unhide(t,t1){
+              document.getElementById(t).style.display="inline-block";
+              t1.setAttribute("src","rem.png");
+              t1.setAttribute("onclick","hide('"+t+"',this)");
+            }
+            
+            function check(){
+                var x=document.getElementById('responsibilities');
+                var val;
+                var val1;
+                for(var i=1;i<x.rows.length;i++){
+                    val=x.rows[i].cells[3].getElementsByTagName('input')[0];
+                    val1=x.rows[i].cells[4].getElementsByTagName('input')[0];
+                    if(val.value!=''){
+                        if(val1.value!=''){
+                            var d1=new Date(val.value);
+                            var d2=new Date(val1.value);
+                            if(d1.getTime()>d2.getTime()){
+                                alert('From Date should be less than To Date');
+                                val.style.background='pink';
+                                val1.style.background='pink';
+                                x.rows[i].cells[5].getElementsByTagName('input')[0].value='';
+                                return false;
+                            }
+                            else{
+                                x.rows[i].cells[5].getElementsByTagName('input')[0].value=(d2.getTime()-d1.getTime())/(24*60*60*1000)+1;
+                            }
+                        }
+                    }
+                    val.style.background='white';
+                    val1.style.background='white';
+                }
+                return true;
+            }
+            
+        </script>
         
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
-    <style type="text/css">
-      
-      .table{
-          border-collapse: collapse;
-          font-size: 15px;
-      }
-      
-      .table th{
-          padding: 5px;
-          border: 1px solid black;
-      }
-      
-      .table td{
-          padding: 10px;
-          border: 1px solid black;
-      }
-      
-      .table input{
-          width: 100%;
-          height: 30px;
-      }
-           
-      .divic{
-          padding: 10px;
-      }
-           
-    </style>
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
     </head>
     
     <%  TeachingFaculty faculty=(TeachingFaculty)new Administrator().getUser((String)request.getSession().getAttribute("facultyId"));
@@ -173,8 +146,9 @@
         
         <div class="content" id="fm">
             <form method="POST" action="MainServlet" onsubmit="return check()">
-                <div style="display: table-cell;vertical-align: middle;">
+                <div id="maindiv" >
                     <div class="divic">
+                    <div>
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('memdet',this)">
@@ -215,8 +189,8 @@
                                     <td>
                                         <input type="text" name="<%="weaknesses"+tmp %>" id="<%="weaknesses"+tmp %>" value="<%=pname[1] %>"/>
                                     </td>
-                                    <td>
-                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'membership')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
+                                    <td class="delcell">
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'membership')"  />
                                     </td>
                                     
                                 </tr>
@@ -227,14 +201,14 @@
                                 %>
                             </table>
                             <center>
-                                <input type = "button" class="center" value = "Add more" onclick = "addRow('membership')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                <input type = "button" value = "Add more" onclick = "addRow('membership')" class="addcell"/>
                             </center>
                         </div>
                     </div>
 
                     <input type="hidden" name="tb1" />
                     
-                    <div class="divic">
+                    <div>
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('res',this)">
@@ -292,8 +266,8 @@
                                             <option value="D" <% if(pname[5].equals("D")){ %>selected="selected"<% } %>>Department</option>
                                         </select>
                                     </td>
-                                    <td>
-                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'responsibilities')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
+                                    <td class="delcell">
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'responsibilities')"  />
                                     </td>
                                 </tr>
                                 <%
@@ -303,7 +277,7 @@
                                 %>
                             </table>
                             <center>
-                                <input type = "button" value = "Add more" onclick = "addRow('responsibilities')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                <input type = "button" value = "Add more" onclick = "addRow('responsibilities')" class="addcell"/>
                             </center>
                         </div>
 
@@ -311,7 +285,7 @@
                     
                     <input type="hidden" name="tb2" />
 
-                    <div class="divic">
+                    <div>
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('selfapp',this)">
@@ -348,7 +322,7 @@
                                     <td>
                                         <input type="text" name="<%="selfweaknesses"+tmp %>" id="<%="selfweaknesses"+tmp %>" value="<%=pname[1] %>"/>
                                     </td>
-                                    <td><input type = "button" value = "Delete" onclick = "deleteRow(this,'selfappraisal')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
+                                    <td class="delcell"><input type = "button" value = "Delete" onclick = "deleteRow(this,'selfappraisal')"  /> </td>
                                 </tr>
                                 <%
                                     ++index;
@@ -357,7 +331,7 @@
                                 %>
                                 </table>
                                 <center>
-                                    <input type = "button" value = "Add more" onclick = "addRow('selfappraisal')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                    <input type = "button" value = "Add more" onclick = "addRow('selfappraisal')" class="addcell"/>
                                 </center>
                         </div>
                         
@@ -368,7 +342,7 @@
                     <span>Save</span>
                 </button>
                 </div>
-                
+                </div>
             </form>
         </div>
     </body>

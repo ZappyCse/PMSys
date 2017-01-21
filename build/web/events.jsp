@@ -135,31 +135,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-      
-      .table{
-          border-collapse: collapse;
-          font-size: 15px;
-      }
-      
-      .table th{
-          padding: 5px;
-          border: 1px solid black;
-      }
-      
-      .table td{
-          padding: 10px;
-          border: 1px solid black;
-      }
-      
-      .table input{
-          width: 100%;
-          height: 30px;
-      }
-           
-      .divic{
-          padding: 10px;
-      }
-          
+         
     </style>
     </head>
     
@@ -193,8 +169,9 @@
         
         <div class="content" id="fm">
             <form method="POST" action="MainServlet" onsubmit="return check()">
-                <div style="display: table-cell;vertical-align: middle;">
+                <div id="maindiv">
                     <div class="divic">
+                    <div>
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('eventsatt',this)">
@@ -262,8 +239,8 @@
                                             <option value="C" <% if(pname[6].equals("C")) {%>selected="selected"<% } %>>Conference</option>
                                         </select>
                                     </td>
-                                    <td>
-                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'eventsattended')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" />
+                                    <td class="delcell">
+                                        <input type = "button" value = "Delete" onclick = "deleteRow(this,'eventsattended')"  />
                                     </td>
                                     
                                 </tr>
@@ -274,14 +251,14 @@
                                 %>
                             </table>
                             <center>
-                                <input type = "button" class="center" value = "Add more" onclick = "addRow('eventsattended')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                <input type = "button" value = "Add more" onclick = "addRow('eventsattended')" class="addcell" />
                             </center>
                         </div>
                     </div>
 
                     <input type="hidden" name="tb1" />
                     
-                    <div class="divic">
+                    <div>
 
                         <div class="icon">
                             <img src="add.png" onclick="unhide('orgprg',this)">
@@ -348,7 +325,7 @@
                                             <option value="C" <% if(pname[8].equals("C")) {%>selected="selected"<% } %>>Conference</option>
                                         </select>
                                     </td>
-                                    <td><input type = "button" value = "Delete" onclick = "deleteRow(this,'orgprgdetails')" style = "height : 30px; width : 60px; border-radius : 5px;margin-left: 5px;cursor: pointer;" /> </td>
+                                    <td class="delcell"><input type = "button" value = "Delete" onclick = "deleteRow(this,'orgprgdetails')"  /> </td>
                                 </tr>
                                 <%
                                     ++index;
@@ -357,7 +334,7 @@
                                 %>
                                 </table>
                                 <center>
-                                    <input type = "button" value = "Add more" onclick = "addRow('orgprgdetails')" style = "height : 30px; width : 70px; border-radius : 5px;margin-top: 5px;cursor: pointer;" />
+                                    <input type = "button" value = "Add more" onclick = "addRow('orgprgdetails')" class="addcell" />
                                 </center>
                         </div>
                     </div>
@@ -366,7 +343,7 @@
                     <span>Save</span>
                 </button>
                 </div>
-                
+                </div>
             </form>
         </div>
     </body>

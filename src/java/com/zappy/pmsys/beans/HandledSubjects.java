@@ -118,12 +118,18 @@ public class HandledSubjects {
     public void setAll(String pi[]){
         if(!pi[0].equals(""))
             academicYearFrom=Integer.parseInt(pi[0]);
+        else
+            academicYearFrom=0;
         if(!pi[1].equals(""))
             academicYearTo=Integer.parseInt(pi[1]);
+        else
+            academicYearTo=0;
         if(pi[2].equalsIgnoreCase("O"))
             semester='O';
-        else
+        else if(pi[2].equalsIgnoreCase("E"))
             semester='E';
+        else
+            semester='\u0000';
         subjectName=pi[3];
         if(!pi[4].equals(""))
             year=Integer.parseInt(pi[4]);
@@ -132,5 +138,7 @@ public class HandledSubjects {
             section=pi[6].charAt(0);
         if(!pi[7].equals(""))
             passPercent=Float.parseFloat(pi[7]);
+        else
+            passPercent=0f;
     }
 }

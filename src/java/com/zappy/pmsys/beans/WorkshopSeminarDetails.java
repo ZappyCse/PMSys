@@ -50,6 +50,8 @@ public class WorkshopSeminarDetails {
                 Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else
+            fromDate=null;
         if(!pi[3].equals("")){
             try {
                 toDate=df.parse(pi[3]);
@@ -57,6 +59,8 @@ public class WorkshopSeminarDetails {
                 Logger.getLogger(Industry.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else
+            toDate=null;
         duration=pi[4].equals("")?0:Integer.parseInt(pi[4]);
         region=pi[5].equals("")?'\u0000':pi[5].charAt(0);
         rtype=pi[6].equals("")?'\u0000':pi[6].charAt(0);

@@ -122,10 +122,16 @@ public class Qualification {
         university=pn[3];
         if(!pn[4].equals(""))
             yoa=Integer.parseInt(pn[4]);
+        else
+            yoa=0;
         if(!pn[5].equals(""))
             yoc=Integer.parseInt(pn[5]);
+        else
+            yoc=0;
         classOfMarks=pn[6];
         if(!pn[7].equals(""))
             percent=Float.parseFloat(pn[7]);
+        else
+            percent=0f;
     }
 }
