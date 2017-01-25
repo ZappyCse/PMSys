@@ -1,14 +1,7 @@
-html{
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: 0;
-	padding: 0;
+*{
+	transition: 1.0s;
 }
-
-body{
+html,body{
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -24,46 +17,66 @@ body{
 .div{
 	height: 100%;
 	position: fixed;
-	width: 10%;
-	min-width: 150px;
-	top: 0;
-	display: table;
-	vertical-align: middle;
-	overflow: hidden;
 	background: url("../grad.jpg");
+	width: 0;
+	z-index: 1;
+	top: 0;
+	left: 0;
 	border-right: 1px solid black;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
 }
 
-.ul{
-	list-style-type: none;
-	padding: 0;
-	display: table-cell;
-	vertical-align: middle;
+.closebtn{
+	cursor: pointer;
 }
 
-.ul li a{
+.div a{
 	text-decoration: none;
 	padding: 10px 10px;
 	display: block;
 	color: #000;
 	font-size: 20px;
-	word-break: break-all;
+	/* word-break: break-all; */
+	transition: 0.3s;
 }
 
-.active {
+.div .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+#navbut{
+	font-size:30px;
+	cursor:pointer;
+	position: absolute;
+	padding-top: 4px;
+	padding-left: 4px;
+	height: 40px;
+	top: 0;
+	left: 0;
+	width: 30px;
+}
+
+.active{
 	background-color: #4CAF50;
 	color: white;
-	cursor: default;
+	cursor: pointer;
 }
 
-.ul li a:hover:not(.active){
+.div a:hover:not(.active):not(.closebtn){
 	background: #555;
 	color: white;
 }
 
 .content{
-	position: absolute;
-	left: 10%;
+	position: fixed;
+	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
@@ -81,10 +94,6 @@ body{
 
 .ig:hover{
 	box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.24), 5px 5px 10px 0 rgba(0,0,0,0.19);
-}
-
-.row{
-	display: table-row;
 }
 
 input:hover:not(.ig),input:focus{
@@ -138,17 +147,17 @@ input:hover:not(.ig),input:focus{
 }
 
 form{
-	position: absolute;
-	left: 0;
-	right: 0;
+	position: fixed;
 	top: 50px;
 	bottom: 50px;
+	left: 0;
+	right: 0;
+	padding: 15px;
+	padding-bottom: 80px;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 	overflow-y: scroll,hidden;
 	overflow-x: hidden;
-	padding: 15px;
-	padding-bottom: 80px;
 }
 
 .icon{
@@ -178,6 +187,22 @@ input[type=number]::-webkit-outer-spin-button {
 	margin: 0; 
 }
 
+.icon + div{
+	height: 0;
+	overflow: hidden;
+	padding: 0 18px;
+	margin: 0 auto;
+	transition: all .5s ease;
+}
+
+.icon img:hover{
+	cursor: pointer;
+}
+
+.icon span:hover{
+	cursor: default;
+}
+
 #maindiv{
 	margin: 0;
 	padding: 0;
@@ -191,6 +216,7 @@ input[type=number]::-webkit-outer-spin-button {
 .table{
 	border-collapse: collapse;
 	font-size: 15px;
+	margin: 0 auto;
 }
 
 .table th{

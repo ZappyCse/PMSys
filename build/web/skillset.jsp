@@ -18,188 +18,144 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Skill Set</title>
-    <script language="javascript" type="text/javascript" >
-      
-        function addRow(tableId) {
-            var x=document.getElementById(tableId);
-            var new_row = x.rows[1].cloneNode(true);
-            var len = x.rows.length;
-            var inp1;
-            new_row.cells[0].innerHTML=len;
-            for(var i=1;i<new_row.cells.length-1;i++){
-                if(new_row.cells[i].getElementsByTagName('input').length>0){
-                    inp1=new_row.cells[i].getElementsByTagName('input')[0];
-                    inp1.id+=len;
-                    inp1.name+=len;
-                    inp1.value='';
-                    inp1=null;
+        <title>Skill Set</title>
+        <script src="js/common.js" type="text/javascript"></script>
+        <script language="javascript" type="text/javascript" >
+            
+            function check(){
+                var x=document.getElementById('qualification');
+                var val;
+                var val1;
+                for(var i=1;i<x.rows.length;i++){
+                    val=x.rows[i].cells[5].getElementsByTagName('input')[0];
+                    val1=x.rows[i].cells[6].getElementsByTagName('input')[0];
+                    if(val.value!=''){
+                        if(val1.value!=''){
+                            if(val.value>val1.value){
+                                alert('Year of admission should be less than year of completion');
+                                val.style.background='pink';
+                                val1.style.background='pink';
+                                return false;
+                            }
+                        }
+                    }
+                    val.style.background='white';
+                    val1.style.background='white';
                 }
-                else if(new_row.cells[i].getElementsByTagName('select').length>0){
-                    inp1=new_row.cells[i].getElementsByTagName('select')[0];
-                    inp1.id+=len;
-                    inp1.name+=len;
-                    inp1.value='';
-                    inp1=null;
+                
+                x=document.getElementById('subjects');
+                for(var i=1;i<x.rows.length;i++){
+                    val=x.rows[i].cells[1].getElementsByTagName('input')[0];
+                    val1=x.rows[i].cells[2].getElementsByTagName('input')[0];
+                    if(val.value!=''){
+                        if(val1.value!=''){
+                            if(val.value>val1.value){
+                                alert('From Year should be less than To Year');
+                                val.style.background='pink';
+                                val1.style.background='pink';
+                                return false;
+                            }
+                        }
+                    }
+                    val.style.background='white';
+                    val1.style.background='white';
                 }
+                
+                x=document.getElementById('industable');
+                for(var i=1;i<x.rows.length;i++){
+                    val=x.rows[i].cells[4].getElementsByTagName('input')[0];
+                    val1=x.rows[i].cells[5].getElementsByTagName('input')[0];
+                    if(val.value!=''){
+                        if(val1.value!=''){
+                            if(new Date(val.value).getTime()>new Date(val1.value).getTime()){
+                                alert('From Date should be less than To Date');
+                                val.style.background='pink';
+                                val1.style.background='pink';
+                                return false;
+                            }
+                        }
+                    }
+                    val.style.background='white';
+                    val1.style.background='white';
+                }
+                
+                x=document.getElementById('teaching_exp');
+                for(var i=1;i<x.rows.length;i++){
+                    val=x.rows[i].cells[4].getElementsByTagName('input')[0];
+                    val1=x.rows[i].cells[5].getElementsByTagName('input')[0];
+                    if(val.value!=''){
+                        if(val1.value!=''){
+                            if(new Date(val.value).getTime()>new Date(val1.value).getTime()){
+                                alert('From Date should be less than To Date');
+                                val.style.background='pink';
+                                val1.style.background='pink';
+                                return false;
+                            }
+                        }
+                    }
+                    val.style.background='white';
+                    val1.style.background='white';
+                }
+                
+                return true;
             }
-            x.appendChild( new_row );
-        }
-
-        function deleteRow(r,tableId) {
-            var x = document.getElementById(tableId);
-            if(x.rows.length == 2) {
-              addRow(tableId);
-            }
-            var i = r.parentNode.parentNode.rowIndex;
-            x.deleteRow(i);
-            setSNO(tableId);
-        }
+            
+        </script>
         
-        function setSNO(tableId) {
-            var myTable = document.getElementById(tableId);
-            var row_count = myTable.rows.length;
-            for(var i = 1; i <= row_count; i++) {
-              myTable.rows[i].cells[0].innerHTML = i;
-            }
-        }
-        function hide(t,t1){
-            document.getElementById(t).style.display="none";
-            t1.setAttribute("src","add.png");
-            t1.setAttribute("onclick","unhide('"+t+"',this)");    
-        }
-
-        function unhide(t,t1){
-          document.getElementById(t).style.display="inline-block";
-          t1.setAttribute("src","rem.png");
-          t1.setAttribute("onclick","hide('"+t+"',this)");
-        }
-        
-        function check(){
-            var x=document.getElementById('qualification');
-            var val;
-            var val1;
-            for(var i=1;i<x.rows.length;i++){
-                val=x.rows[i].cells[5].getElementsByTagName('input')[0];
-                val1=x.rows[i].cells[6].getElementsByTagName('input')[0];
-                if(val.value!=''){
-                    if(val1.value!=''){
-                        if(val.value>val1.value){
-                            alert('Year of admission should be less than year of completion');
-                            val.style.background='pink';
-                            val1.style.background='pink';
-                            return false;
-                        }
-                    }
-                }
-                val.style.background='white';
-                val1.style.background='white';
-            }
-            
-            x=document.getElementById('subjects');
-            for(var i=1;i<x.rows.length;i++){
-                val=x.rows[i].cells[1].getElementsByTagName('input')[0];
-                val1=x.rows[i].cells[2].getElementsByTagName('input')[0];
-                if(val.value!=''){
-                    if(val1.value!=''){
-                        if(val.value>val1.value){
-                            alert('From Year should be less than To Year');
-                            val.style.background='pink';
-                            val1.style.background='pink';
-                            return false;
-                        }
-                    }
-                }
-                val.style.background='white';
-                val1.style.background='white';
-            }
-            
-            x=document.getElementById('industable');
-            for(var i=1;i<x.rows.length;i++){
-                val=x.rows[i].cells[4].getElementsByTagName('input')[0];
-                val1=x.rows[i].cells[5].getElementsByTagName('input')[0];
-                if(val.value!=''){
-                    if(val1.value!=''){
-                        if(new Date(val.value).getTime()>new Date(val1.value).getTime()){
-                            alert('From Date should be less than To Date');
-                            val.style.background='pink';
-                            val1.style.background='pink';
-                            return false;
-                        }
-                    }
-                }
-                val.style.background='white';
-                val1.style.background='white';
-            }
-            
-            x=document.getElementById('teaching_exp');
-            for(var i=1;i<x.rows.length;i++){
-                val=x.rows[i].cells[4].getElementsByTagName('input')[0];
-                val1=x.rows[i].cells[5].getElementsByTagName('input')[0];
-                if(val.value!=''){
-                    if(val1.value!=''){
-                        if(new Date(val.value).getTime()>new Date(val1.value).getTime()){
-                            alert('From Date should be less than To Date');
-                            val.style.background='pink';
-                            val1.style.background='pink';
-                            return false;
-                        }
-                    }
-                }
-                val.style.background='white';
-                val1.style.background='white';
-            }
-            
-            return true;
-        }
-        
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
-    <style type="text/css">
-      
-    </style>
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="CSS/common.css" rel="stylesheet" type="text/css"/>
+        <style type="text/css">
+          
+        </style>
     </head>
     
-    <%  TeachingFaculty faculty=(TeachingFaculty)new Administrator().getUser((String)request.getSession().getAttribute("facultyId"));
+    <%  
+        TeachingFaculty faculty=(TeachingFaculty)new Administrator()
+                                .getUser((String)request.getSession().getAttribute("facultyId"));
+
         List<Qualification> qualifications=faculty.getQualification();
         if(qualifications==null)
            qualifications=new ArrayList<>();
+
         List<AreaOfInterest> areaOfInterests=faculty.getAreaOfInterest();
         if(areaOfInterests==null)
             areaOfInterests=new ArrayList<>();
+
         List<HandledSubjects> handledSubjectses=faculty.getHandledSubjects();
         if(handledSubjectses==null)
             handledSubjectses=new ArrayList<>();
+
         List<Industry> industrys=faculty.getIndustry();
         if(industrys==null)
             industrys=new ArrayList<>();
+
         List<Experience> experiences=faculty.getExperience();
         if(experiences==null)
             experiences=new ArrayList<>();
+
         String pname[];
         int index=0;
         int size=0;
         String tmp="";
-        %>
+
+    %>
     
     <body>
         
-        <div class="div">
-            <div class="row">
-              <ul class="ul">
-                <li><a href="home.jsp">Home</a></li>
-                <li><a href="personalInformation.jsp">Personal Info</a></li>
-                <li><a class="active">Skill Set</a></li>
-                <li><a href="additionalInformation.jsp">Additional Information</a></li>
-                <li><a href="events.jsp">Events</a></li>
-                <li><a href="publications.jsp">Publications</a></li>
-              </ul>
-            </div>
+        <div class="div" id="mySidenav">
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="home.jsp">Home</a>
+            <a href="personalInformation.jsp">Personal Info</a>
+            <a class="active">Skill Set</a>
+            <a href="additionalInformation.jsp">Additional Information</a>
+            <a href="events.jsp">Events</a>
+            <a href="publications.jsp">Publications</a>
         </div>
         
         <div class="content" id="fm">
+            <span id="navbut" onclick="openNav()">
+                &#9776;
+            </span>
             <form method="POST" action="MainServlet" onsubmit="return check()">
                 <div id="maindiv">
                     <div  class="divic">
@@ -211,8 +167,8 @@
                         </div>
 
 
-                        <div id="eduqua" style="display:none;width: 100%;">
-                            <table id = "qualification" class="table" style="margin: 0 auto;">
+                        <div id="eduqua">
+                            <table id = "qualification" class="table" >
 
                                 <thead>
                                     <th rowspan="2">S.No</th>
@@ -291,9 +247,9 @@
                             <span class="icon">Area Of Interest</span>
                         </div>
 
-                        <div  id="int" style="display: none;width: 100%;">
+                        <div  id="int">
 
-                            <table  id = "interest" class="table" style="margin: 0 auto;">
+                            <table  id = "interest" class="table" >
                                 <thead>
                                 <th>S.No</th>
                                 <th>Area Of Interest</th>
@@ -344,8 +300,8 @@
                             <span class="icon">Subjects Handled</span>
                         </div>
 
-                        <div id="subhan" style="display:none;width: 100%;">
-                            <table id = "subjects" class="table" style="margin: 0 auto;">
+                        <div id="subhan">
+                            <table id = "subjects" class="table">
                                 <thead>
                                     <th>S.No</th>
                                     <th>From</th>
@@ -416,8 +372,8 @@
                             <span class="icon">Industry Experience</span>
                         </div>
 
-                        <div id="inexp" style="display:none;width: 100%;">
-                            <table id = "industable" class="table" style="margin: 0 auto;">
+                        <div id="inexp">
+                            <table id = "industable" class="table">
                                 <thead>
                                     <th rowspan="2">s.no</th>
                                     <th rowspan="2">Organization </th>
@@ -484,9 +440,9 @@
                             <span class="icon">Teaching Experience</span>
                         </div>
 
-                        <div id="teaexp" style="display:none;width: 100%;">
+                        <div id="teaexp">
 
-                            <table id = "teaching_exp" class="table" style="margin: 0 auto;">
+                            <table id = "teaching_exp" class="table">
                                 <thead>
                                     <th rowspan="2">s.no</th>
                                     <th rowspan="2">Name of the Institution </th>

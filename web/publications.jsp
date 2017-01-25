@@ -22,62 +22,9 @@
 <html>
     <head>
     <title>Publications</title>
+    <script src="js/common.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript" >
       
-        function addRow(tableId) {
-            var x=document.getElementById(tableId);
-            var new_row = x.rows[1].cloneNode(true);
-            var len = x.rows.length;
-            var inp1;
-            new_row.cells[0].innerHTML=len;
-            for(var i=1;i<new_row.cells.length-1;i++){
-                if(new_row.cells[i].getElementsByTagName('input').length>0){
-                    inp1=new_row.cells[i].getElementsByTagName('input')[0];
-                    inp1.id+=len;
-                    inp1.name+=len;
-                    inp1.value='';
-                    inp1=null;
-                }
-                else if(new_row.cells[i].getElementsByTagName('select').length>0){
-                    inp1=new_row.cells[i].getElementsByTagName('select')[0];
-                    inp1.id+=len;
-                    inp1.name+=len;
-                    inp1.value='';
-                    inp1=null;
-                }
-            }
-            x.appendChild( new_row );
-        }
-
-        function deleteRow(r,tableId) {
-            var x = document.getElementById(tableId);
-            if(x.rows.length == 2) {
-              addRow(tableId);
-            }
-            var i = r.parentNode.parentNode.rowIndex;
-            x.deleteRow(i);
-            setSNO(tableId);
-        }
-        
-        function setSNO(tableId) {
-            var myTable = document.getElementById(tableId);
-            var row_count = myTable.rows.length;
-            for(var i = 1; i <= row_count; i++) {
-              myTable.rows[i].cells[0].innerHTML = i;
-            }
-        }
-        function hide(t,t1){
-            document.getElementById(t).style.display="none";
-            t1.setAttribute("src","add.png");
-            t1.setAttribute("onclick","unhide('"+t+"',this)");    
-        }
-
-        function unhide(t,t1){
-          document.getElementById(t).style.display="inline-block";
-          t1.setAttribute("src","rem.png");
-          t1.setAttribute("onclick","hide('"+t+"',this)");
-        }
-        
         function check(){
             var x=document.getElementById('proposals');
             var val;
@@ -134,20 +81,18 @@
     
     <body>
         
-        <div class="div">
-            <div class="row">
-              <ul class="ul">
-                <li><a href="home.jsp">Home</a></li>
-                <li><a href="personalInformation.jsp">Personal Info</a></li>
-                <li><a href="skillset.jsp">Skill Set</a></li>
-                <li><a href="additionalInformation.jsp">Additional Information</a></li>
-                <li><a href="events.jsp">Events</a></li>
-                <li><a class="active">Publications</a></li>
-              </ul>
-            </div>
+        <div id="mySidenav" class="div">
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="home.jsp">Home</a>
+            <a href="personalInformation.jsp">Personal Info</a>
+            <a href="skillset.jsp">Skill Set</a>
+            <a href="additionalInformation.jsp">Additional Information</a>
+            <a href="events.jsp">Events</a>
+            <a class="active">Publications</a>
         </div>
         
         <div class="content" id="fm">
+            <span id="navbut" onclick="openNav()">&#9776;</span>
             <form method="POST" action="MainServlet" onsubmit="return check()">
                 <div id="maindiv">
                     <div class="divic">
@@ -159,8 +104,8 @@
                         </div>
 
 
-                        <div id="jour" style="display:none;width: 100%;">
-                            <table id = "journals" class="table" style="margin: 0 auto;">
+                        <div id="jour">
+                            <table id = "journals" class="table">
 
                                 <thead>
                                     <th rowspan="2">S.No</th>
@@ -281,13 +226,13 @@
                     <div>
 
                         <div class="icon">
-                            <img src="add.png" onclick="unhide('mono',this)">
-                            <span class="icon" onclick="unhide('mono',this)">Monographs</span>
+                            <img src="add.png" onclick="unhide('mono',this)" id="mono1">
+                            <span class="icon">Monographs</span>
                         </div>
 
-                        <div  id="mono" style="display: none;width: 100%;">
+                        <div  id="mono">
 
-                            <table  id = "monographs" class="table" style="margin: 0 auto;">
+                            <table  id = "monographs" class="table">
                                 <thead>
                                     <th>S.No</th>
                                     <th>Title</th>
@@ -359,8 +304,8 @@
                             <span class="icon">Proposals</span>
                         </div>
 
-                        <div id="propo" style="display:none;width: 100%;">
-                            <table id = "proposals" class="table" style="margin: 0 auto;">
+                        <div id="propo">
+                            <table id = "proposals" class="table">
                                 <thead>
                                     <th rowspan="2">s.no</th>
                                     <th rowspan="2">Title</th>
